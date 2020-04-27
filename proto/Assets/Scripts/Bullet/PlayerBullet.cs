@@ -24,12 +24,16 @@ public class PlayerBullet : Bullet
         switch(coll.tag)
         {
             case "WALL":
-                Destroy();
+                this.transform.GetChild(1).gameObject.SetActive(true);
+                Invoke("Destroy", 0.5f);
                 break;
             case "OBSTACLE":
-                Destroy();
+                this.transform.GetChild(1).gameObject.SetActive(true);
+                Invoke("Destroy", 0.5f);
                 break;
             case "ENEMY":
+                this.transform.GetChild(0).gameObject.SetActive(true);
+
                 _EnemyController ec = coll.GetComponent<_EnemyController>();
                 ec.DecreaseHP(attack);
                 if (m_kind == PlayerBulletKind.CHARGE_2)
@@ -37,7 +41,7 @@ public class PlayerBullet : Bullet
                     ec.SetMoveSpeed(0.5f);
                     ec.SetAttackSpeed(0.5f);
                 }
-                Destroy();
+                Invoke("Destroy", 0.5f);
                 break;
         }
     }
@@ -75,6 +79,6 @@ public class PlayerBullet : Bullet
     {
         base.Destroy();
 
-        ObjectPool_Player.PullObject(this);
+        ObjectManager.PullObject("PlayerBullet", this.gameObject);
     }
 }
