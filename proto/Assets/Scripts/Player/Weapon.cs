@@ -72,9 +72,22 @@ public class Weapon : MonoBehaviour
         }
     }
 
+   private Vector3 ConversionPos(Vector3 mousePos)
+    {
+        RaycastHit hit;
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.NameToLayer("MouseHit")))
+        {
+            mousePos = hit.point;
+        }
+
+        return mousePos;
+    }
+
     private IEnumerator Attack_Long_Check(Vector3 mousePos)
     {
-        Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -Camera.main.transform.position.z));
+        Vector3 pos = ConversionPos(mousePos);
         curState = AttackState.LONG;
         pmc.moveSpeed = 3.2f;
 
@@ -111,7 +124,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -Camera.main.transform.position.z));
+            Vector3 pos = ConversionPos(mousePos);
 
             curChargeTime = 0.0f;
             float values = pc.OutputAbsorpBuff();

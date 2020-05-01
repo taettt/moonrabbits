@@ -13,6 +13,8 @@ public enum PlayerBulletKind
 public class PlayerBullet : Bullet
 {
     private PlayerBulletKind m_kind;
+    public GameObject destroyPrefab_1;
+    public GameObject destroyPrefab_2;
 
     void Update()
     {
@@ -24,15 +26,15 @@ public class PlayerBullet : Bullet
         switch(coll.tag)
         {
             case "WALL":
-                this.transform.GetChild(1).gameObject.SetActive(true);
-                Invoke("Destroy", 0.5f);
+                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.identity);
+                Destroy();
                 break;
             case "OBSTACLE":
-                this.transform.GetChild(1).gameObject.SetActive(true);
-                Invoke("Destroy", 0.5f);
+                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.identity);
+                Destroy();
                 break;
             case "ENEMY":
-                this.transform.GetChild(0).gameObject.SetActive(true);
+                Instantiate(destroyPrefab_2, this.transform.position, Quaternion.identity);
 
                 _EnemyController ec = coll.GetComponent<_EnemyController>();
                 ec.DecreaseHP(attack);
@@ -41,7 +43,7 @@ public class PlayerBullet : Bullet
                     ec.SetMoveSpeed(0.5f);
                     ec.SetAttackSpeed(0.5f);
                 }
-                Invoke("Destroy", 0.5f);
+                Destroy();
                 break;
         }
     }

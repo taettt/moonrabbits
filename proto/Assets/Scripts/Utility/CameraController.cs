@@ -25,7 +25,6 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         tr.position = Vector3.Lerp(playerTr.position, enemyTr.position, 0.4f) + pos;
-        //uiCam.position = playerTr.position + pos;
 
         DistanceDirect();
     }

@@ -551,7 +551,7 @@ public class _EnemyController : MonoBehaviour
 
     private void ShootBullet(Vector3 dir, float speed, float attackVal)
     {
-        var bullet = ObjectPool_Enemy.PushObject_e();
+        var bullet = ObjectManager.PushObject("EnemyBullet").GetComponent<EnemyBullet>();
         bullet.transform.SetParent(bulletParent);
         bullet.transform.position = this.transform.position;
         bullet.transform.rotation = this.transform.rotation;

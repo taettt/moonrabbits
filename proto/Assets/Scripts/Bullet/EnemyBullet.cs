@@ -83,6 +83,7 @@ public class EnemyBullet : Bullet
         }
     }
 
+    // 외부(enemy)에서 설정하고 내부로 전달
     public override void Spawn(Vector3 spawnPos, Vector3 dir, float speed, float attack)
     {
         base.Spawn(spawnPos, dir, speed, attack);
@@ -95,6 +96,6 @@ public class EnemyBullet : Bullet
 
     public override void Destroy()
     {
-        ObjectPool_Enemy.PullObject(this);
+        ObjectManager.PullObject("EnemyBullet", this.gameObject);
     }
 }

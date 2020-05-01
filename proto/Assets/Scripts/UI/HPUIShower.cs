@@ -12,19 +12,18 @@ public class HPUIShower : MonoBehaviour
 
     //ui, 0-> red 1->blue
     public Image[] m_playerHpFillImages = new Image[2];
-    public Image[] m_playerLifeImage = new Image[3];
+    public Image m_playerLife;
+    public Sprite[] m_playerLifeImage = new Sprite[4];
 
     public Image[] m_enemyHpFillImages = new Image[2];
-    public Image[] m_enemyLifeImage = new Image[2];
+    public Image m_bossLife;
+    public Sprite[] m_enemyLifeImage = new Sprite[6];
 
     //time
     private float m_playerDownTime = 1.0f;
     private float m_playerHealTime = 1.0f;
     private float m_playerMaxTime = 3.0f;
     private float m_playerLifeHealTime = 1.0f;
-
-    //index
-    private int curEnemyLifeIndex;
 
     void Awake()
     {
@@ -43,8 +42,6 @@ public class HPUIShower : MonoBehaviour
         m_playerHpFillImages[1].fillAmount = 1.0f;
         m_enemyHpFillImages[0].fillAmount = 1.0f;
         m_enemyHpFillImages[1].fillAmount = 1.0f;
-
-        curEnemyLifeIndex = 0;
     }
 
     private void PlayerUpdate()
@@ -91,7 +88,6 @@ public class HPUIShower : MonoBehaviour
 
     private void SetHealFill()
     {
-        m_playerHpFillImages[0].color = Color.green;
         m_playerHpFillImages[0].fillAmount = Mathf.Lerp(m_playerHpFillImages[0].fillAmount,
             (m_playerHpFillImages[1].fillAmount), m_playerHealTime * Time.deltaTime);
     }
@@ -100,7 +96,6 @@ public class HPUIShower : MonoBehaviour
     private void SetHealAllFill()
     {
         m_playerHpFillImages[1].gameObject.SetActive(false);
-        m_playerHpFillImages[0].color = Color.green;
         m_playerHpFillImages[0].fillAmount = Mathf.Lerp(m_playerHpFillImages[0].fillAmount,
             (m_playerHpFillImages[1].fillAmount), m_playerHealTime * Time.deltaTime);
         m_playerHpFillImages[1].gameObject.SetActive(true);
@@ -116,32 +111,22 @@ public class HPUIShower : MonoBehaviour
 
     private void SetLifeDown()
     {
-        m_playerLifeImage[pc.life].color = Color.black;
+        m_playerLife.sprite = m_playerLifeImage[(int)pc.hp];
     }
 
     private void SetLifeDown_Enemy()
     {
-        m_enemyLifeImage[curEnemyLifeIndex].color = Color.black;
-        curEnemyLifeIndex++;
+        m_bossLife.sprite = m_enemyLifeImage[(int)ec.life];
     }
 
     private void SetLifeFill()
     {
-        m_playerLifeImage[pc.life].color = Color.green;
-
-        if (Time.time>m_playerLifeHealTime)
-        {
-            m_playerLifeImage[pc.life].color = Color.blue;
-        }
+        m_playerLife.sprite = m_playerLifeImage[(int)pc.life];
+        m_bossLife.sprite = m_enemyLifeImage[(int)ec.life];
     }
 
     public void RetryFill()
     {
-        m_playerLifeImage[0].color = Color.blue;
-        m_playerLifeImage[1].color = Color.blue;
-        m_playerLifeImage[2].color = Color.blue;
-
-        m_enemyLifeImage[0].color = new Color(244.0f / 255.0f, 103.0f / 255.0f, 1.0f / 255.0f, 1.0f);
-        m_enemyLifeImage[1].color = new Color(244.0f / 255.0f, 103.0f / 255.0f, 1.0f / 255.0f, 1.0f);
+        SetLifeFill();
     }
 }

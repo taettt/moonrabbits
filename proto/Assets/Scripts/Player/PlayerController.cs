@@ -34,8 +34,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        UpdateUI();
-
         if(Input.GetKeyDown(KeyCode.F))
         {
             sc.curState = PlayerState.ABSORP;
@@ -53,11 +51,6 @@ public class PlayerController : MonoBehaviour
 
         m_isAttacked = false;
         m_isLifeDown = false;
-    }
-
-    private void UpdateUI()
-    {
-        absorpSlider.value = m_absorpValue / 30.0f;
     }
 
     public void DecreaseHP(float value)
