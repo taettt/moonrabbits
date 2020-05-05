@@ -6,7 +6,7 @@ public class WaveBullet : MonoBehaviour
 {
     private Vector3 m_dir;
     private float m_speed;
-    private float attack;
+    private int attack;
 
     private float m_rad;
     private float m_curAngle = 10.0f;
@@ -58,7 +58,7 @@ public class WaveBullet : MonoBehaviour
         }
     }
 
-    public void SetStatus(Vector3 dir, float speed, float attack, float rad, float angleLimit)
+    public void SetStatus(Vector3 dir, float speed, int attack, float rad, float angleLimit)
     {
         m_dir = dir;
         m_dir.z = 0.0f;

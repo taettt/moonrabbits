@@ -14,14 +14,14 @@ public enum _EnemyPhase
 
 public class _EnemyController : MonoBehaviour
 {
-    private float m_hp;
-    public float hp { get { return m_hp; } }
-    private int m_life;
-    public int life { get { return m_life; } }
-    // 나중에 밑에 3개 수치 EnemyBullet에서 kind로 조정, 보정 값은 해당 스크립트에서 값 하나로 보정함
+    private int m_curHp;
+    public int curHp { get { return m_curHp; } }
+    private int m_curLife;
+    public int curLife { get { return m_curLife; } }
+
     private float m_moveSpeed;
     private float m_attackSpeed;
-    private float m_attackStat;
+    private int m_attackStat;
 
     public GameObject wavePrefab;
     public Transform bulletParent;
@@ -83,11 +83,11 @@ public class _EnemyController : MonoBehaviour
 
     public void Initialize()
     {
-        m_hp = 120.0f;
-        m_life = 2;
+        m_curHp = 120;
+        m_curLife = 5;
         m_moveSpeed = 16.0f;
         m_attackSpeed = 16.0f;
-        m_attackStat = 2.0f;
+        m_attackStat = 2;
 
         m_isMoving = false;
 
@@ -106,10 +106,10 @@ public class _EnemyController : MonoBehaviour
         if (m_init)
             return;
 
-        m_hp = 120.0f;
+        m_curHp = 120;
         m_moveSpeed = 16.0f;
         m_attackSpeed = 16.0f;
-        m_attackStat = 2.0f;
+        m_attackStat = 2;
 
         m_randomRound = false;
         m_isMoving = false;
@@ -248,7 +248,7 @@ public class _EnemyController : MonoBehaviour
             {
                 for (float j = 90.0f; j < 360.0; j += 90.0f)
                 {
-                    ShootBullet(GetDirection(i + j), m_attackSpeed, m_attackStat * 2.0f);
+                    ShootBullet(GetDirection(i + j), m_attackSpeed, m_attackStat * 2);
                 }
 
                 yield return new WaitForSeconds(0.1f);
@@ -269,7 +269,7 @@ public class _EnemyController : MonoBehaviour
             {
                 if (i == 0.0f)
                 {
-                    ShootBullet(dir, m_attackSpeed * 1.5f, m_attackStat * 2.0f);
+                    ShootBullet(dir, m_attackSpeed * 1.5f, m_attackStat * 2);
                 }
                 else
                 {
@@ -277,7 +277,7 @@ public class _EnemyController : MonoBehaviour
                     Vector3 reDir = quat * dir;
                     reDir.y = 0.0f;
                     reDir = reDir.normalized;
-                    ShootBullet(reDir, m_attackSpeed * 1.5f, m_attackStat * 2.0f);
+                    ShootBullet(reDir, m_attackSpeed * 1.5f, m_attackStat * 2);
                 }
             }
 
@@ -321,7 +321,7 @@ public class _EnemyController : MonoBehaviour
         dir = dir.normalized;
 
         //ShootWave(dir, m_attackSpeed, m_attackStat * 4.0f, dis, 90.0f);
-        ShootBullet(dir, m_attackSpeed * 2.0f, m_attackStat * 4.0f);
+        ShootBullet(dir, m_attackSpeed * 2.0f, m_attackStat * 4);
 
         m_curPatternCount++;
         if (m_curPatternCount < m_patternMaxCount[m_curPatternIndex])
@@ -549,7 +549,7 @@ public class _EnemyController : MonoBehaviour
     }
     */
 
-    private void ShootBullet(Vector3 dir, float speed, float attackVal)
+    private void ShootBullet(Vector3 dir, float speed, int attackVal)
     {
         var bullet = ObjectManager.PushObject("EnemyBullet").GetComponent<EnemyBullet>();
         bullet.transform.SetParent(bulletParent);
@@ -559,7 +559,7 @@ public class _EnemyController : MonoBehaviour
             dir, speed, attackVal);
     }
 
-    private void ShootWave(Vector3 dir, float speed, float attackVal, float dis, float limit)
+    private void ShootWave(Vector3 dir, float speed, int attackVal, float dis, float limit)
     {
         GameObject wave = Instantiate(wavePrefab);
         wave.transform.position = new Vector3(this.transform.position.x,
@@ -579,22 +579,31 @@ public class _EnemyController : MonoBehaviour
         return newDir;
     }
 
-    public void DecreaseHP(float value)
+    public void DecreaseHP(int value)
     {
-        sc.curState = EnemyState.ATTACKED;
-        m_hp -= value;
+        if (sc.curState != EnemyState.NOCK)
+        {
+            sc.curState = EnemyState.ATTACKED;
+        }
 
-        if(m_hp<=0.0f)
+        if (m_curHp - value <= 0)
         {
             m_isLifeDown = true;
-            sc.curState = EnemyState.RETIRE;
-            m_hp = 120.0f;
-            m_life -= 1;
-
-            if(m_life<=0)
+            m_curHp = 0;
+            m_curLife -= 1;
+            if (m_curLife <= 0)
             {
                 sc.curState = EnemyState.DEATH;
             }
+            else
+            {
+                sc.curState = EnemyState.RETIRE;
+            }
+        }
+
+        else
+        {
+            m_curHp -= value;
         }
     }
 
@@ -614,7 +623,7 @@ public class _EnemyController : MonoBehaviour
         m_attackSpeed *= value;
     }
 
-    public void SetAttackStatus(float value)
+    public void SetAttackStatus(int value)
     {
         m_attackStat *= value;
     }

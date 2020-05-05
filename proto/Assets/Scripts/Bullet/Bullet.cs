@@ -6,15 +6,15 @@ public class Bullet : MonoBehaviour
 {
     private float m_speed;
     public float speed { get { return m_speed; } }
-    private float m_attack;
-    public float attack { get { return m_attack; } }
+    private int m_attack;
+    public int attack { get { return m_attack; } }
 
     private Vector3 m_dir;
     public Vector3 dir { get { return m_dir; } }
     private Vector3 m_spawnPos;
     public Vector3 spawnPos { get { return m_spawnPos; } }
 
-    public virtual void Spawn(Vector3 spawnPos, Vector3 dir, float speed, float attack)
+    public virtual void Spawn(Vector3 spawnPos, Vector3 dir, float speed, int attack)
     {
         m_spawnPos = spawnPos;
         m_dir = dir;

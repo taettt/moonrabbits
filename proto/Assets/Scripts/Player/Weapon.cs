@@ -16,7 +16,7 @@ public class Weapon : MonoBehaviour
     // default
     public GameObject bulletPrefab;
     private float speed;
-    private float attack;
+    private int attack;
     public Transform shootHoleTr;
     public Transform bulletParent;
     private Vector3 m_shootPos;
@@ -91,22 +91,10 @@ public class Weapon : MonoBehaviour
         curState = AttackState.LONG;
         pmc.moveSpeed = 3.2f;
 
-        float values = pc.OutputAbsorpBuff();
-        Color color = pc.OutputAbsorpColor();
-        if (values != 0.0f && color.a != 0.0f)
-        {
-            speed = 18.0f;
-            attack = values;
+        speed = 18.0f;
+        attack = 2;
 
-            Attack_Long(pos, true, color);
-        }
-        else
-        {
-            speed = 18.0f;
-            attack = 2.0f;
-
-            Attack_Long(pos, false, color);
-        }
+        Attack_Long(pos);
 
         yield return new WaitForSeconds(0.25f);
 
@@ -127,44 +115,20 @@ public class Weapon : MonoBehaviour
             Vector3 pos = ConversionPos(mousePos);
 
             curChargeTime = 0.0f;
-            float values = pc.OutputAbsorpBuff();
-            Color color = pc.OutputAbsorpColor();
 
             if (curChargeTime > chargeStep[2])
             {
-                if (values != 0.0f && color.a != 0.0f)
-                {
-                    speed = 18.0f;
-                    attack = values;
+                speed = 18.0f;
+                attack = 2;
 
-                    pc.AbsorpValueDown(5);
-                    Attack_Charge(pos, 4.0f, 2, true, color);
-                }
-                else
-                {
-                    speed = 18.0f;
-                    attack = 2.0f;
-
-                    Attack_Charge(pos, 4.0f, 2, false, color);
-                }
+                Attack_Charge(pos, 4, 2);
             }
             else if (curChargeTime < chargeStep[2])
             {
-                if (values != 0.0f && color.a != 0.0f)
-                {
-                    speed = 18.0f;
-                    attack = values;
+                speed = 18.0f;
+                attack = 2;
 
-                    pc.AbsorpValueDown(10);
-                    Attack_Charge(pos, 2.0f, 1, true, color);
-                }
-                else
-                {
-                    speed = 18.0f;
-                    attack = 2.0f;
-
-                    Attack_Charge(pos, 2.0f, 1, false, color);
-                }
+                Attack_Charge(pos, 2, 1);
             }
 
             yield return new WaitForSeconds(0.25f);
@@ -172,25 +136,25 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void Attack_Charge(Vector3 targetPos, float attackPlus, int kind, bool absorpShot, Color color)
+    private void Attack_Charge(Vector3 targetPos, int attackPlus, int kind)
     {
         SetVectors(targetPos);
 
         GameObject bullet = Instantiate(bulletPrefab) as GameObject;
         bullet.transform.SetParent(bulletParent);
-        bullet.GetComponent<PlayerBullet>().SetVisual((PlayerBulletKind)kind, absorpShot, color);
+        bullet.GetComponent<PlayerBullet>().SetVisual((PlayerBulletKind)kind);
         bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, speed, attack * attackPlus);
 
         playerTr.transform.forward = m_dirVec;
     }
 
-    private void Attack_Long(Vector3 targetPos, bool absorpShot, Color color)
+    private void Attack_Long(Vector3 targetPos)
     {
         SetVectors(targetPos);
 
         GameObject bullet = Instantiate(bulletPrefab) as GameObject;
         bullet.transform.SetParent(bulletParent);
-        bullet.GetComponent<PlayerBullet>().SetVisual(PlayerBulletKind.DEF, absorpShot, color);
+        bullet.GetComponent<PlayerBullet>().SetVisual(PlayerBulletKind.DEF);
         bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, speed, attack);
 
         playerTr.transform.forward = m_dirVec;

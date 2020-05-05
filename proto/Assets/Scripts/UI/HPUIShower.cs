@@ -59,7 +59,7 @@ public class HPUIShower : MonoBehaviour
 
     private void EnemyUpdate()
     {
-        m_enemyHpFillImages[1].fillAmount = ec.hp / 120.0f;
+        m_enemyHpFillImages[1].fillAmount = ec.curHp / 120f;
         SetAttackedFill_Enemy();
 
         if (m_enemyHpFillImages[1].fillAmount <= 0.0f)
@@ -116,13 +116,13 @@ public class HPUIShower : MonoBehaviour
 
     private void SetLifeDown_Enemy()
     {
-        m_bossLife.sprite = m_enemyLifeImage[(int)ec.life];
+        m_bossLife.sprite = m_enemyLifeImage[(int)ec.curLife];
     }
 
     private void SetLifeFill()
     {
         m_playerLife.sprite = m_playerLifeImage[(int)pc.life];
-        m_bossLife.sprite = m_enemyLifeImage[(int)ec.life];
+        m_bossLife.sprite = m_enemyLifeImage[(int)ec.curLife];
     }
 
     public void RetryFill()

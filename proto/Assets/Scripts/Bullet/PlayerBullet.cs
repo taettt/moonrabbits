@@ -26,15 +26,15 @@ public class PlayerBullet : Bullet
         switch(coll.tag)
         {
             case "WALL":
-                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.identity);
+                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.LookRotation(this.transform.forward));
                 Destroy();
                 break;
             case "OBSTACLE":
-                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.identity);
+                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.LookRotation(this.transform.forward));
                 Destroy();
                 break;
             case "ENEMY":
-                Instantiate(destroyPrefab_2, this.transform.position, Quaternion.identity);
+                Instantiate(destroyPrefab_2, this.transform.position, Quaternion.LookRotation(this.transform.forward));
 
                 _EnemyController ec = coll.GetComponent<_EnemyController>();
                 ec.DecreaseHP(attack);
@@ -48,21 +48,14 @@ public class PlayerBullet : Bullet
         }
     }
 
-    public override void Spawn(Vector3 spawnPos, Vector3 dir, float speed, float attack)
+    public override void Spawn(Vector3 spawnPos, Vector3 dir, float speed, int attack)
     {
         base.Spawn(spawnPos, dir, speed, attack);
     }
 
-    public void SetVisual(PlayerBulletKind kind, bool isAbsorp, Color color)
+    public void SetVisual(PlayerBulletKind kind)
     {
         m_kind = kind;
-
-        if (isAbsorp)
-        {
-            Color currentColor = this.GetComponent<MeshRenderer>().material.color;
-            this.GetComponent<MeshRenderer>().material.color = new Color(
-                color.r * currentColor.r, color.g * currentColor.g, color.b * currentColor.b);
-        }
 
         switch (m_kind)
         {

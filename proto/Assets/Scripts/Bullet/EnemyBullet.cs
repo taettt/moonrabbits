@@ -14,6 +14,9 @@ public class EnemyBullet : Bullet
     private EnemyBulletKind m_kind;
     private bool m_direct = false;
 
+    public GameObject m_objectDestroyPrefab;
+    public GameObject m_playerDestroyPrefab;
+
     void Update()
     {
         if (!m_direct)
@@ -26,45 +29,23 @@ public class EnemyBullet : Bullet
         }
     }
 
-    private void OnCollisionEnter(Collision coll)
+    private void OnTriggerEnter(Collider coll)
     {
-        switch(coll.gameObject.tag)
+        switch(coll.tag)
         {
             case "WALL":
+                Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(this.transform.forward));
                 Destroy();
                 break;
             case "OBSTACLE":
+                Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(this.transform.forward));
                 Destroy();
                 break;
             case "PLAYER":
+                Instantiate(m_playerDestroyPrefab, this.transform.position, Quaternion.LookRotation(this.transform.forward));
+
                 PlayerController pc = coll.gameObject.GetComponent<PlayerController>();
-                if (coll.gameObject.GetComponent<PlayerStateController>().curState == PlayerState.ABSORP &&
-                    pc.absorpValue < 30)
-                {
-                    if(pc.absorpValue>20)
-                    {
-                        float damage = (10 - (30 - pc.absorpValue));
-                        pc.InputAbsorpBuff(0, 4.0f, (30-pc.absorpValue), this.GetComponent<MeshRenderer>().material.color);
-
-                        if(damage==1)
-                        {
-                            pc.DecreaseHP(attack);
-                        }
-                        else
-                        {
-                            pc.DecreaseHP(attack / 2);
-                        }
-                    }
-                    else if(pc.absorpValue <= 20)
-                    {
-                        pc.InputAbsorpBuff(0, 4.0f, 10, this.GetComponent<MeshRenderer>().material.color);
-                    }
-                }
-                else
-                {
-                    pc.DecreaseHP(attack);
-                }
-
+                pc.DecreaseHP(attack);
                 Destroy();
                 break;
         }
@@ -84,7 +65,7 @@ public class EnemyBullet : Bullet
     }
 
     // 외부(enemy)에서 설정하고 내부로 전달
-    public override void Spawn(Vector3 spawnPos, Vector3 dir, float speed, float attack)
+    public override void Spawn(Vector3 spawnPos, Vector3 dir, float speed, int attack)
     {
         base.Spawn(spawnPos, dir, speed, attack);
     }

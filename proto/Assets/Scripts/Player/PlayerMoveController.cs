@@ -11,12 +11,14 @@ public class PlayerMoveController : MonoBehaviour
     private Vector3 m_movement;
     [SerializeField]
     private Vector3 m_dir;
-    public float moveSpeed = 24.0f;
+    public float moveSpeed = 4.0f;
 
     public float teleportSpeed;
     [SerializeField]
     private bool teleported;
     private float teleportDelay = 0.4f;
+
+    public GameObject m_teleportFX;
 
     void Awake()
     {
@@ -46,13 +48,27 @@ public class PlayerMoveController : MonoBehaviour
                 return;
 
             teleported = true;
-            tr.position += tr.forward * moveSpeed * 2;
+            CheckWallAndTeleport();
+            Instantiate(m_teleportFX, this.transform.position, Quaternion.LookRotation(playerModelTr.forward));
         }
 
         if (teleported)
         {
             if (Time.time >= teleportDelay)
                 teleported = false;
+        }
+    }
+
+    private void CheckWallAndTeleport()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(this.transform.position, playerModelTr.forward, out hit, moveSpeed * 2, LayerMask.NameToLayer("WallLayer")))
+        {
+            tr.position = new Vector3(hit.point.x, 1.2f, hit.point.z);
+        }
+        else
+        {
+            tr.position += playerModelTr.forward * moveSpeed * 2;
         }
     }
 

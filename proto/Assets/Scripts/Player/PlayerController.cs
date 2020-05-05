@@ -6,18 +6,13 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float m_hp;
-    public float hp { get { return m_hp; } }
+    private int m_hp;
+    public int hp { get { return m_hp; } }
     private int m_life;
     public int life { get { return m_life; } }
 
-    // absorp
-    public Slider absorpSlider;
-    [SerializeField]
-    private int m_absorpValue = 0;
-    public int absorpValue { get { return m_absorpValue; } set { m_absorpValue = value; } }
-    private Queue<float> absorpQueue = new Queue<float>();
-    private Queue<Color> absColorQueue = new Queue<Color>();
+    private int m_attackedMaxDamage = 4;
+    public int attackedMaxDamage { get { return m_attackedMaxDamage; } }
 
     // attacked
     private bool m_isAttacked;
@@ -32,86 +27,49 @@ public class PlayerController : MonoBehaviour
         Initialize();
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            sc.curState = PlayerState.ABSORP;
-        }
-    }
-
     public void Initialize()
     {
-        m_hp = 40.0f;
+        m_hp = 40;
         m_life = 3;
         sc.curState = PlayerState.IDLE;
-
-        absorpValue = 0;
-        absorpQueue.Clear();
 
         m_isAttacked = false;
         m_isLifeDown = false;
     }
 
-    public void DecreaseHP(float value)
+    public void DecreaseHP(int value)
     {
         if (sc.curState == PlayerState.ATTACKED || sc.curState == PlayerState.INVI
             || sc.curState == PlayerState.RETIRE)
             return;
 
-        if (value < 8.0f)
-        {
-            sc.curState = PlayerState.ATTACKED;
-        }
-        else
-        {
-            sc.curState = PlayerState.NOCK;
-        }
-        m_isAttacked = true;
-
-        m_hp -= value;
-        if(m_hp<=0.0f)
+        if (m_hp - value <= 0)
         {
             m_life -= 1;
-            m_hp = 40.0f;
-            sc.curState = PlayerState.RETIRE;
-
+            m_hp = 0;
             if (m_life <= 0)
             {
                 sc.curState = PlayerState.DEATH;
             }
+            else
+            {
+                sc.curState = PlayerState.RETIRE;
+            }
         }
-    }
 
-    // 일단 임시로 0-> 공증
-    public void InputAbsorpBuff(float kind, float value, int abVal, Color color)
-    {
-        absorpValue += abVal;
-        for (int i = 0; i < abVal; i++)
+        else
         {
-            absorpQueue.Enqueue(value);
-            absColorQueue.Enqueue(color);
+            if (value < m_attackedMaxDamage)
+            {
+                sc.curState = PlayerState.ATTACKED;
+            }
+            else
+            {
+                sc.curState = PlayerState.NOCK;
+            }
+
+            m_isAttacked = true;
+            m_hp -= value;
         }
-    }
-
-    public float OutputAbsorpBuff()
-    {
-        if (absorpQueue.Count <= 0)
-            return 0.0f;
-
-        return absorpQueue.Dequeue();
-    }
-
-    public Color OutputAbsorpColor()
-    {
-        if (absColorQueue.Count <= 0)
-            return new Color(0.0f, 0.0f, 0.0f, 0.0f);
-
-        return absColorQueue.Dequeue();
-    }
-
-    public void AbsorpValueDown(int value)
-    {
-        m_absorpValue -= value;
     }
 }
