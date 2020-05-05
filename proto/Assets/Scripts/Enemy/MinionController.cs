@@ -5,18 +5,20 @@ using UnityEngine;
 public class MinionController : MonoBehaviour
 {
     public GameObject seedPrefab;
+    public Transform seedParent;
 
     private float m_attackSpeed;
     private int m_attackStat;
 
     void Awake()
     {
+        seedParent = GameObject.Find("Traps").transform;
         Init();
     }
 
-    void OnCollisionEnter(Collision coll)
+    void OnTriggernEnter(Collider coll)
     {
-        if(coll.gameObject.tag=="PLAYERBULLET")
+        if(coll.tag=="PLAYERBULLET")
         {
             DropSeed();
         }
@@ -30,7 +32,7 @@ public class MinionController : MonoBehaviour
 
     public void DropSeed()
     {
-        Instantiate(seedPrefab, this.transform.position, Quaternion.identity);
-        Destroy(this.gameObject);
+        GameObject go = Instantiate(seedPrefab, this.transform.position, Quaternion.identity);
+        go.transform.SetParent(seedParent);
     }
 }

@@ -29,6 +29,10 @@ public class EnemyBullet : Bullet
         }
     }
 
+    private void OnCollisionEnter(Collision coll)
+    {
+    }
+
     private void OnTriggerEnter(Collider coll)
     {
         switch(coll.tag)

@@ -7,7 +7,6 @@ public enum PlayerState
 {
     IDLE,
     ATTACKED,
-    ABSORP,
     NOCK,
     RETIRE,
     DEATH,
@@ -38,6 +37,7 @@ public class PlayerStateController : MonoBehaviour
         ProcessState();
     }
 
+    // 코루틴도 ㄱㅊ을듯?
     private void ProcessState()
     {
         switch (m_curState)
@@ -53,16 +53,6 @@ public class PlayerStateController : MonoBehaviour
                 if (m_waiter > m_attackedTime)
                 {
                     curState = PlayerState.INVI;
-                    m_waiter = 0.0f;
-                    return;
-                }
-                break;
-            case PlayerState.ABSORP:
-                stateText.text = "STATE : ABSORP " + m_waiter;
-                m_waiter += Time.deltaTime;
-                if (m_waiter > m_absorpTime)
-                {
-                    curState = PlayerState.IDLE;
                     m_waiter = 0.0f;
                     return;
                 }
@@ -85,6 +75,7 @@ public class PlayerStateController : MonoBehaviour
                 m_waiter += Time.deltaTime;
                 if (m_waiter > m_retireTime)
                 {
+                    Debug.Log("retire");
                     gm.PhaseRetry();
                     curState = PlayerState.IDLE;
                     m_waiter = 0.0f;

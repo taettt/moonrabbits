@@ -84,9 +84,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d0b4d2eeebe41c4694405b661e9c990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyPrefab_1: {fileID: 5102933588574171604, guid: d17bd959ac7f9d74a8085f47a6f61026,
+  destroyPrefab_1: {fileID: 4301534962518916103, guid: d17bd959ac7f9d74a8085f47a6f61026,
     type: 3}
-  destroyPrefab_2: {fileID: 614911423957171904, guid: 89847ac4b87dc804b92b9b73be67aa48,
+  destroyPrefab_2: {fileID: 4732162745106272149, guid: 89847ac4b87dc804b92b9b73be67aa48,
     type: 3}
 --- !u!23 &812043474313443571
 MeshRenderer:

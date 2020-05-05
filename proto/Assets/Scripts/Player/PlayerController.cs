@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 sc.curState = PlayerState.RETIRE;
+                m_hp = 40;
             }
         }
 

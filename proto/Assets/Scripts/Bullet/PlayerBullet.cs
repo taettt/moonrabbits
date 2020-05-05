@@ -45,6 +45,12 @@ public class PlayerBullet : Bullet
                 }
                 Destroy();
                 break;
+            case "MINION":
+                Instantiate(destroyPrefab_2, this.transform.position, Quaternion.LookRotation(this.transform.forward));
+
+                coll.GetComponent<MinionController>().DropSeed();
+                Destroy(coll.gameObject);
+                break;
         }
     }
 

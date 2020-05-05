@@ -111,7 +111,7 @@ public class HPUIShower : MonoBehaviour
 
     private void SetLifeDown()
     {
-        m_playerLife.sprite = m_playerLifeImage[(int)pc.hp];
+        m_playerLife.sprite = m_playerLifeImage[(int)pc.life];
     }
 
     private void SetLifeDown_Enemy()

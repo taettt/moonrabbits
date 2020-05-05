@@ -37,11 +37,11 @@ public class PlayerMoveController : MonoBehaviour
         rightVec = Quaternion.Euler(new Vector3(0.0f, 90.0f, 0.0f)) * forwardVec;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Move();
         MoveAnim();
-
+        Debug.DrawRay(this.transform.position, playerModelTr.forward * moveSpeed * 2, Color.red);
         if (Input.GetKeyUp(KeyCode.Space))
         {
             if (teleported)
