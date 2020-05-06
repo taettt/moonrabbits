@@ -31,7 +31,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
-  - {fileID: 7936982858569727191}
+  - {fileID: 7856302210258937369}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -68,9 +68,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c54d680e03ed34183ca42d2912e127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_objectDestroyPrefab: {fileID: 3670566435855796757, guid: 59662a9b754d19644888c9cb3e8b7b14,
+  m_objectDestroyPrefab: {fileID: 1721561172150256941, guid: 59662a9b754d19644888c9cb3e8b7b14,
     type: 3}
-  m_playerDestroyPrefab: {fileID: 5943650051753669964, guid: 0cc0eb0ce8294d1448572ded7c63da6c,
+  m_playerDestroyPrefab: {fileID: 8521916644966170497, guid: 0cc0eb0ce8294d1448572ded7c63da6c,
     type: 3}
 --- !u!54 &5406740808435301542
 Rigidbody:
@@ -157,9 +157,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c5d1e3a41bd1f94db04cf2a446f04ba, type: 3}
---- !u!4 &7936982858569727191 stripped
+--- !u!4 &7856302210258937369 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 300454015593319182, guid: 0c5d1e3a41bd1f94db04cf2a446f04ba,
+  m_CorrespondingSourceObject: {fileID: 507094428481458624, guid: 0c5d1e3a41bd1f94db04cf2a446f04ba,
     type: 3}
   m_PrefabInstance: {fileID: 7642255136796850137}
   m_PrefabAsset: {fileID: 0}
