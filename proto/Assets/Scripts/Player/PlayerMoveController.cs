@@ -11,7 +11,7 @@ public class PlayerMoveController : MonoBehaviour
     private Vector3 m_movement;
     [SerializeField]
     private Vector3 m_dir;
-    public float moveSpeed = 4.0f;
+    public float moveSpeed = 6.0f;
 
     public float teleportSpeed;
     [SerializeField]

@@ -43,7 +43,7 @@ public class Weapon : MonoBehaviour
                 return;
 
             curState = AttackState.CHARGE;
-            pmc.moveSpeed = 3.2f;
+            pmc.moveSpeed = 4.8f;
 
             curChargeTime += Time.deltaTime;
         }
@@ -68,7 +68,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            pmc.moveSpeed = 4.0f;
+            pmc.moveSpeed = 6.0f; ;
         }
     }
 
@@ -91,7 +91,7 @@ public class Weapon : MonoBehaviour
         curState = AttackState.LONG;
         pmc.moveSpeed = 3.2f;
 
-        speed = 18.0f;
+        speed = 20.0f;
         attack = 2;
 
         Attack_Long(pos);
@@ -118,14 +118,14 @@ public class Weapon : MonoBehaviour
 
             if (curChargeTime > chargeStep[2])
             {
-                speed = 18.0f;
+                speed = 20.0f;
                 attack = 2;
 
                 Attack_Charge(pos, 4, 2);
             }
             else if (curChargeTime < chargeStep[2])
             {
-                speed = 18.0f;
+                speed = 20.0f;
                 attack = 2;
 
                 Attack_Charge(pos, 2, 1);

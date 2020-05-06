@@ -534,11 +534,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ccd1a57366a9b014c89c2d36c5e637a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.17
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ccd1a57366a9b014c89c2d36c5e637a6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.2296
+      value: -9.62
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ccd1a57366a9b014c89c2d36c5e637a6, type: 3}
       propertyPath: m_LocalRotation.x
@@ -584,6 +584,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.14969096
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: ccd1a57366a9b014c89c2d36c5e637a6, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b37308f72b69d554a862b50f752afe95, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccd1a57366a9b014c89c2d36c5e637a6, type: 3}
 --- !u!1001 &147584674
@@ -6149,7 +6153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerModelTr: {fileID: 1635153728}
   m_dir: {x: 0, y: 0, z: 0}
-  moveSpeed: 4
+  moveSpeed: 6
   teleportSpeed: 4
   teleported: 0
   m_teleportFX: {fileID: 709201614812155450, guid: d848038102738fb42b899fd80e3ee54e,
@@ -6164,7 +6168,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
@@ -6194,7 +6198,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
