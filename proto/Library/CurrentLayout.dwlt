@@ -95,7 +95,11 @@ MonoBehaviour:
   m_MaxSize: {x: 18008, y: 14048}
   vertical: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
   controlID: 152
+=======
+  controlID: 156
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
   controlID: 156
 >>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
@@ -138,7 +142,11 @@ MonoBehaviour:
     x: 0
     y: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
     width: 1409
+=======
+    width: 1384
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
     width: 1384
 >>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
@@ -169,7 +177,11 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
     x: 1409
+=======
+    x: 1384
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
     x: 1384
 >>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
@@ -180,7 +192,11 @@ MonoBehaviour:
   m_MaxSize: {x: 10004, y: 14048}
   vertical: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
   controlID: 165
+=======
+  controlID: 232
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
   controlID: 232
 >>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
@@ -200,6 +216,7 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
     x: 1643
     y: 0
     width: 277
@@ -209,6 +226,10 @@ MonoBehaviour:
 =======
     x: 1618
     y: 0
+=======
+    x: 1618
+    y: 0
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
     width: 302
     height: 947
   m_MinSize: {x: 277, y: 74}
@@ -238,7 +259,11 @@ MonoBehaviour:
     y: 0
     width: 234
 <<<<<<< HEAD
+<<<<<<< HEAD
     height: 417
+=======
+    height: 416
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
     height: 416
 >>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
@@ -266,9 +291,15 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
     y: 417
     width: 234
     height: 530
+=======
+    y: 416
+    width: 234
+    height: 531
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
     y: 416
     width: 234
@@ -303,9 +334,15 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
     x: 1643
     y: 73
     width: 275
+=======
+    x: 1618
+    y: 73
+    width: 300
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
     x: 1618
     y: 73
@@ -344,10 +381,17 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
     x: 1409
     y: 490
     width: 230
     height: 510
+=======
+    x: 1384
+    y: 489
+    width: 230
+    height: 511
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
     x: 1384
     y: 489
@@ -368,7 +412,11 @@ MonoBehaviour:
     m_SearchArea: 1
     m_Folders:
 <<<<<<< HEAD
+<<<<<<< HEAD
     - Assets/Scenes
+=======
+    - Assets
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
     - Assets
 >>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
@@ -390,6 +438,9 @@ MonoBehaviour:
     m_SelectedIDs: d09f0000
     m_LastClickedID: 40912
     m_ExpandedIDs: 00000000c03d0000d09f000028a0000002a30000eaa4000000a50000b2a50000c2b20000c4b2000000ca9a3b
+<<<<<<< HEAD
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
+=======
 >>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -419,17 +470,23 @@ MonoBehaviour:
     m_SelectedIDs: 
     m_LastClickedID: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_ExpandedIDs: ffffffff000000002c2800008e280000fa2a0000202c0000402c0000a82e0000da2e0000962f0000284100002a410000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: Test_J_0430
       m_OriginalName: Test_J_0430
 =======
+=======
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
     m_ExpandedIDs: ffffffff00000000c03d0000d09f000028a0000002a30000eaa4000000a50000b2a50000c2b20000c4b2000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
       m_OriginalName: 
+<<<<<<< HEAD
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
+=======
 >>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
       m_EditFieldRect:
         serializedVersion: 2
@@ -438,7 +495,11 @@ MonoBehaviour:
         width: 0
         height: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
       m_UserData: 13914
+=======
+      m_UserData: 0
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
       m_UserData: 0
 >>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
@@ -509,7 +570,11 @@ MonoBehaviour:
     x: 0
     y: 73
 <<<<<<< HEAD
+<<<<<<< HEAD
     width: 1407
+=======
+    width: 1382
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
     width: 1382
 >>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
@@ -526,8 +591,13 @@ MonoBehaviour:
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_HBaseRangeMin: -703.5
     m_HBaseRangeMax: 703.5
+=======
+    m_HBaseRangeMin: -691
+    m_HBaseRangeMax: 691
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
     m_HBaseRangeMin: -691
     m_HBaseRangeMax: 691
@@ -552,15 +622,21 @@ MonoBehaviour:
       x: 0
       y: 17
 <<<<<<< HEAD
+<<<<<<< HEAD
       width: 1407
       height: 910
     m_Scale: {x: 1, y: 1}
     m_Translation: {x: 703.5, y: 455}
 =======
+=======
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
       width: 1382
       height: 910
     m_Scale: {x: 1, y: 1}
     m_Translation: {x: 691, y: 455}
+<<<<<<< HEAD
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
+=======
 >>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
     m_MarginLeft: 0
     m_MarginRight: 0
@@ -569,9 +645,15 @@ MonoBehaviour:
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
       x: -703.5
       y: -455
       width: 1407
+=======
+      x: -691
+      y: -455
+      width: 1382
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
       x: -691
       y: -455
@@ -583,7 +665,11 @@ MonoBehaviour:
   m_TargetTexture: {fileID: 0}
   m_CurrentColorSpace: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_LastWindowPixelSize: {x: 1407, y: 927}
+=======
+  m_LastWindowPixelSize: {x: 1382, y: 927}
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
   m_LastWindowPixelSize: {x: 1382, y: 927}
 >>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
@@ -615,7 +701,11 @@ MonoBehaviour:
     x: 0
     y: 73
 <<<<<<< HEAD
+<<<<<<< HEAD
     width: 1407
+=======
+    width: 1382
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
     width: 1382
 >>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
@@ -628,9 +718,15 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_Position:
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_Target: {x: 5.9049945, y: 7.6188984, z: -3.6781158}
     speed: 2
     m_Value: {x: 5.9049945, y: 7.6188984, z: -3.6781158}
+=======
+    m_Target: {x: -29.366764, y: -1.6105728, z: 43.291134}
+    speed: 2
+    m_Value: {x: -29.366764, y: -1.6105728, z: 43.291134}
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
     m_Target: {x: -29.366764, y: -1.6105728, z: 43.291134}
     speed: 2
@@ -664,6 +760,7 @@ MonoBehaviour:
       m_Value: 0
   m_Rotation:
 <<<<<<< HEAD
+<<<<<<< HEAD
     m_Target: {x: 0.30614328, y: 0.21595146, z: -0.07151839, w: 0.92440605}
     speed: 2
     m_Value: {x: 0.30614328, y: 0.21595146, z: -0.07151839, w: 0.92440605}
@@ -671,6 +768,15 @@ MonoBehaviour:
     m_Target: 35.10088
     speed: 2
     m_Value: 35.10088
+=======
+    m_Target: {x: 0.27526277, y: -0.17612128, z: 0.051371656, w: 0.9437016}
+    speed: 2
+    m_Value: {x: 0.27526277, y: -0.17612128, z: 0.051371656, w: 0.9437016}
+  m_Size:
+    m_Target: 89.65998
+    speed: 2
+    m_Value: 89.65998
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
     m_Target: {x: 0.27526277, y: -0.17612128, z: 0.051371656, w: 0.9437016}
     speed: 2
@@ -713,10 +819,17 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
     x: 1409
     y: 73
     width: 230
     height: 397
+=======
+    x: 1384
+    y: 73
+    width: 230
+    height: 396
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
     x: 1384
     y: 73
@@ -728,9 +841,15 @@ MonoBehaviour:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
       m_SelectedIDs: 06450000
       m_LastClickedID: 17670
       m_ExpandedIDs: 5adbffff30e2ffffcefbffff
+=======
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 0a9cfeff
+>>>>>>> parent of 9ac0eb3c... 카메라 뷰 수정
 =======
       m_SelectedIDs: 
       m_LastClickedID: 0
