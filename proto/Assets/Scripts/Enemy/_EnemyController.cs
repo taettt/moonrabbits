@@ -86,7 +86,7 @@ public class _EnemyController : MonoBehaviour
         m_curHp = 120;
         m_curLife = 5;
         m_moveSpeed = 16.0f;
-        m_attackSpeed = 16.0f;
+        m_attackSpeed = 14.0f;
         m_attackStat = 2;
 
         m_isMoving = false;
@@ -108,7 +108,7 @@ public class _EnemyController : MonoBehaviour
 
         m_curHp = 120;
         m_moveSpeed = 16.0f;
-        m_attackSpeed = 16.0f;
+        m_attackSpeed = 14.0f;
         m_attackStat = 2;
 
         m_randomRound = false;
@@ -589,7 +589,7 @@ public class _EnemyController : MonoBehaviour
         if (m_curHp - value <= 0)
         {
             m_isLifeDown = true;
-            m_curHp = 0;
+            m_curHp = 120;
             m_curLife -= 1;
             if (m_curLife <= 0)
             {
