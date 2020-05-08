@@ -5,23 +5,26 @@
         _MainCol("Color", Color) = (1,1,1,1)
         _MainTex("Texture", 2D) = "white" {}
         _ScrTex("Scroll Texture", 2D) = "white" {}
-        _ScrSpd("Scroll Speed", float) = 1.0
+        _ScrSpd1("Scroll Speed1", float) = 1.0
+        _ScrSpd2("Scroll Speed2", float) = 0.0
         _ScrPow("Scroll Power", float) = 1.0
+        
     }
     SubShader
     {
         Tags {"RenderType" = "Transparent" "Queue" = "Transparent"}
-        LOD 200
         blend SrcAlpha One
         zwrite off
 
         CGPROGRAM
-        #pragma surface surf Standard fullforwardshadows
+        #pragma surface surf Lambert
+        #pragma target 3.0
 
         sampler2D _MainTex;
         sampler2D _ScrTex;
         float4 _MainCol;
-        float _ScrSpd;
+        float _ScrSpd1;
+        float _ScrSpd2;
         float _ScrPow;
 
         struct Input
@@ -30,11 +33,12 @@
             float2 uv_ScrTex;
         };
 
-        void surf (Input IN, inout SurfaceOutputStandard o)
+        void surf (Input IN, inout SurfaceOutput o)
         {
-            float4 Scr = tex2D (_ScrTex, float2(IN.uv_ScrTex.x, IN.uv_ScrTex.y - _Time.y * _ScrSpd));
-            float MTex = tex2D(_MainTex, IN.uv_MainTex + Scr * _ScrPow).a;
-            o.Emission = MTex * _MainCol.rgb;
+            float4 Scr = tex2D (_ScrTex, float2(IN.uv_ScrTex.x - _Time.y * _ScrSpd2, IN.uv_ScrTex.y - _Time.y * _ScrSpd1));
+            float4 MTex = tex2D(_MainTex, IN.uv_MainTex + Scr * _ScrPow).a;
+            o.Emission = MTex * _MainCol;
+            o.Alpha = _MainCol.a;
         }
         ENDCG
     }
