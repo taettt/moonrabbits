@@ -13,6 +13,7 @@ public class PlayerMoveController : MonoBehaviour
     private Vector3 m_dir;
     public float moveSpeed = 6.0f;
 
+    private float teleportTimer;
     public float teleportSpeed;
     [SerializeField]
     private bool teleported;
@@ -24,8 +25,6 @@ public class PlayerMoveController : MonoBehaviour
     {
         tr = this.transform;
         animator = tr.GetChild(0).GetComponent<Animator>();
-
-        teleported = false;
     }
 
     void Start()
@@ -33,8 +32,10 @@ public class PlayerMoveController : MonoBehaviour
         forwardVec = Camera.main.transform.forward;
         forwardVec.y = 0.0f;
         forwardVec = forwardVec.normalized;
-
         rightVec = Quaternion.Euler(new Vector3(0.0f, 90.0f, 0.0f)) * forwardVec;
+
+        teleportTimer = 0.0f;
+        teleported = false;
     }
 
     void FixedUpdate()
@@ -54,8 +55,12 @@ public class PlayerMoveController : MonoBehaviour
 
         if (teleported)
         {
-            if (Time.time >= teleportDelay)
+            teleportTimer += Time.deltaTime;
+            if (teleportTimer >= teleportDelay)
+            {
+                teleportTimer = 0.0f;
                 teleported = false;
+            }
         }
     }
 

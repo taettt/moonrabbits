@@ -346,8 +346,6 @@ GameObject:
   - component: {fileID: 71506651}
   - component: {fileID: 71506647}
   - component: {fileID: 71506648}
-  - component: {fileID: 71506649}
-  - component: {fileID: 71506650}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -383,38 +381,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0375308704c0357419ba2830dbe08d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &71506649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71506646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57f1e62f7c884a44e9747d5aa12d0dbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyBulletPrefab: {fileID: 5575792805557208677, guid: e30dad3961ce9294586bafc473bc9803,
-    type: 3}
-  playerBulletPrefab: {fileID: 7754160883169474513, guid: 3d38505e460af3c4080a79fc85ed1280,
-    type: 3}
---- !u!114 &71506650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71506646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc07f4f7aa9ccbb4fa86d70d9c81bdab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trapParent: {fileID: 179256763}
-  bulletParent: {fileID: 1517561759}
-  boomCountText: {fileID: 1992694730}
-  bc: {fileID: 659383031}
 --- !u!4 &71506651
 Transform:
   m_ObjectHideFlags: 0
@@ -5235,6 +5201,7 @@ GameObject:
   - component: {fileID: 1201668556}
   - component: {fileID: 1201668553}
   - component: {fileID: 1201668559}
+  - component: {fileID: 1201668560}
   m_Layer: 0
   m_Name: Player
   m_TagString: PLAYER
@@ -5357,6 +5324,22 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &1201668560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201668551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc07f4f7aa9ccbb4fa86d70d9c81bdab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trapParent: {fileID: 355752510}
+  bulletParent: {fileID: 1517561759}
+  boomCountText: {fileID: 1992694730}
+  bc: {fileID: 0}
 --- !u!1001 &1225971976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6878,6 +6861,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1517561759}
+  - component: {fileID: 1517561760}
   m_Layer: 0
   m_Name: Bullets
   m_TagString: Untagged
@@ -6899,6 +6883,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1517561760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517561758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57f1e62f7c884a44e9747d5aa12d0dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyBulletPrefab: {fileID: 5575792805557208677, guid: e30dad3961ce9294586bafc473bc9803,
+    type: 3}
+  playerBulletPrefab: {fileID: 7754160883169474513, guid: 3d38505e460af3c4080a79fc85ed1280,
+    type: 3}
 --- !u!1 &1522919282
 GameObject:
   m_ObjectHideFlags: 0

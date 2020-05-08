@@ -58,14 +58,29 @@ public class BoomManager : MonoBehaviour
 
     private void DeleteObjects()
     {
-        while (trapParent.childCount > 0)
+        DeleteTraps();
+        DeleteBullets();
+    }
+
+    private void DeleteTraps()
+    {
+        if (trapParent.childCount <= 0)
+            return;
+
+        while(trapParent.childCount > 0)
         {
-            Destroy(trapParent.GetChild(0).gameObject);
+            DestroyImmediate(trapParent.GetChild(0).gameObject);
         }
+    }
+
+    private void DeleteBullets()
+    {
+        if (bulletParent.childCount <= 0)
+            return;
 
         while (bulletParent.childCount > 0)
         {
-            Destroy(bulletParent.GetChild(0).gameObject);
+            DestroyImmediate(bulletParent.GetChild(0).gameObject);
         }
     }
 }
