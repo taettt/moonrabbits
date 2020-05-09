@@ -7,26 +7,51 @@ public class MinionController : MonoBehaviour
     public GameObject seedPrefab;
     public Transform seedParent;
 
+    public Transform playerTr;
+    private Vector3 m_dir;
+
+    private int m_hp;
+    private float m_moveSpeed;
     private float m_attackSpeed;
+    private float m_attackDelay;
     private int m_attackStat;
 
     void Awake()
     {
         seedParent = GameObject.Find("Traps").transform;
+    }
+
+    void Start()
+    {
         Init();
+
+        StartCoroutine(ShootBulletCoroutine());
+    }
+
+    void Update()
+    {
+        this.transform.position = Vector3.MoveTowards(this.transform.position, playerTr.position, m_moveSpeed * Time.deltaTime);
     }
 
     void OnTriggernEnter(Collider coll)
     {
-        if(coll.tag=="PLAYERBULLET")
+        if (coll.tag == "PLAYERBULLET")
         {
-            DropSeed();
+            DecreaseHP(coll.GetComponent<PlayerBullet>().attack);
+        }
+        else if (coll.tag == "PLAYER")
+        {
+            coll.GetComponent<PlayerController>().DecreaseHP(m_attackStat);
+            Destroy(this.gameObject);
         }
     }
 
     private void Init()
     {
-        m_attackSpeed = 1.0f;
+        m_hp = 12;
+        m_moveSpeed = 2.0f;
+        m_attackDelay = 2.0f;
+        m_attackSpeed = 2.0f;
         m_attackStat = 1;
     }
 
@@ -34,5 +59,33 @@ public class MinionController : MonoBehaviour
     {
         GameObject go = Instantiate(seedPrefab, this.transform.position, Quaternion.identity);
         go.transform.SetParent(seedParent);
+    }
+
+    private IEnumerator ShootBulletCoroutine()
+    {
+        while (true)
+        {
+            m_dir = (this.transform.position - playerTr.position).normalized;
+            ShootBullet();
+
+            yield return new WaitForSeconds(m_attackDelay);
+        }
+    }
+
+    private void DecreaseHP(int attackVal)
+    {
+        if (m_hp - attackVal <= 0)
+        {
+            DropSeed();
+        }
+
+        m_hp -= attackVal;
+    }
+
+    private void ShootBullet()
+    {
+        var bullet = ObjectManager.PushObject("EnemyBullet").GetComponent<EnemyBullet>();
+        bullet.transform.position = this.transform.position;
+        bullet.Spawn(bullet.transform.position, m_dir, m_attackSpeed, m_attackStat);
     }
 }

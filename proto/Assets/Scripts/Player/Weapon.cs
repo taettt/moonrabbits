@@ -31,6 +31,7 @@ public class Weapon : MonoBehaviour
     private AttackState curState;
 
     public Transform playerTr;
+    public Transform playerModelTr;
     public PlayerMoveController pmc;
     public PlayerController pc;
     public PlayerStateController psc;
@@ -55,6 +56,7 @@ public class Weapon : MonoBehaviour
 
             if (curState == AttackState.CHARGE)
             {
+                pc.SetKoncked(2.0f, playerModelTr.forward * -1f);
                 StartCoroutine(Attack_Charge_Check(Input.mousePosition));
             }
         }
@@ -145,7 +147,7 @@ public class Weapon : MonoBehaviour
         bullet.GetComponent<PlayerBullet>().SetVisual((PlayerBulletKind)kind);
         bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, speed, attack * attackPlus);
 
-        playerTr.transform.forward = m_dirVec;
+        playerModelTr.transform.forward = m_dirVec;
     }
 
     private void Attack_Long(Vector3 targetPos)
@@ -157,7 +159,7 @@ public class Weapon : MonoBehaviour
         bullet.GetComponent<PlayerBullet>().SetVisual(PlayerBulletKind.DEF);
         bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, speed, attack);
 
-        playerTr.transform.forward = m_dirVec;
+        playerModelTr.transform.forward = m_dirVec;
     }
 
     private void SetVectors(Vector3 targetPos)

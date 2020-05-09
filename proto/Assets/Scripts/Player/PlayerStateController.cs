@@ -23,6 +23,7 @@ public class PlayerStateController : MonoBehaviour
 
     // timer
     private float m_waiter = 0.0f;
+    public float watier { get { return m_waiter; } set { m_waiter = value; } }
     private float m_attackedTime = 0.3f;
     private float m_absorpTime = 0.3f;
     private float m_invincibleTime = 1.0f;

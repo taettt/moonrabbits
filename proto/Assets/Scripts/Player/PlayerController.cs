@@ -27,6 +27,19 @@ public class PlayerController : MonoBehaviour
         Initialize();
     }
 
+    private IEnumerator KnockbackCoroutine(float knockVal, Vector3 dir)
+    {
+        float timer = 0.0f;
+
+        while (timer < 0.4f)
+        {
+            timer += Time.deltaTime;
+            this.transform.Translate(dir * 2.0f * -1f * Time.deltaTime);
+        }
+
+        yield return 0;
+    }
+
     public void Initialize()
     {
         m_hp = 40;
@@ -72,5 +85,12 @@ public class PlayerController : MonoBehaviour
             m_isAttacked = true;
             m_hp -= value;
         }
+    }
+
+    public void SetKoncked(float knockVal, Vector3 dir)
+    {
+        sc.waiter = 0.0f;
+        sc.curState = PlayerState.NOCK;
+        StartCoroutine(KnockbackCoroutine(knockVal, dir));
     }
 }

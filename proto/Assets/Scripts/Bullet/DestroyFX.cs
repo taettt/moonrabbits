@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class DestroyFX : MonoBehaviour
 {
-    void Start()
+    private ParticleSystem ps;
+
+    void Awake()
     {
-        Destroy(this.gameObject, 0.5f);
+        ps = this.transform.GetChild(0).GetComponent<ParticleSystem>();
+    }
+
+    void Update()
+    {
+        if (!ps.isPlaying)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

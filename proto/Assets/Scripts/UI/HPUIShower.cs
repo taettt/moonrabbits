@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 나중에 코루틴으로 처리
 public class HPUIShower : MonoBehaviour
 {
     public PlayerController pc;
@@ -10,7 +11,7 @@ public class HPUIShower : MonoBehaviour
     public _EnemyController ec;
     public EnemyStateController esc;
 
-    //ui, 0-> red 1->blue
+    //ui, 0-> red fill 1-> hp fill
     public Image[] m_playerHpFillImages = new Image[2];
     public Image m_playerLife;
     public Sprite[] m_playerLifeImage = new Sprite[4];
@@ -20,10 +21,11 @@ public class HPUIShower : MonoBehaviour
     public Sprite[] m_enemyLifeImage = new Sprite[6];
 
     //time
-    private float m_playerDownTime = 1.0f;
-    private float m_playerHealTime = 1.0f;
-    private float m_playerMaxTime = 3.0f;
-    private float m_playerLifeHealTime = 1.0f;
+    private float m_hpDownTime = 1.0f;
+    private float m_HealTime = 1.0f;
+    private float m_maxHealTimer = 0.0f;
+    private float m_maxHealTime = 3.0f;
+    private float m_lifeHealTime = 1.0f;
 
     void Awake()
     {
@@ -77,7 +79,7 @@ public class HPUIShower : MonoBehaviour
     {
         m_playerHpFillImages[0].color = Color.red;
         m_playerHpFillImages[0].fillAmount = Mathf.Lerp(m_playerHpFillImages[0].fillAmount,
-            m_playerHpFillImages[1].fillAmount, m_playerDownTime * Time.deltaTime);
+            m_playerHpFillImages[1].fillAmount, m_hpDownTime * Time.deltaTime);
     }
 
     private void SetAttackedFill_Enemy()
@@ -89,15 +91,22 @@ public class HPUIShower : MonoBehaviour
     private void SetHealFill()
     {
         m_playerHpFillImages[0].fillAmount = Mathf.Lerp(m_playerHpFillImages[0].fillAmount,
-            (m_playerHpFillImages[1].fillAmount), m_playerHealTime * Time.deltaTime);
+            (m_playerHpFillImages[1].fillAmount), m_HealTime * Time.deltaTime);
     }
 
     // state iniv & life down true
     private void SetHealAllFill()
     {
+        if (m_maxHealTimer >= m_maxHealTime)
+        {
+            m_maxHealTimer = 0.0f;
+            return;
+        }
+
+        m_maxHealTimer += Time.deltaTime;
         m_playerHpFillImages[1].gameObject.SetActive(false);
         m_playerHpFillImages[0].fillAmount = Mathf.Lerp(m_playerHpFillImages[0].fillAmount,
-            (m_playerHpFillImages[1].fillAmount), m_playerHealTime * Time.deltaTime);
+            (m_playerHpFillImages[1].fillAmount), m_maxHealTimer / m_maxHealTime);
         m_playerHpFillImages[1].gameObject.SetActive(true);
     }
 
