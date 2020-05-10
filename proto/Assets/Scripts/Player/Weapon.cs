@@ -11,6 +11,17 @@ public enum AttackState
     NUM
 }
 
+enum ChargeFXState
+{
+    READY,
+    CHARGING,
+    FULL,
+    SHOOT,
+    CHARGE_1,
+    CHARGE_2,
+    NUM
+}
+
 public class Weapon : MonoBehaviour
 {
     // default
@@ -36,9 +47,23 @@ public class Weapon : MonoBehaviour
     public PlayerController pc;
     public PlayerStateController psc;
 
+    // ready, charging, full, shoot, attack1, attack2
+    public GameObject[] m_chargeFX;
+
     void Update()
     {
-        if(Input.GetMouseButton(2))
+        if(Input.GetMouseButtonDown(2))
+        {
+            if (psc.curState == PlayerState.ATTACKED)
+                return;
+
+            curState = AttackState.CHARGE;
+            pmc.moveSpeed = 4.8f;
+
+            Instantiate(m_chargeFX[(int)ChargeFXState.READY], this.transform);
+        }
+
+        else if(Input.GetMouseButton(2))
         {
             if (psc.curState == PlayerState.ATTACKED)
                 return;
@@ -47,6 +72,20 @@ public class Weapon : MonoBehaviour
             pmc.moveSpeed = 4.8f;
 
             curChargeTime += Time.deltaTime;
+
+            if (curChargeTime >= chargeStep[2])
+            {
+                m_chargeFX[(int)ChargeFXState.FULL].transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+                m_chargeFX[(int)ChargeFXState.FULL].SetActive(true);
+
+                m_chargeFX[(int)ChargeFXState.CHARGING].transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
+                m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(false);
+            }
+            else
+            {
+                m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(true);
+                m_chargeFX[(int)ChargeFXState.CHARGING].transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+            }
         }
 
         else if (Input.GetMouseButtonUp(2))
@@ -56,9 +95,16 @@ public class Weapon : MonoBehaviour
 
             if (curState == AttackState.CHARGE)
             {
-                pc.SetKoncked(2.0f, playerModelTr.forward * -1f);
+                pc.SetKoncked(2.0f, playerModelTr.forward);
                 StartCoroutine(Attack_Charge_Check(Input.mousePosition));
             }
+
+            m_chargeFX[(int)ChargeFXState.FULL].transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
+            m_chargeFX[(int)ChargeFXState.FULL].SetActive(false);
+            m_chargeFX[(int)ChargeFXState.CHARGING].transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
+            m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(false);
+            GameObject go = Instantiate(m_chargeFX[(int)ChargeFXState.SHOOT], this.transform.position, Quaternion.LookRotation(m_dirVec));
+            go.transform.SetParent(this.transform);
         }
 
         else if(Input.GetMouseButton(1))
@@ -70,7 +116,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            pmc.moveSpeed = 6.0f; ;
+            pmc.moveSpeed = 6.0f;
         }
     }
 
@@ -142,7 +188,7 @@ public class Weapon : MonoBehaviour
     {
         SetVectors(targetPos);
 
-        GameObject bullet = Instantiate(bulletPrefab) as GameObject;
+        var bullet = ObjectManager.PushObject("PlayerBullet").GetComponent<PlayerBullet>();
         bullet.transform.SetParent(bulletParent);
         bullet.GetComponent<PlayerBullet>().SetVisual((PlayerBulletKind)kind);
         bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, speed, attack * attackPlus);
@@ -154,7 +200,7 @@ public class Weapon : MonoBehaviour
     {
         SetVectors(targetPos);
 
-        GameObject bullet = Instantiate(bulletPrefab) as GameObject;
+        var bullet = ObjectManager.PushObject("PlayerBullet").GetComponent<PlayerBullet>();
         bullet.transform.SetParent(bulletParent);
         bullet.GetComponent<PlayerBullet>().SetVisual(PlayerBulletKind.DEF);
         bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, speed, attack);

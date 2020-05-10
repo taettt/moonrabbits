@@ -18,7 +18,7 @@ public class BoomManager : MonoBehaviour
     private int m_boomDamage = 16;
     public int boomDamage { get { return m_boomDamage; } }
 
-    public _EnemyController bc;
+    public BossController bc;
 
     void Awake()
     {

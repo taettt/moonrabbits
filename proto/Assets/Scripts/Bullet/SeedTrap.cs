@@ -34,7 +34,7 @@ public class SeedTrap : MonoBehaviour
                     return;
                 }
 
-                coll.gameObject.GetComponent<_EnemyController>().DecreaseHP(m_damage);
+                coll.gameObject.GetComponent<BossController>().DecreaseHP(m_damage);
                 Destroy(this.gameObject);
                 break;
             case "PLAYER":
@@ -43,7 +43,7 @@ public class SeedTrap : MonoBehaviour
                     return;
                 }
 
-                coll.gameObject.GetComponent<PlayerController>().DecreaseHP(m_damage);
+                coll.gameObject.GetComponent<BossController>().DecreaseHP(m_damage);
                 Destroy(this.gameObject);
                 break;
         }

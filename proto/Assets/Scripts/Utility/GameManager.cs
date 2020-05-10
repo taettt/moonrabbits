@@ -8,8 +8,10 @@ public class GameManager : MonoBehaviour
     public Text finishText;
     public GameObject retryButton;
 
-    public _EnemyController ec;
+    public BossController bc;
     public PlayerController pc;
+
+    public Boss[] bosses;
 
     public void GameOver()
     {
@@ -35,6 +37,11 @@ public class GameManager : MonoBehaviour
 
     public void PhaseRetry()
     {
-        ec.PhaseInit();
+        bc.PhaseInit();
+    }
+
+    public void InitializeBoss(int index)
+    {
+        bc.ConnectBoss(bosses[index]);
     }
 }

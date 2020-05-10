@@ -23,7 +23,7 @@ public class PlayerStateController : MonoBehaviour
 
     // timer
     private float m_waiter = 0.0f;
-    public float watier { get { return m_waiter; } set { m_waiter = value; } }
+    public float waiter { get { return m_waiter; } set { m_waiter = value; } }
     private float m_attackedTime = 0.3f;
     private float m_absorpTime = 0.3f;
     private float m_invincibleTime = 1.0f;
@@ -32,6 +32,9 @@ public class PlayerStateController : MonoBehaviour
     private float m_dieTime = 3.0f;
 
     public Text stateText;
+
+    // fxs
+    public GameObject attackedFX;
 
     void Update()
     {
@@ -50,6 +53,7 @@ public class PlayerStateController : MonoBehaviour
             case PlayerState.ATTACKED:
                 // anim start
                 stateText.text = "STATE : ATTACKED " + m_waiter;
+                Instantiate(attackedFX, this.transform);
                 m_waiter += Time.deltaTime;
                 if (m_waiter > m_attackedTime)
                 {

@@ -32,4 +32,15 @@ public class Utility
 
         return tempArr;
     }
+
+    public static Vector3 GetDirection(float angle)
+    {
+        Vector3 dir = Vector3.forward;
+        var quat = Quaternion.Euler(0.0f, angle, 0.0f);
+        Vector3 newDir = quat * dir;
+        newDir.y = 0.0f;
+        newDir = newDir.normalized;
+
+        return newDir;
+    }
 }

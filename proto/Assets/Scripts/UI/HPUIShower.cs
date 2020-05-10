@@ -8,7 +8,7 @@ public class HPUIShower : MonoBehaviour
 {
     public PlayerController pc;
     public PlayerStateController psc;
-    public _EnemyController ec;
+    public BossController ec;
     public EnemyStateController esc;
 
     //ui, 0-> red fill 1-> hp fill

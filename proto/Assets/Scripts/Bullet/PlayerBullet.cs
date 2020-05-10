@@ -16,6 +16,8 @@ public class PlayerBullet : Bullet
     public GameObject destroyPrefab_1;
     public GameObject destroyPrefab_2;
 
+    public GameObject[] chargingPrefab;
+
     void Update()
     {
         this.transform.Translate(Vector3.forward * Time.smoothDeltaTime * speed);
@@ -36,7 +38,7 @@ public class PlayerBullet : Bullet
             case "ENEMY":
                 Instantiate(destroyPrefab_2, this.transform.position, Quaternion.LookRotation(this.transform.forward));
 
-                _EnemyController ec = coll.GetComponent<_EnemyController>();
+                BossController ec = coll.GetComponent<BossController>();
                 ec.DecreaseHP(attack);
                 if (m_kind == PlayerBulletKind.CHARGE_2)
                 {
@@ -68,9 +70,14 @@ public class PlayerBullet : Bullet
             case PlayerBulletKind.DEF:
                 break;
             case PlayerBulletKind.CHARGE_1:
+                this.transform.GetChild(0).gameObject.SetActive(false);
+                chargingPrefab[0].SetActive(true);
                 this.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+
                 break;
             case PlayerBulletKind.CHARGE_2:
+                this.transform.GetChild(0).gameObject.SetActive(false);
+                chargingPrefab[1].SetActive(true);
                 this.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
                 break;
         }

@@ -19,11 +19,13 @@ public class PlayerMoveController : MonoBehaviour
     private bool teleported;
     private float teleportDelay = 0.4f;
 
+    public GameObject m_teleportTrail;
     public GameObject m_teleportFX;
 
     void Awake()
     {
         tr = this.transform;
+        m_teleportTrail = tr.GetChild(2).gameObject;
         animator = tr.GetChild(0).GetComponent<Animator>();
     }
 
@@ -42,15 +44,14 @@ public class PlayerMoveController : MonoBehaviour
     {
         Move();
         MoveAnim();
-        Debug.DrawRay(this.transform.position, playerModelTr.forward * moveSpeed * 2, Color.red);
         if (Input.GetKeyUp(KeyCode.Space))
         {
             if (teleported)
                 return;
 
             teleported = true;
+            PlayTeleportFX();
             CheckWallAndTeleport();
-            Instantiate(m_teleportFX, this.transform.position, Quaternion.LookRotation(playerModelTr.forward));
         }
 
         if (teleported)
@@ -64,6 +65,12 @@ public class PlayerMoveController : MonoBehaviour
         }
     }
 
+    private void PlayTeleportFX()
+    {
+        m_teleportTrail.SetActive(true);
+        Instantiate(m_teleportFX, this.transform.position, Quaternion.LookRotation(playerModelTr.forward));
+    }
+
     private void CheckWallAndTeleport()
     {
         RaycastHit hit;
@@ -75,6 +82,8 @@ public class PlayerMoveController : MonoBehaviour
         {
             tr.position += playerModelTr.forward * moveSpeed * 2;
         }
+
+        m_teleportTrail.SetActive(false);
     }
 
     private void Move()
