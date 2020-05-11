@@ -15,9 +15,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.28920433, g: 0.6320754, b: 0.63207537, a: 1}
+  m_FogColor: {r: 0.4448202, g: 0.7924528, b: 0.7924528, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.005
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.368641, g: 0.2765664, b: 0.5188679, a: 1}
@@ -1105,9 +1105,11 @@ MonoBehaviour:
   curChargeTime: 0
   curState: 0
   playerTr: {fileID: 1520465727}
+  playerModelTr: {fileID: 0}
   pmc: {fileID: 1520465730}
   pc: {fileID: 1520465729}
   psc: {fileID: 1520465728}
+  m_chargeFX: []
 --- !u!33 &251071032
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1403,7 +1405,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.9845507, b: 0.8254717, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -1559,33 +1561,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73dbaa464aa1fc34eb643dd836b52b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_bossList: []
   wavePrefab: {fileID: 5017842762934030611, guid: e95c75967cf7c094294cc0b098c31325,
     type: 3}
   bulletParent: {fileID: 869315822}
   playerTr: {fileID: 1520465727}
   m_init: 0
-  m_randomRound: 0
-  m_curPatternIndex: -1
-  m_curMoveIndex: 0
-  m_pattern_1Moves:
-  - {x: 10, y: 1.2, z: 10}
-  - {x: 10, y: 1.2, z: 0}
-  - {x: 10, y: 1.2, z: -10}
-  - {x: 0, y: 1.2, z: -10}
-  - {x: -10, y: 1.2, z: -10}
-  - {x: -10, y: 1.2, z: 0}
-  - {x: -10, y: 1.2, z: 10}
-  - {x: 0, y: 1.2, z: 10}
-  - {x: 10, y: 1.2, z: 10}
-  - {x: 10, y: 1.2, z: 0}
-  - {x: 10, y: 1.2, z: -10}
-  - {x: 0, y: 1.2, z: -10}
-  - {x: -10, y: 1.2, z: -10}
-  - {x: -10, y: 1.2, z: 0}
-  - {x: -10, y: 1.2, z: 10}
-  - {x: 0, y: 1.2, z: 10}
-  - {x: 10, y: 1.2, z: 10}
-  m_pattern_2Move: {x: 0, y: 1.2, z: 0}
   sc: {fileID: 416349384}
 --- !u!136 &416349386
 CapsuleCollider:
@@ -3506,8 +3487,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   finishText: {fileID: 1206188722}
   retryButton: {fileID: 941121287}
-  ec: {fileID: 416349385}
+  bc: {fileID: 0}
   pc: {fileID: 1520465729}
+  bosses: []
 --- !u!114 &887061195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5708,10 +5690,10 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 0.8726415, g: 0.9585904, b: 1, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.9103774, g: 0.99820757, b: 1, a: 1}
+  m_Intensity: 1.2
   m_Range: 63.82
-  m_SpotAngle: 77.50113
+  m_SpotAngle: 84.79117
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -6125,6 +6107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gm: {fileID: 887061194}
   stateText: {fileID: 821059749}
+  attackedFX: {fileID: 0}
 --- !u!114 &1520465729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6156,6 +6139,7 @@ MonoBehaviour:
   moveSpeed: 6
   teleportSpeed: 4
   teleported: 0
+  m_teleportTrail: {fileID: 0}
   m_teleportFX: {fileID: 709201614812155450, guid: d848038102738fb42b899fd80e3ee54e,
     type: 3}
 --- !u!136 &1520465731
