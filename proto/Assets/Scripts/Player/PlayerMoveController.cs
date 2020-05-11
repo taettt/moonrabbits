@@ -6,6 +6,7 @@ public class PlayerMoveController : MonoBehaviour
 {
     private Transform tr;
     public Transform playerModelTr;
+    public LayerMask wallCollisionMask;
     private Animator animator;
     private Vector3 forwardVec, rightVec;
     private Vector3 m_movement;
@@ -74,9 +75,9 @@ public class PlayerMoveController : MonoBehaviour
     private void CheckWallAndTeleport()
     {
         RaycastHit hit;
-        if (Physics.Raycast(this.transform.position, playerModelTr.forward, out hit, moveSpeed * 2, LayerMask.NameToLayer("WallLayer")))
+        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, moveSpeed * 2))//, LayerMask.NameToLayer("WallLayer")))
         {
-            tr.position = new Vector3(hit.point.x, 1.2f, hit.point.z);
+            tr.position = new Vector3(hit.point.x, 0.2f, hit.point.z);
         }
         else
         {

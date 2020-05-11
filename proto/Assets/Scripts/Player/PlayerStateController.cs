@@ -80,7 +80,6 @@ public class PlayerStateController : MonoBehaviour
                 m_waiter += Time.deltaTime;
                 if (m_waiter > m_retireTime)
                 {
-                    Debug.Log("retire");
                     gm.PhaseRetry();
                     curState = PlayerState.IDLE;
                     m_waiter = 0.0f;

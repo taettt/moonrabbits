@@ -20,23 +20,15 @@ public class PlayerBullet : Bullet
 
     void Update()
     {
-        this.transform.Translate(Vector3.forward * Time.smoothDeltaTime * speed);
+        this.transform.Translate(dir * Time.smoothDeltaTime * speed);
     }
 
     void OnTriggerEnter(Collider coll)
     {
         switch(coll.tag)
         {
-            case "WALL":
-                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.LookRotation(this.transform.forward));
-                Destroy();
-                break;
-            case "OBSTACLE":
-                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.LookRotation(this.transform.forward));
-                Destroy();
-                break;
             case "ENEMY":
-                Instantiate(destroyPrefab_2, this.transform.position, Quaternion.LookRotation(this.transform.forward));
+                Instantiate(destroyPrefab_2, this.transform.position, Quaternion.LookRotation(dir));
 
                 BossController ec = coll.GetComponent<BossController>();
                 ec.DecreaseHP(attack);
@@ -48,10 +40,25 @@ public class PlayerBullet : Bullet
                 Destroy();
                 break;
             case "MINION":
-                Instantiate(destroyPrefab_2, this.transform.position, Quaternion.LookRotation(this.transform.forward));
+                Instantiate(destroyPrefab_2, this.transform.position, Quaternion.LookRotation(dir));
 
                 coll.GetComponent<MinionController>().DropSeed();
                 Destroy(coll.gameObject);
+                break;
+        }
+    }
+
+    private void OnCollisionEnter(Collision coll)
+    {
+        switch(coll.gameObject.tag)
+        {
+            case "WALL":
+                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.LookRotation(this.transform.forward));
+                Destroy();
+                break;
+            case "OBSTACLE":
+                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.LookRotation(this.transform.forward));
+                Destroy();
                 break;
         }
     }

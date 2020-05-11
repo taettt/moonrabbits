@@ -69,6 +69,10 @@ public class Boss_1Control : BossControl
 
     public void RetryInit()
     {
+        StopAllCoroutines();
+        curCoroutine_F = null;
+        curCoroutine_S = null;
+
         m_isMoving = false;
         m_moveTimer = 0.0f;
         m_curPatternIndex = -1;
@@ -76,6 +80,7 @@ public class Boss_1Control : BossControl
         m_curMoveIndex = 0;
 
         bc.init = false;
+        Invoke("ExcutePhase", 2.0f);
     }
 
     private void ExcutePhase()

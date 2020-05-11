@@ -19,19 +19,26 @@ public class EnemyBullet : Bullet
 
     void Update()
     {
-        if (!m_direct)
-        {
-            this.transform.Translate(Vector3.forward * Time.smoothDeltaTime * speed);
-        }
-        else
-        {
-            this.transform.Translate(dir * Time.smoothDeltaTime * speed);
-        }
+        this.transform.Translate(dir * Time.smoothDeltaTime * speed);
     }
 
     private void OnTriggerEnter(Collider coll)
     {
         switch(coll.tag)
+        {
+            case "PLAYER":
+                Instantiate(m_playerDestroyPrefab, this.transform.position, Quaternion.LookRotation(this.transform.forward));
+
+                PlayerController pc = coll.gameObject.GetComponent<PlayerController>();
+                pc.DecreaseHP(attack);
+                Destroy();
+                break;
+        }
+    }
+
+    private void OnCollisionEnter(Collision coll)
+    {
+        switch(coll.gameObject.tag)
         {
             case "WALL":
                 Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(this.transform.forward));
@@ -39,13 +46,6 @@ public class EnemyBullet : Bullet
                 break;
             case "OBSTACLE":
                 Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(this.transform.forward));
-                Destroy();
-                break;
-            case "PLAYER":
-                Instantiate(m_playerDestroyPrefab, this.transform.position, Quaternion.LookRotation(this.transform.forward));
-
-                PlayerController pc = coll.gameObject.GetComponent<PlayerController>();
-                pc.DecreaseHP(attack);
                 Destroy();
                 break;
         }
