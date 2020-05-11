@@ -52,6 +52,8 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
+        UpdateFX();
+
         if(Input.GetMouseButtonDown(2))
         {
             if (psc.curState == PlayerState.ATTACKED)
@@ -59,8 +61,6 @@ public class Weapon : MonoBehaviour
 
             curState = AttackState.CHARGE;
             pmc.moveSpeed = 4.8f;
-
-            Instantiate(m_chargeFX[(int)ChargeFXState.READY], this.transform);
         }
 
         else if(Input.GetMouseButton(2))
@@ -75,16 +75,11 @@ public class Weapon : MonoBehaviour
 
             if (curChargeTime >= chargeStep[2])
             {
-                m_chargeFX[(int)ChargeFXState.FULL].transform.GetChild(0).GetComponent<ParticleSystem>().Play();
-                m_chargeFX[(int)ChargeFXState.FULL].SetActive(true);
-
-                m_chargeFX[(int)ChargeFXState.CHARGING].transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
                 m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(false);
             }
             else
             {
                 m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(true);
-                m_chargeFX[(int)ChargeFXState.CHARGING].transform.GetChild(0).GetComponent<ParticleSystem>().Play();
             }
         }
 
@@ -99,10 +94,9 @@ public class Weapon : MonoBehaviour
                 StartCoroutine(Attack_Charge_Check(Input.mousePosition));
             }
 
-            m_chargeFX[(int)ChargeFXState.FULL].transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
             m_chargeFX[(int)ChargeFXState.FULL].SetActive(false);
-            m_chargeFX[(int)ChargeFXState.CHARGING].transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
             m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(false);
+
             GameObject go = Instantiate(m_chargeFX[(int)ChargeFXState.SHOOT], this.transform.position, Quaternion.LookRotation(m_dirVec));
             go.transform.SetParent(this.transform);
         }
@@ -117,6 +111,19 @@ public class Weapon : MonoBehaviour
         else
         {
             pmc.moveSpeed = 6.0f;
+        }
+    }
+
+    private void UpdateFX()
+    {
+        if(curChargeTime == chargeStep[1] || curChargeTime == chargeStep[2])
+        {
+            Instantiate(m_chargeFX[(int)ChargeFXState.READY], this.transform);
+        }
+
+        else if(curChargeTime > chargeStep[2])
+        {
+            m_chargeFX[(int)ChargeFXState.FULL].SetActive(true);
         }
     }
 

@@ -2411,8 +2411,8 @@ MonoBehaviour:
   psc: {fileID: 1201668553}
   m_chargeFX:
   - {fileID: 6792516149527534887, guid: 935019111709470438a49171a672b002, type: 3}
-  - {fileID: 1301810100647641904, guid: e5a18a4b326ee9b4a81300a61aa0bb12, type: 3}
-  - {fileID: 7805448643664130155, guid: cb52e9c8236e34848852cd03d12e9323, type: 3}
+  - {fileID: 1794698845}
+  - {fileID: 2089235107}
   - {fileID: 6322740911916999157, guid: 86713b3faf24faf4b9df5b0fecc33872, type: 3}
   - {fileID: 2912854159104389321, guid: d6e275de0279bba43bc0981a868a36ea, type: 3}
   - {fileID: 834297985032657630, guid: 808718a8c7905944fa1261f9a6f5e31b, type: 3}
@@ -8440,6 +8440,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1794698843}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1794698845 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1301810100647641904, guid: e5a18a4b326ee9b4a81300a61aa0bb12,
+    type: 3}
+  m_PrefabInstance: {fileID: 1794698843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1795673675
 GameObject:
   m_ObjectHideFlags: 0
@@ -9819,6 +9825,12 @@ PrefabInstance:
 --- !u!4 &2089235106 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7805448643664130164, guid: cb52e9c8236e34848852cd03d12e9323,
+    type: 3}
+  m_PrefabInstance: {fileID: 2089235105}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2089235107 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7805448643664130155, guid: cb52e9c8236e34848852cd03d12e9323,
     type: 3}
   m_PrefabInstance: {fileID: 2089235105}
   m_PrefabAsset: {fileID: 0}
