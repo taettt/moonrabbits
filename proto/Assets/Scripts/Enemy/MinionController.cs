@@ -19,6 +19,7 @@ public class MinionController : MonoBehaviour
     void Awake()
     {
         seedParent = GameObject.Find("Traps").transform;
+        playerTr = GameObject.FindWithTag("PLAYER").transform;
     }
 
     void Start()
@@ -30,7 +31,7 @@ public class MinionController : MonoBehaviour
 
     void Update()
     {
-        this.transform.position = Vector3.MoveTowards(this.transform.position, playerTr.position, m_moveSpeed * Time.deltaTime);
+        //this.transform.position = Vector3.MoveTowards(this.transform.position, playerTr.position, m_moveSpeed * Time.deltaTime);
     }
 
     void OnTriggernEnter(Collider coll)
@@ -48,7 +49,7 @@ public class MinionController : MonoBehaviour
 
     private void Init()
     {
-        m_hp = 12;
+        m_hp = 2;
         m_moveSpeed = 2.0f;
         m_attackDelay = 2.0f;
         m_attackSpeed = 2.0f;
@@ -86,6 +87,6 @@ public class MinionController : MonoBehaviour
     {
         var bullet = ObjectManager.PushObject("EnemyBullet").GetComponent<EnemyBullet>();
         bullet.transform.position = this.transform.position;
-        bullet.Spawn(bullet.transform.position, m_dir, m_attackSpeed, m_attackStat);
+        bullet.Spawn(bullet.transform.position, m_dir * -1f, m_attackSpeed, m_attackStat);
     }
 }

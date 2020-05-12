@@ -6,6 +6,7 @@ public class SeedTrap : MonoBehaviour
 {
     private float m_rad;
     private float m_seedTime;
+    private float m_seedTimer;
 
     [SerializeField]
     private bool m_flowerTurn;
@@ -18,7 +19,8 @@ public class SeedTrap : MonoBehaviour
 
     void Update()
     {
-        if(Time.time>m_seedTime)
+        m_seedTimer += Time.deltaTime;
+        if(m_seedTimer>m_seedTime)
         {
             m_flowerTurn = true;
         }
@@ -26,16 +28,14 @@ public class SeedTrap : MonoBehaviour
 
     void OnTriggerEnter(Collider coll)
     {
-        switch (coll.gameObject.tag)
+        switch (coll.tag)
         {
             case "ENEMY":
-                if (!m_flowerTurn)
+                if (m_flowerTurn)
                 {
-                    return;
+                    coll.gameObject.GetComponent<BossController>().DecreaseHP(m_damage);
+                    Destroy(this.gameObject);
                 }
-
-                coll.gameObject.GetComponent<BossController>().DecreaseHP(m_damage);
-                Destroy(this.gameObject);
                 break;
             case "PLAYER":
                 if (m_flowerTurn)
@@ -43,9 +43,21 @@ public class SeedTrap : MonoBehaviour
                     return;
                 }
 
-                coll.gameObject.GetComponent<BossController>().DecreaseHP(m_damage);
+                coll.gameObject.GetComponent<PlayerController>().DecreaseHP(m_damage);
                 Destroy(this.gameObject);
                 break;
+        }
+    }
+
+    void OnCollisionEnter(Collision coll)
+    {
+        if(coll.gameObject.tag == "ENEMY")
+        {
+            if (m_flowerTurn)
+            {
+                coll.gameObject.GetComponent<BossController>().DecreaseHP(m_damage);
+                Destroy(this.gameObject);
+            }
         }
     }
 

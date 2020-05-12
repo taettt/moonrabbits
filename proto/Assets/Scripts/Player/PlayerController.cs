@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
 
     public PlayerStateController sc;
 
+    public GameObject attackedFX;
+
     void Awake()
     {
         Initialize();
@@ -56,6 +58,7 @@ public class PlayerController : MonoBehaviour
             || sc.curState == PlayerState.RETIRE)
             return;
 
+        Instantiate(attackedFX, this.transform);
         if (m_hp - value <= 0)
         {
             m_life -= 1;

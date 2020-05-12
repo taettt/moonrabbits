@@ -12,10 +12,10 @@ public class PlayerMoveController : MonoBehaviour
     private Vector3 m_movement;
     [SerializeField]
     private Vector3 m_dir;
-    public float moveSpeed = 6.0f;
+    public float moveSpeed = 8.0f;
 
     private float teleportTimer;
-    public float teleportSpeed;
+    public float teleportSpeed = 4.0f;
     [SerializeField]
     private bool teleported;
     private float teleportDelay = 0.4f;
@@ -26,7 +26,6 @@ public class PlayerMoveController : MonoBehaviour
     void Awake()
     {
         tr = this.transform;
-        m_teleportTrail = tr.GetChild(2).gameObject;
         animator = tr.GetChild(0).GetComponent<Animator>();
     }
 
@@ -68,14 +67,14 @@ public class PlayerMoveController : MonoBehaviour
 
     private void PlayTeleportFX()
     {
-        m_teleportTrail.SetActive(true);
+        Instantiate(m_teleportTrail, this.transform.position, Quaternion.LookRotation(playerModelTr.forward));
         Instantiate(m_teleportFX, this.transform.position, Quaternion.LookRotation(playerModelTr.forward));
     }
 
     private void CheckWallAndTeleport()
     {
         RaycastHit hit;
-        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, moveSpeed * 2))//, LayerMask.NameToLayer("WallLayer")))
+        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed * 2))//, LayerMask.NameToLayer("WallLayer")))
         {
             tr.position = new Vector3(hit.point.x, 0.2f, hit.point.z);
         }
@@ -109,11 +108,11 @@ public class PlayerMoveController : MonoBehaviour
         if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)
             || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
-            animator.SetBool("Run", true);
+            animator.SetBool("IsRun", true);
         }
         else
         {
-            animator.SetBool("Run", false);
+            animator.SetBool("IsRun", false);
         }
     }
 }

@@ -11,6 +11,7 @@ public class Boss_1Control : BossControl
     private Coroutine curCoroutine_S = null;
 
     private bool m_isMoving;
+    private Animator animator;
 
     [SerializeField]
     private int m_curPatternIndex = -1;
@@ -26,6 +27,11 @@ public class Boss_1Control : BossControl
     private float m_waiter = 0.0f;
 
     public GameObject minionPrefab;
+
+    void Awake()
+    {
+        animator = this.transform.GetChild(0).GetComponent<Animator>();
+    }
 
     void Start()
     {
@@ -137,6 +143,8 @@ public class Boss_1Control : BossControl
             return;
         }
 
+        //animator.SetBool("IsAttack", true);
+
         for (float i = -180.0f; i <= 180.0f; i += 45.0f)
         {
             bc.ShootBullet(Utility.GetDirection(i), bc.attackSpeed, bc.damage);
@@ -149,6 +157,7 @@ public class Boss_1Control : BossControl
         else
         {
             m_curMoveIndex = 0;
+            //animator.SetBool("IsAttack", false);
             Invoke("ExcutePhase", 2);
         }
     }
@@ -166,13 +175,20 @@ public class Boss_1Control : BossControl
             return;
         }
 
+        //animator.SetBool("IsAttack", false);
+        animator.SetBool("IsRun", true);
         m_moveTimer += Time.deltaTime;
 
+        if (m_curMoveIndex + 1 != m_pattern_1Moves.Length)
+        {
+            this.transform.rotation = Quaternion.LookRotation((m_pattern_1Moves[m_curMoveIndex + 1]).normalized);
+        }
         this.transform.position = Vector3.MoveTowards(this.transform.position,
             m_pattern_1Moves[m_curMoveIndex], Time.deltaTime * bc.moveSpeed * 0.5f);
 
         if (m_moveTimer >= 1.0f)
         {
+            animator.SetBool("IsRun", false);
             m_curMoveIndex++;
             m_moveTimer = 0.0f;
         }
@@ -199,6 +215,7 @@ public class Boss_1Control : BossControl
     private IEnumerator Pattern2_2Shoot()
     {
         yield return new WaitForSeconds(2.0f);
+        //animator.SetBool("IsAttack", true);
 
         while (m_curPatternCount < m_patternMaxCount[m_curPatternIndex])
         {
@@ -227,6 +244,7 @@ public class Boss_1Control : BossControl
 
         if (m_curPatternCount >= m_patternMaxCount[m_curPatternIndex])
         {
+            //animator.SetBool("IsAttack", false);
             StopCoroutine(curCoroutine_F);
             Invoke("ExcutePhase", 2);
         }
@@ -239,11 +257,13 @@ public class Boss_1Control : BossControl
 
         m_moveTimer += Time.deltaTime;
 
+        animator.SetBool("IsRun", true);
         this.transform.position = Vector3.MoveTowards(this.transform.position,
             m_pattern_2Move, Time.deltaTime * bc.moveSpeed * 2.0f);
 
         if (m_moveTimer >= 1.0f)
         {
+            animator.SetBool("IsRun", false);
             m_moveTimer = 0.0f;
             m_isMoving = false;
         }
@@ -256,19 +276,23 @@ public class Boss_1Control : BossControl
 
         StopCoroutine(curCoroutine_F);
 
+        //animator.SetBool("IsAttack", true);
+
         float dis = Vector3.Distance(this.transform.position, bc.playerTr.position);
         Vector3 dir = bc.playerTr.position - this.transform.position;
         dir = dir.normalized;
 
-        bc.ShootBullet(dir, bc.attackSpeed * 2.0f, bc.damage * 4);
+        bc.ShootBullet(dir * -1f, bc.attackSpeed * 2.0f, bc.damage * 4);
 
         m_curPatternCount++;
         if (m_curPatternCount < m_patternMaxCount[m_curPatternIndex])
         {
+            //animator.SetBool("IsAttack", false);
             Invoke("Pattern3Shoot", 1.0f);
         }
         else
         {
+            //animator.SetBool("IsAttack", false);
             Invoke("ExcutePhase", 2.0f);
         }
     }
@@ -285,20 +309,22 @@ public class Boss_1Control : BossControl
             {
                 if (bc.playerTr.position.z < 0.0f)
                 {
-                    targetPos = new Vector3((bc.playerTr.position.x), 1.2f, bc.playerTr.position.z + 20.0f);
+                    targetPos = new Vector3((bc.playerTr.position.x), 0.2f, bc.playerTr.position.z + 20.0f);
                 }
                 else
                 {
-                    targetPos = new Vector3((bc.playerTr.position.x), 1.2f, (bc.playerTr.position.z + 20.0f) * -1f);
+                    targetPos = new Vector3((bc.playerTr.position.x), 0.2f, (bc.playerTr.position.z + 20.0f) * -1f);
                 }
 
+                animator.SetBool("IsRun", true);
                 this.transform.position = Vector3.MoveTowards(this.transform.position,
                     targetPos, Time.deltaTime * bc.moveSpeed);
                 this.transform.forward = dir;
 
                 m_moveTimer += Time.deltaTime;
-                if (m_moveTimer > 1.0f)
+                if (m_moveTimer > 0.3f)
                 {
+                    animator.SetBool("IsRun", false);
                     m_moveTimer = 0.0f;
                     m_isMoving = false;
                 }
@@ -323,11 +349,11 @@ public class Boss_1Control : BossControl
         {
             if (bc.playerTr.position.z < 0.0f)
             {
-                targetPos = new Vector3((bc.playerTr.position.x), 1.2f, bc.playerTr.position.z + 20.0f);
+                targetPos = new Vector3((bc.playerTr.position.x), 0f, bc.playerTr.position.z + 20.0f);
             }
             else
             {
-                targetPos = new Vector3((bc.playerTr.position.x), 1.2f, (bc.playerTr.position.z + 20.0f) * -1f);
+                targetPos = new Vector3((bc.playerTr.position.x), 0f, (bc.playerTr.position.z + 20.0f) * -1f);
             }
 
             this.transform.position = Vector3.MoveTowards(this.transform.position,

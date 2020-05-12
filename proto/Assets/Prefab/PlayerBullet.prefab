@@ -70,9 +70,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d0b4d2eeebe41c4694405b661e9c990, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyPrefab_1: {fileID: 3670566435855796757, guid: 59662a9b754d19644888c9cb3e8b7b14,
+  destroyPrefab_1: {fileID: 4844180591542177096, guid: d17bd959ac7f9d74a8085f47a6f61026,
     type: 3}
-  destroyPrefab_2: {fileID: 5943650051753669964, guid: 0cc0eb0ce8294d1448572ded7c63da6c,
+  destroyPrefab_2: {fileID: 8358293577810144538, guid: 89847ac4b87dc804b92b9b73be67aa48,
     type: 3}
   chargingPrefab:
   - {fileID: 5142595526432394808}
@@ -186,6 +186,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7754160883169474092}
     m_Modifications:
+    - target: {fileID: 2406131101613844890, guid: 3076570e3d8bec0449d343bf8e847f51,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2406131101613844891, guid: 3076570e3d8bec0449d343bf8e847f51,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -220,11 +225,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2406131101613844890, guid: 3076570e3d8bec0449d343bf8e847f51,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5574022518053238295, guid: 3076570e3d8bec0449d343bf8e847f51,
         type: 3}

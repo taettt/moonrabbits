@@ -27,8 +27,16 @@ public class EnemyBullet : Bullet
         switch(coll.tag)
         {
             case "PLAYER":
-                Instantiate(m_playerDestroyPrefab, this.transform.position, Quaternion.LookRotation(this.transform.forward));
+                if (coll.GetComponent<PlayerStateController>().curState == PlayerState.ATTACKED ||
+                    coll.GetComponent<PlayerStateController>().curState == PlayerState.NOCK ||
+                    coll.GetComponent<PlayerStateController>().curState == PlayerState.INVI ||
+                    coll.GetComponent<PlayerStateController>().curState == PlayerState.RETIRE)
+                {
+                    Destroy();
+                    return;
+                }
 
+                Instantiate(m_playerDestroyPrefab, this.transform.position, Quaternion.LookRotation(dir * -1f));
                 PlayerController pc = coll.gameObject.GetComponent<PlayerController>();
                 pc.DecreaseHP(attack);
                 Destroy();
@@ -41,11 +49,11 @@ public class EnemyBullet : Bullet
         switch(coll.gameObject.tag)
         {
             case "WALL":
-                Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(this.transform.forward));
+                Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(dir));
                 Destroy();
                 break;
             case "OBSTACLE":
-                Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(this.transform.forward));
+                Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(dir));
                 Destroy();
                 break;
         }

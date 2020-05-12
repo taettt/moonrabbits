@@ -33,9 +33,6 @@ public class PlayerStateController : MonoBehaviour
 
     public Text stateText;
 
-    // fxs
-    public GameObject attackedFX;
-
     void Update()
     {
         ProcessState();
@@ -53,7 +50,6 @@ public class PlayerStateController : MonoBehaviour
             case PlayerState.ATTACKED:
                 // anim start
                 stateText.text = "STATE : ATTACKED " + m_waiter;
-                Instantiate(attackedFX, this.transform);
                 m_waiter += Time.deltaTime;
                 if (m_waiter > m_attackedTime)
                 {

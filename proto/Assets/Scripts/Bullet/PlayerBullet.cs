@@ -44,6 +44,7 @@ public class PlayerBullet : Bullet
 
                 coll.GetComponent<MinionController>().DropSeed();
                 Destroy(coll.gameObject);
+                Destroy();
                 break;
         }
     }
