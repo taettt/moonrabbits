@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     public void Initialize()
     {
         m_hp = 40;
-        m_life = 3;
+        m_life = 1;
         sc.curState = PlayerState.IDLE;
 
         m_isAttacked = false;

@@ -8,6 +8,11 @@ public class BossControl : MonoBehaviour
     public bool randomRound { get { return m_randomRound; } set { m_randomRound = value; } }
     public Queue<int> phaseRandQueue;
 
+    public virtual void Initialize()
+    {
+
+    }
+
     public void SetRandQueue(int patternCount)
     {
         if (phaseRandQueue.Count > 0)

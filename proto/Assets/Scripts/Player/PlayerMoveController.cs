@@ -20,7 +20,6 @@ public class PlayerMoveController : MonoBehaviour
     private bool teleported;
     private float teleportDelay = 0.4f;
 
-    public GameObject m_teleportTrail;
     public GameObject m_teleportFX;
 
     void Awake()
@@ -67,14 +66,14 @@ public class PlayerMoveController : MonoBehaviour
 
     private void PlayTeleportFX()
     {
-        Instantiate(m_teleportTrail, this.transform.position, Quaternion.LookRotation(playerModelTr.forward));
-        Instantiate(m_teleportFX, this.transform.position, Quaternion.LookRotation(playerModelTr.forward));
+        GameObject go = Instantiate(m_teleportFX, this.transform.position, Quaternion.LookRotation(playerModelTr.forward));
+        go.transform.SetParent(this.transform);
     }
 
     private void CheckWallAndTeleport()
     {
         RaycastHit hit;
-        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed * 2))//, LayerMask.NameToLayer("WallLayer")))
+        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed * 2, wallCollisionMask))
         {
             tr.position = new Vector3(hit.point.x, 0.2f, hit.point.z);
         }
@@ -82,8 +81,6 @@ public class PlayerMoveController : MonoBehaviour
         {
             tr.position += playerModelTr.forward * moveSpeed * 2;
         }
-
-        m_teleportTrail.SetActive(false);
     }
 
     private void Move()

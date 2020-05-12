@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 125
-    y: 104
+    x: 32
+    y: 62
     width: 1298
     height: 721
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 524}
+  m_MinSize: {x: 950, y: 548}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -45,7 +45,7 @@ MonoBehaviour:
     y: 0
     width: 1298
     height: 721
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 548}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -91,10 +91,10 @@ MonoBehaviour:
     y: 30
     width: 1298
     height: 671
-  m_MinSize: {x: 613, y: 474}
-  m_MaxSize: {x: 18008, y: 14024}
+  m_MinSize: {x: 713, y: 498}
+  m_MaxSize: {x: 18008, y: 14048}
   vertical: 0
-  controlID: 51
+  controlID: 114
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -135,15 +135,15 @@ MonoBehaviour:
     y: 0
     width: 603
     height: 671
-  m_MinSize: {x: 102, y: 124}
+  m_MinSize: {x: 202, y: 224}
   m_MaxSize: {x: 4002, y: 4024}
-  m_ActualView: {fileID: 11}
+  m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
   - {fileID: 12}
   - {fileID: 11}
-  m_Selected: 2
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 2
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -165,10 +165,10 @@ MonoBehaviour:
     y: 0
     width: 308
     height: 671
-  m_MinSize: {x: 234, y: 474}
-  m_MaxSize: {x: 10004, y: 14024}
+  m_MinSize: {x: 234, y: 498}
+  m_MaxSize: {x: 10004, y: 14048}
   vertical: 1
-  controlID: 82
+  controlID: 51
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -269,8 +269,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 125
-    y: 134
+    x: 100
+    y: 99
     width: 601
     height: 651
   m_PersistentViewDataDictionary: {fileID: 0}
@@ -456,8 +456,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1036
-    y: 134
+    x: 943
+    y: 92
     width: 385
     height: 651
   m_PersistentViewDataDictionary: {fileID: 0}
@@ -491,10 +491,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2
-    y: 339
+    x: 635
+    y: 409
     width: 304
-    height: 330
+    height: 334
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SearchFilter:
     m_NameFilter: 
@@ -508,7 +508,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Player
+    - Assets/Scripts/Enemy
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
@@ -520,7 +520,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 76a40000
     m_LastClickedID: 42102
-    m_ExpandedIDs: 000000003c2800009e280000182b0000e02b0000662c0000d42c00000a2f0000cc2f0000f6440000f8440000
+    m_ExpandedIDs: 000000001e280000a8280000222b0000242c0000d22c0000402d00004e2f0000822f000044300000ce350000dc350000284600002a460000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -545,21 +545,21 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 4}
+    scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff000000003c2800009e280000182b0000e02b0000662c0000d42c0000d62e00000a2f0000cc2f00001635000024350000f6440000f8440000
+    m_ExpandedIDs: ffffffff000000001e280000a8280000222b0000d22c00004e2f0000822f000044300000dc350000284600002a460000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: MinionTrap
-      m_OriginalName: MinionTrap
+      m_Name: BossController
+      m_OriginalName: BossController
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 12024
+      m_UserData: 9458
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -624,10 +624,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 594
-    y: 162
-    width: 543
-    height: 546
+    x: 32
+    y: 92
+    width: 601
+    height: 651
   m_PersistentViewDataDictionary: {fileID: 0}
   m_WindowGUID: 6f27ded8e73ac9d48a8682614ac8121d
   m_SceneLighting: 1
@@ -635,9 +635,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 7.509284, y: -1.3957548, z: 0.40742993}
+    m_Target: {x: -1.7869983, y: 2.9887943, z: -5.4000444}
     speed: 2
-    m_Value: {x: 7.509284, y: -1.3957548, z: 0.40742993}
+    m_Value: {x: -1.7869983, y: 2.9887943, z: -5.4000444}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -665,13 +665,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.11393867, y: -0.623629, z: 0.0925462, w: -0.7678152}
+    m_Target: {x: 0.33918807, y: 0.22864424, z: -0.08536675, w: 0.9085075}
     speed: 2
-    m_Value: {x: -0.11393867, y: -0.623629, z: 0.0925462, w: -0.7678152}
+    m_Value: {x: 0.33918807, y: 0.22864424, z: -0.08536675, w: 0.9085075}
   m_Size:
-    m_Target: 22.441067
+    m_Target: 23.776154
     speed: 2
-    m_Value: 22.441067
+    m_Value: 23.776154
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -704,28 +704,28 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 728
-    y: 134
+    x: 635
+    y: 92
     width: 304
     height: 297
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 180}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 707bd8ff8a7bd8ffe87dd8ffb6fbffff283a00007a3a0000c63a0000d83a00003a3b0000aa3b0000
+      scrollPos: {x: 0, y: 216}
+      m_SelectedIDs: fe3d0000
+      m_LastClickedID: 15870
+      m_ExpandedIDs: d6fbffffa03c0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: ani_boss_dummy_Tpose (1)
-        m_OriginalName: ani_boss_dummy_Tpose (1)
+        m_Name: EndText
+        m_OriginalName: EndText
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -556380
+        m_UserData: 15604
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 0

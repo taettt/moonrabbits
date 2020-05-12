@@ -36,8 +36,6 @@ public class Boss_1Control : BossControl
     void Start()
     {
         Initialize();
-
-        Invoke("ExcutePhase", 2.0f);
     }
 
     void Update()
@@ -71,6 +69,8 @@ public class Boss_1Control : BossControl
         m_curMoveIndex = 0;
 
         phaseRandQueue = new Queue<int>();
+
+        Invoke("ExcutePhase", 2.0f);
     }
 
     public void RetryInit()

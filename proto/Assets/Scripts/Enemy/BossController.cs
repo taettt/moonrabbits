@@ -63,6 +63,20 @@ public class BossController : MonoBehaviour
         //ConnectBoss();
     }
 
+    public void Initialize()
+    {
+        m_curBoss = m_bossList[0];
+
+        m_curHp = m_curBoss.m_maxHp;
+        m_curBossControl = this.GetComponent<Boss_1Control>();
+        m_curLife = m_curBoss.m_maxLife;
+        m_moveSpeed = m_curBoss.m_moveSpeed;
+        m_attackSpeed = m_curBoss.m_attackSpeed;
+        m_damage = m_curBoss.m_damage;
+
+        m_curBossControl.Initialize();
+    }
+
     public void PhaseInit()
     { 
         if (m_init)

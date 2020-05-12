@@ -33,6 +33,14 @@ public class GameManager : MonoBehaviour
         finishText.gameObject.SetActive(false);
         retryButton.gameObject.SetActive(false);
         Time.timeScale = 1.0f;
+
+        GameInitialize();
+    }
+
+    public void GameInitialize()
+    {
+        pc.Initialize();
+        bc.Initialize();
     }
 
     public void PhaseRetry()
