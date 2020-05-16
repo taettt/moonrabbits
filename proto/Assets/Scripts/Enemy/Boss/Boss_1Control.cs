@@ -60,7 +60,7 @@ public class Boss_1Control : BossControl
         }
     }
 
-    public void Initialize()
+    public override void Initialize()
     {
         m_isMoving = false;
         m_moveTimer = 0.0f;
@@ -278,11 +278,11 @@ public class Boss_1Control : BossControl
 
         //animator.SetBool("IsAttack", true);
 
-        float dis = Vector3.Distance(this.transform.position, bc.playerTr.position);
         Vector3 dir = bc.playerTr.position - this.transform.position;
         dir = dir.normalized;
+        Debug.DrawRay(this.transform.position, dir * 10.0f, Color.red);
 
-        bc.ShootBullet(dir * -1f, bc.attackSpeed * 2.0f, bc.damage * 4);
+        bc.ShootBullet(dir, bc.attackSpeed * 2.0f, bc.damage * 4);
 
         m_curPatternCount++;
         if (m_curPatternCount < m_patternMaxCount[m_curPatternIndex])

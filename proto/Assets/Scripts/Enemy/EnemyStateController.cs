@@ -23,62 +23,30 @@ public class EnemyStateController : MonoBehaviour
     public GameManager gm;
 
     // timer
-    private float m_waiter = 0.0f;
-    public float waiter { get { return m_waiter; } set { m_waiter = value; } }
-    private float m_attackedTime = 0.3f;
-    private float m_knockTime = 0.4f;
-    private float m_retireTime = 5.0f;
-    private float m_dieTime = 3.0f;
+    private float[] m_delayTime = new float[4] { 0.3f, 0.4f, 5.0f, 3.0f };
 
     void Update()
     {
-        ProcessState();
+        stateText.text = "Boss : " + m_curState;
     }
 
-    private void ProcessState()
+    public void SetState(EnemyState state)
     {
-        switch (curState)
+        m_curState = state;
+        if (m_curState == EnemyState.IDLE)
+            return;
+
+        if(m_curState == EnemyState.DEATH)
         {
-            case EnemyState.IDLE:
-                stateText.text = "STATE : IDLE" + m_waiter;
-                m_waiter = 0.0f;
-                break;
-            case EnemyState.ATTACKED:
-                // anim start
-                stateText.text = "STATE : ATTACKED" + m_waiter;
-                m_waiter += Time.deltaTime;
-                if (m_waiter > m_attackedTime)
-                {
-                    m_curState = EnemyState.IDLE;
-                    m_waiter = 0.0f;
-                    return;
-                }
-                break;
-            case EnemyState.NOCK:
-                stateText.text = "STATE : NOCK" + m_waiter;
-                m_waiter += Time.deltaTime;
-                if(m_waiter > m_knockTime)
-                {
-                    curState = EnemyState.NOCK;
-                    m_waiter = 0.0f;
-                    return;
-                }
-                break;
-            case EnemyState.RETIRE:
-                stateText.text = "STATE : RETIRE" + m_waiter;
-                // anim start
-                m_waiter += Time.deltaTime;
-                if(m_waiter > m_retireTime)
-                {
-                    curState = EnemyState.RETIRE;
-                    m_waiter = 0.0f;
-                    return;
-                }
-                break;
-            case EnemyState.DEATH:
-                stateText.text = "STATE : DEATH" + m_waiter;
-                gm.GameClear();
-                break;
+            gm.GameClear();
         }
+
+        StartCoroutine(ProcessState(m_delayTime[(int)m_curState - 1], EnemyState.IDLE));
+    }
+
+    private IEnumerator ProcessState(float delay, EnemyState nextState)
+    {
+        yield return new WaitForSeconds(delay);
+        SetState(nextState);
     }
 }

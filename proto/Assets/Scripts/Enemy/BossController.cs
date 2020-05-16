@@ -135,8 +135,7 @@ public class BossController : MonoBehaviour
     {
         if (sc.curState != EnemyState.NOCK)
         {
-            sc.waiter = 0.0f;
-            sc.curState = EnemyState.ATTACKED;
+            sc.SetState(EnemyState.ATTACKED);
         }
 
         if (m_curHp - value <= 0)
@@ -146,13 +145,11 @@ public class BossController : MonoBehaviour
             m_curLife -= 1;
             if (m_curLife <= 0)
             {
-                sc.waiter = 0.0f;
-                sc.curState = EnemyState.DEATH;
+                sc.SetState(EnemyState.DEATH);
             }
             else
             {
-                sc.waiter = 0.0f;
-                sc.curState = EnemyState.RETIRE;
+                sc.SetState(EnemyState.RETIRE);
             }
         }
 
@@ -164,8 +161,7 @@ public class BossController : MonoBehaviour
 
     public void SetNockbacked(float nockVal, Vector3 dir)
     {
-        sc.waiter = 0.0f;
-        sc.curState = EnemyState.NOCK;
+        sc.SetState(EnemyState.NOCK);
         StartCoroutine(KnockbackCoroutine(nockVal, dir));
     }
 

@@ -19,82 +19,45 @@ public class PlayerStateController : MonoBehaviour
     private PlayerState m_curState;
     public PlayerState curState { get { return m_curState; } set { m_curState = value; } }
 
+    public Text stateText;
     public GameManager gm;
 
     // timer
-    private float m_waiter = 0.0f;
-    public float waiter { get { return m_waiter; } set { m_waiter = value; } }
-    private float m_attackedTime = 0.3f;
-    private float m_absorpTime = 0.3f;
-    private float m_invincibleTime = 1.0f;
-    private float m_knockTime = 0.4f;
-    private float m_retireTime = 5.0f;
-    private float m_dieTime = 3.0f;
-
-    public Text stateText;
+    private float[] m_delayTime = new float[5] { 0.3f, 0.4f, 5.0f, 3.0f, 1.0f };
 
     void Update()
     {
-        ProcessState();
+        stateText.text = "Player : " + m_curState;
     }
 
-    // 코루틴도 ㄱㅊ을듯?
-    private void ProcessState()
+    public void SetState(PlayerState state)
     {
-        switch (m_curState)
+        m_curState = state;
+        if (m_curState == PlayerState.IDLE)
+            return;
+
+        if(m_curState == PlayerState.RETIRE)
         {
-            case PlayerState.IDLE:
-                stateText.text = "STATE : IDLE " + m_waiter;
-                m_waiter = 0.0f;
-                break;
-            case PlayerState.ATTACKED:
-                // anim start
-                stateText.text = "STATE : ATTACKED " + m_waiter;
-                m_waiter += Time.deltaTime;
-                if (m_waiter > m_attackedTime)
-                {
-                    curState = PlayerState.INVI;
-                    m_waiter = 0.0f;
-                    return;
-                }
-                break;
-            case PlayerState.NOCK:
-                stateText.text = "STATE : NOCK " + m_waiter;
-                // anim start
-                // standup anim start
-                m_waiter += Time.deltaTime;
-                if (m_waiter > m_knockTime)
-                {
-                    curState = PlayerState.INVI;
-                    m_waiter = 0.0f;
-                    return;
-                }
-                break;
-            case PlayerState.RETIRE:
-                stateText.text = "STATE : RETIRE " + m_waiter;
-                // anim start
-                m_waiter += Time.deltaTime;
-                if (m_waiter > m_retireTime)
-                {
-                    gm.PhaseRetry();
-                    curState = PlayerState.IDLE;
-                    m_waiter = 0.0f;
-                    return;
-                }
-                break;
-            case PlayerState.DEATH:
-                stateText.text = "STATE : DEATH " + m_waiter;
-                // anim start
-                gm.GameOver();
-                break;
-            case PlayerState.INVI:
-                stateText.text = "STATE : INVI " + m_waiter;
-                m_waiter += Time.deltaTime;
-                if (m_waiter > m_invincibleTime)
-                {
-                    curState = PlayerState.IDLE;
-                }
-                break;
+            gm.PhaseRetry();
         }
+        else if(m_curState == PlayerState.DEATH)
+        {
+            gm.GameOver();
+        }
+
+        if (m_curState == PlayerState.ATTACKED || m_curState == PlayerState.NOCK)
+        {
+            StartCoroutine(ProcessState(m_delayTime[(int)m_curState - 1], PlayerState.INVI));
+        }
+        else
+        {
+            StartCoroutine(ProcessState(m_delayTime[(int)m_curState - 1], PlayerState.IDLE));
+        }
+    }
+
+    private IEnumerator ProcessState(float delay, PlayerState nextState)
+    {
+        yield return new WaitForSeconds(delay);
+        SetState(nextState);
     }
 }

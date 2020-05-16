@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4421506330228322858}
+  - component: {fileID: 2632646692659058606}
   m_Layer: 0
   m_Name: TeleportFXs
-  m_TagString: Untagged
+  m_TagString: TELEPORTFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,6 +33,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2632646692659058606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7933006654756111794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 760a91ac9fb1ba04ea80c5a024098929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3198418851496018790
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -118,6 +131,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FX_Player_Move_Teleport1
+      objectReference: {fileID: 0}
+    - target: {fileID: 562438391532448403, guid: 7cd749fa10d7d8245a60bf599845963a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 562438391532448405, guid: 7cd749fa10d7d8245a60bf599845963a,
         type: 3}

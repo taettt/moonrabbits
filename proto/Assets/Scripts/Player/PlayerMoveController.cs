@@ -15,9 +15,10 @@ public class PlayerMoveController : MonoBehaviour
     public float moveSpeed = 8.0f;
 
     private float teleportTimer;
-    public float teleportSpeed = 4.0f;
+    public float teleportSpeed = 5.0f;
     [SerializeField]
-    private bool teleported;
+    private bool m_teleported;
+    public bool teleported { get { return m_teleported; } }
     private float teleportDelay = 0.4f;
 
     public GameObject m_teleportFX;
@@ -36,7 +37,7 @@ public class PlayerMoveController : MonoBehaviour
         rightVec = Quaternion.Euler(new Vector3(0.0f, 90.0f, 0.0f)) * forwardVec;
 
         teleportTimer = 0.0f;
-        teleported = false;
+        m_teleported = false;
     }
 
     void FixedUpdate()
@@ -48,18 +49,19 @@ public class PlayerMoveController : MonoBehaviour
             if (teleported)
                 return;
 
-            teleported = true;
+            m_teleported = true;
             PlayTeleportFX();
-            CheckWallAndTeleport();
         }
 
-        if (teleported)
+        if (m_teleported)
         {
+            CheckWallAndTeleport();
+
             teleportTimer += Time.deltaTime;
             if (teleportTimer >= teleportDelay)
             {
                 teleportTimer = 0.0f;
-                teleported = false;
+                m_teleported = false;
             }
         }
     }
@@ -73,13 +75,13 @@ public class PlayerMoveController : MonoBehaviour
     private void CheckWallAndTeleport()
     {
         RaycastHit hit;
-        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed * 2, wallCollisionMask))
+        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed, wallCollisionMask))
         {
-            tr.position = new Vector3(hit.point.x, 0.2f, hit.point.z);
+            tr.Translate(new Vector3(hit.point.x, 1.2f, hit.point.z) * Time.deltaTime);
         }
         else
         {
-            tr.position += playerModelTr.forward * moveSpeed * 2;
+            tr.Translate(playerModelTr.forward * teleportSpeed * Time.deltaTime);
         }
     }
 
@@ -96,7 +98,14 @@ public class PlayerMoveController : MonoBehaviour
         if (m_dir != Vector3.zero)
         {
             playerModelTr.forward = m_dir;
-            tr.position += m_movement;
+            if (teleported)
+            {
+                tr.position += m_movement * 1.2f;
+            }
+            else
+            {
+                tr.position += m_movement;
+            }
         }
     }
 

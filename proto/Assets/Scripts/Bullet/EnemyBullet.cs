@@ -27,6 +27,11 @@ public class EnemyBullet : Bullet
         switch(coll.tag)
         {
             case "PLAYER":
+                if(coll.GetComponent<PlayerMoveController>().teleported)
+                {
+                    return;
+                }
+
                 if (coll.GetComponent<PlayerStateController>().curState == PlayerState.ATTACKED ||
                     coll.GetComponent<PlayerStateController>().curState == PlayerState.NOCK ||
                     coll.GetComponent<PlayerStateController>().curState == PlayerState.INVI ||

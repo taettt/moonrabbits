@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public bool isLifeDown { get { return m_isLifeDown; } set { m_isLifeDown = value; } }
 
     public PlayerStateController sc;
+    public PlayerMoveController mc;
 
     public GameObject attackedFX;
 
@@ -55,7 +56,7 @@ public class PlayerController : MonoBehaviour
     public void DecreaseHP(int value)
     {
         if (sc.curState == PlayerState.ATTACKED || sc.curState == PlayerState.INVI
-            || sc.curState == PlayerState.RETIRE)
+            || sc.curState == PlayerState.RETIRE || mc.teleported)
             return;
 
         Instantiate(attackedFX, this.transform);
@@ -65,11 +66,11 @@ public class PlayerController : MonoBehaviour
             m_hp = 0;
             if (m_life <= 0)
             {
-                sc.curState = PlayerState.DEATH;
+                sc.SetState(PlayerState.DEATH);
             }
             else
             {
-                sc.curState = PlayerState.RETIRE;
+                sc.SetState(PlayerState.RETIRE);
                 m_hp = 40;
             }
         }
@@ -78,11 +79,11 @@ public class PlayerController : MonoBehaviour
         {
             if (value < m_attackedMaxDamage)
             {
-                sc.curState = PlayerState.ATTACKED;
+                sc.SetState(PlayerState.ATTACKED);
             }
             else
             {
-                sc.curState = PlayerState.NOCK;
+                sc.SetState(PlayerState.NOCK);
             }
 
             m_isAttacked = true;
@@ -92,8 +93,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetKoncked(float knockVal, Vector3 dir)
     {
-        sc.waiter = 0.0f;
-        sc.curState = PlayerState.NOCK;
+        sc.SetState(PlayerState.NOCK);
         StartCoroutine(KnockbackCoroutine(knockVal, dir));
     }
 }

@@ -43,6 +43,7 @@ public class Weapon : MonoBehaviour
 
     public Transform playerTr;
     public Transform playerModelTr;
+    public Transform weaponTr;
     public Animator animator;
     public PlayerMoveController pmc;
     public PlayerController pc;
@@ -97,15 +98,12 @@ public class Weapon : MonoBehaviour
                 pc.SetKoncked(2.0f, playerModelTr.forward);
                 StartCoroutine(Attack_Charge_Check(Input.mousePosition));
             }
-
-            //animator.SetTrigger("IsAttack");
         }
 
         else if(Input.GetMouseButton(1))
         {
             if(curState==AttackState.NONE)
             {
-                //animator.SetTrigger("IsAttack");
                 StartCoroutine(Attack_Long_Check(Input.mousePosition));
             }
         }
@@ -119,7 +117,7 @@ public class Weapon : MonoBehaviour
     {
         if(curChargeTime == chargeStep[1] || curChargeTime == chargeStep[2])
         {
-            Instantiate(m_chargeFX[(int)ChargeFXState.READY], this.transform);
+            Instantiate(m_chargeFX[(int)ChargeFXState.READY], weaponTr);
         }
 
         else if(curChargeTime > chargeStep[2])
@@ -200,7 +198,6 @@ public class Weapon : MonoBehaviour
         SetVectors(targetPos);
 
         var bullet = ObjectManager.PushObject("PlayerBullet").GetComponent<PlayerBullet>();
-        bullet.transform.SetParent(bulletParent);
         bullet.GetComponent<PlayerBullet>().SetVisual((PlayerBulletKind)kind);
         bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, speed, attack * attackPlus);
 
@@ -212,7 +209,6 @@ public class Weapon : MonoBehaviour
         SetVectors(targetPos);
 
         var bullet = ObjectManager.PushObject("PlayerBullet").GetComponent<PlayerBullet>();
-        bullet.transform.SetParent(bulletParent);
         bullet.GetComponent<PlayerBullet>().SetVisual(PlayerBulletKind.DEF);
         bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, speed, attack);
 
