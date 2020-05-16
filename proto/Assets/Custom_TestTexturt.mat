@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Custom_Test
-  m_Shader: {fileID: 4800000, guid: 40587b03655139b4887f8cd4f9c7e4a2, type: 3}
+  m_Name: Custom_TestTexturt
+  m_Shader: {fileID: 4800000, guid: a4f6ea5678c8cce4cb14e6313d5af1ac, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,11 +20,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 0e766ea9fd4118a4b83ab351b814f3e8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 479c20ff5626f1744a42a1d929753acb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: cd2c294aaeb90384993fd6ff7414713e, type: 3}
+        m_Texture: {fileID: 2800000, guid: b09d0416e910a674c946f2448e83aec7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex3:
+        m_Texture: {fileID: 2800000, guid: 99d3467fa522b1a4ea70490b96feb6c7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
