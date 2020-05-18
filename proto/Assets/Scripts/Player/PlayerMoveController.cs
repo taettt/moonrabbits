@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMoveController : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class PlayerMoveController : MonoBehaviour
     private bool m_teleported;
     public bool teleported { get { return m_teleported; } }
     private float teleportDelay = 0.4f;
+
+    public Text teleportText;
 
     public GameObject m_teleportFX;
 
@@ -44,6 +47,9 @@ public class PlayerMoveController : MonoBehaviour
     {
         Move();
         MoveAnim();
+
+        teleportText.text = "Dash Cool" + teleportTimer.ToString();
+
         if (Input.GetKeyUp(KeyCode.Space))
         {
             if (teleported)

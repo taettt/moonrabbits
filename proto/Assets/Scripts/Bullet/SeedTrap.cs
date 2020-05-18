@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SeedTrap : MonoBehaviour
 {
     private float m_rad;
     private float m_seedTime;
     private float m_seedTimer;
+
+    public Text seedText;
 
     [SerializeField]
     private bool m_flowerTurn;
@@ -19,6 +22,7 @@ public class SeedTrap : MonoBehaviour
 
     void Update()
     {
+        seedText.text = "Seed Time : " + m_seedTimer;
         m_seedTimer += Time.deltaTime;
         if(m_seedTimer>m_seedTime)
         {

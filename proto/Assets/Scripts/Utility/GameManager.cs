@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
         GameInitialize();
     }
 
+    public void StopGame()
+    {
+
+    }
+
     public void GameInitialize()
     {
         pc.Initialize();

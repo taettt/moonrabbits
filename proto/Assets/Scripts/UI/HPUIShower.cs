@@ -15,6 +15,9 @@ public class HPUIShower : MonoBehaviour
     public Image m_playerLife;
     public Sprite[] m_playerLifeImage = new Sprite[4];
 
+    public Text playerHpText;
+    public Text bossHpText;
+
     public Image m_enemyHpFillImages;
     public Image m_bossLife;
     public Sprite[] m_enemyLifeImage = new Sprite[6];
@@ -35,6 +38,9 @@ public class HPUIShower : MonoBehaviour
     {
         PlayerUpdate();
         EnemyUpdate();
+
+        playerHpText.text = pc.hp.ToString();
+        bossHpText.text = ec.curHp.ToString();
     }
 
     private void Initialize()

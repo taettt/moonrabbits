@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum AttackState
 {
@@ -37,6 +38,8 @@ public class Weapon : MonoBehaviour
     private float[] chargeStep = new float[3] { 0.0f, 0.5f, 1.0f };
     [SerializeField]
     private float curChargeTime = 0.0f;
+
+    public Text chargeText;
 
     [SerializeField]
     private AttackState curState;
@@ -123,6 +126,25 @@ public class Weapon : MonoBehaviour
         else if(curChargeTime > chargeStep[2])
         {
             m_chargeFX[(int)ChargeFXState.FULL].SetActive(true);
+        }
+    }
+
+    private void UpdateUI()
+    {
+        if (curState != AttackState.CHARGE)
+            return;
+
+        if (curChargeTime > chargeStep[2])
+        {
+            chargeText.text = "Charge : Charge_2";
+        }
+        else if (curChargeTime > chargeStep[1] && curChargeTime < chargeStep[2])
+        {
+            chargeText.text = "Charge : Charge_1";
+        }
+        else
+        {
+            chargeText.text = "Charge : Charge_0";
         }
     }
 
