@@ -5863,6 +5863,36 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &351285308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 351285309}
+  m_Layer: 0
+  m_Name: BulletCollision
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &351285309
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351285308}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1201668554}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &353507026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7405,7 +7435,7 @@ MonoBehaviour:
   shootHoleTr: {fileID: 1481620767}
   bulletParent: {fileID: 1517561759}
   curChargeTime: 0
-  chargeText: {fileID: 0}
+  chargeText: {fileID: 1868575835}
   curState: 0
   playerTr: {fileID: 1201668554}
   playerModelTr: {fileID: 2072267403}
@@ -7414,13 +7444,14 @@ MonoBehaviour:
   pmc: {fileID: 1201668555}
   pc: {fileID: 1201668552}
   psc: {fileID: 1201668553}
+  um: {fileID: 0}
   m_chargeFX:
   - {fileID: 6792516149527534887, guid: 935019111709470438a49171a672b002, type: 3}
   - {fileID: 1794698845}
   - {fileID: 2089235107}
   - {fileID: 6322740911916999157, guid: 86713b3faf24faf4b9df5b0fecc33872, type: 3}
-  - {fileID: 2912854159104389321, guid: d6e275de0279bba43bc0981a868a36ea, type: 3}
-  - {fileID: 834297985032657630, guid: 808718a8c7905944fa1261f9a6f5e31b, type: 3}
+  - {fileID: 1103733610058873166, guid: d6e275de0279bba43bc0981a868a36ea, type: 3}
+  - {fileID: 6832025882202068980, guid: 808718a8c7905944fa1261f9a6f5e31b, type: 3}
 --- !u!33 &548391599
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8034,6 +8065,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bc: {fileID: 659383031}
   curPhase: 0
+  playerTr: {fileID: 1201668554}
   m_curPatternIndex: -1
   m_pattern_1Moves:
   - {x: -10, y: 0.2, z: 0}
@@ -14096,8 +14128,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 536126ac6d765b24abda34dc01aff5aa, type: 3}
   - {fileID: 21300000, guid: 03f0c0d4232c5414095dcae9baa71384, type: 3}
   - {fileID: 21300000, guid: ab0ec9c70aad801498a0a82c9ac6e4c7, type: 3}
-  playerHpText: {fileID: 0}
-  bossHpText: {fileID: 0}
+  playerHpText: {fileID: 1643341497}
+  bossHpText: {fileID: 1856569363}
   m_enemyHpFillImages: {fileID: 1779366729}
   m_bossLife: {fileID: 725452048}
   m_enemyLifeImage:
@@ -14634,6 +14666,7 @@ Transform:
   m_Children:
   - {fileID: 2072267403}
   - {fileID: 548391597}
+  - {fileID: 351285309}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14657,7 +14690,7 @@ MonoBehaviour:
   moveSpeed: 4
   teleportSpeed: 4
   m_teleported: 0
-  teleportText: {fileID: 0}
+  teleportText: {fileID: 1445048372}
   m_teleportFX: {fileID: 7933006654756111794, guid: 45ab0869cfe21794989138a1dd8439e3,
     type: 3}
 --- !u!54 &1201668556
@@ -15676,8 +15709,8 @@ Transform:
   - {fileID: 1515299581}
   - {fileID: 913348089}
   - {fileID: 1643149808}
-  - {fileID: 927113730}
   - {fileID: 743659787}
+  - {fileID: 927113730}
   - {fileID: 669382374}
   - {fileID: 1098654808}
   - {fileID: 1075645540}
@@ -21089,17 +21122,17 @@ PrefabInstance:
     - target: {fileID: 1301810100647641905, guid: e5a18a4b326ee9b4a81300a61aa0bb12,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.88645416
+      value: 0.017
       objectReference: {fileID: 0}
     - target: {fileID: 1301810100647641905, guid: e5a18a4b326ee9b4a81300a61aa0bb12,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.45704967
+      value: -0.018
       objectReference: {fileID: 0}
     - target: {fileID: 1301810100647641905, guid: e5a18a4b326ee9b4a81300a61aa0bb12,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.04489532
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 1301810100647641905, guid: e5a18a4b326ee9b4a81300a61aa0bb12,
         type: 3}
@@ -23472,6 +23505,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ani_Player_T_pose
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 31a9266325fe9f040b79e028c4f7d611, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b37308f72b69d554a862b50f752afe95, type: 2}
     - target: {fileID: 400000, guid: 31a9266325fe9f040b79e028c4f7d611, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.000094019
@@ -23528,10 +23565,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.15
       objectReference: {fileID: 0}
-    - target: {fileID: 9500000, guid: 31a9266325fe9f040b79e028c4f7d611, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: b37308f72b69d554a862b50f752afe95, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31a9266325fe9f040b79e028c4f7d611, type: 3}
 --- !u!4 &2072267403 stripped
@@ -23566,17 +23599,17 @@ PrefabInstance:
     - target: {fileID: 7805448643664130164, guid: cb52e9c8236e34848852cd03d12e9323,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.88645416
+      value: -0.029
       objectReference: {fileID: 0}
     - target: {fileID: 7805448643664130164, guid: cb52e9c8236e34848852cd03d12e9323,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.45704967
+      value: 0.016
       objectReference: {fileID: 0}
     - target: {fileID: 7805448643664130164, guid: cb52e9c8236e34848852cd03d12e9323,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.04489532
+      value: 0.029
       objectReference: {fileID: 0}
     - target: {fileID: 7805448643664130164, guid: cb52e9c8236e34848852cd03d12e9323,
         type: 3}

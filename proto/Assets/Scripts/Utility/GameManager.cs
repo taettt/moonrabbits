@@ -39,7 +39,14 @@ public class GameManager : MonoBehaviour
 
     public void StopGame()
     {
-
+        if (Time.timeScale == 0.0f)
+        {
+            Time.timeScale = 1.0f;
+        }
+        else
+        {
+            Time.timeScale = 0.0f;
+        }
     }
 
     public void GameInitialize()

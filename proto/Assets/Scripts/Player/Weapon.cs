@@ -23,6 +23,7 @@ enum ChargeFXState
     NUM
 }
 
+// fx func 만들기 정리하기
 public class Weapon : MonoBehaviour
 {
     // default
@@ -51,6 +52,7 @@ public class Weapon : MonoBehaviour
     public PlayerMoveController pmc;
     public PlayerController pc;
     public PlayerStateController psc;
+    public UrgentManager um;
 
     // ready, charging, full, shoot, attack1, attack2
     public GameObject[] m_chargeFX;
@@ -105,7 +107,14 @@ public class Weapon : MonoBehaviour
 
         else if(Input.GetMouseButton(1))
         {
-            if(curState==AttackState.NONE)
+            if (curState != AttackState.NONE)
+                return;
+
+            if(um.urgentChargeBonus!=0)
+            {
+                StartCoroutine(Attack_Charge_Check(Input.mousePosition));
+            }
+            else
             {
                 StartCoroutine(Attack_Long_Check(Input.mousePosition));
             }
@@ -210,6 +219,19 @@ public class Weapon : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
             curState = AttackState.NONE;
         }
+    }
+
+    private IEnumerator Attack_Urgent_Charge(Vector3 mousePos)
+    {
+        Vector3 pos = ConversionPos(mousePos);
+
+        speed = 24.0f;
+        attack = 2;
+
+        Attack_Charge(pos, 4, 2);
+
+        yield return new WaitForSeconds(0.25f);
+
     }
 
     private void Attack_Charge(Vector3 targetPos, int attackPlus, int kind)

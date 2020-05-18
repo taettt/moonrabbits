@@ -7,6 +7,8 @@ public class Boss_1Control : BossControl
     public BossController bc;
     public BossPhase curPhase;
 
+    public Transform playerTr;
+
     private Coroutine curCoroutine_F = null;
     private Coroutine curCoroutine_S = null;
 
@@ -219,7 +221,7 @@ public class Boss_1Control : BossControl
 
         while (m_curPatternCount < m_patternMaxCount[m_curPatternIndex])
         {
-            Vector3 dir = bc.playerTr.position - this.transform.position;
+            Vector3 dir = playerTr.position - this.transform.position;
             dir = dir.normalized;
 
             for (float i = -30.0f; i <= 30.0f; i += 30.0f)
@@ -278,7 +280,7 @@ public class Boss_1Control : BossControl
 
         //animator.SetBool("IsAttack", true);
 
-        Vector3 dir = bc.playerTr.position - this.transform.position;
+        Vector3 dir = playerTr.position - this.transform.position;
         dir = dir.normalized;
         Debug.DrawRay(this.transform.position, dir * 10.0f, Color.red);
 
@@ -302,18 +304,18 @@ public class Boss_1Control : BossControl
         while (m_isMoving)
         {
             Vector3 targetPos = Vector3.zero;
-            float dis = Vector3.Distance(bc.playerTr.position, this.transform.position);
-            Vector3 dir = (bc.playerTr.position - this.transform.position).normalized;
+            float dis = Vector3.Distance(playerTr.position, this.transform.position);
+            Vector3 dir = (playerTr.position - this.transform.position).normalized;
 
             if (dis <= 15.0f)
             {
                 if (bc.playerTr.position.z < 0.0f)
                 {
-                    targetPos = new Vector3((bc.playerTr.position.x), 0.2f, bc.playerTr.position.z + 20.0f);
+                    targetPos = new Vector3((playerTr.position.x), 0.2f, playerTr.position.z + 20.0f);
                 }
                 else
                 {
-                    targetPos = new Vector3((bc.playerTr.position.x), 0.2f, (bc.playerTr.position.z + 20.0f) * -1f);
+                    targetPos = new Vector3((playerTr.position.x), 0.2f, (playerTr.position.z + 20.0f) * -1f);
                 }
 
                 animator.SetBool("IsRun", true);
