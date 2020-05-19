@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Boss_1Control : BossControl
 {
@@ -19,6 +20,9 @@ public class Boss_1Control : BossControl
     private int m_curPatternIndex = -1;
     private int m_curPatternCount = 0;
     private int[] m_patternMaxCount = new int[4] { 16, 10, 3, 4 };
+
+    public Text patternText;
+    public float patternTimer;
 
     private int m_curMoveIndex = 0;
     public Vector3[] m_pattern_1Moves;
@@ -48,15 +52,19 @@ public class Boss_1Control : BossControl
         if (bc.init)
             return;
 
+        patternTimer += Time.deltaTime;
         switch (m_curPatternIndex)
         {
             case 0:
+                patternText.text = "Pattern 1 : " + patternTimer;
                 Pattern1Move();
                 break;
             case 1:
+                patternText.text = "Pattern 2 : " + patternTimer;
                 Pattern2Move();
                 break;
             case 2:
+                patternText.text = "Pattern 3 : " + patternTimer;
                 //Pattern3Move();
                 break;
         }
@@ -136,6 +144,8 @@ public class Boss_1Control : BossControl
                 Invoke("ExcutePhase", 0.1f);
                 break;
         }
+
+        patternTimer = 0.0f;
     }
 
     private void Pattern1Shoot()

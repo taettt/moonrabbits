@@ -6,8 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    public void ChagneScene(string name)
+    public static void ChangeScene(string name)
     {
         SceneManager.LoadScene(name);
+    }
+
+    public void ChangeStageScene()
+    {
+        SceneManager.LoadScene(1);
     }
 }

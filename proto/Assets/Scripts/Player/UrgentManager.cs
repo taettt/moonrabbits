@@ -8,8 +8,9 @@ public class UrgentManager : MonoBehaviour
     private bool m_isRanged;
     private float m_urgentChargeTimer;
     private float m_urgentChargeTime = 4.0f;
+    [SerializeField]
     private int m_urgentChargeBonus;
-    public int urgentChargeBonus { get { return m_urgentChargeBonus; } }
+    public int urgentChargeBonus { get { return m_urgentChargeBonus; } set { m_urgentChargeBonus = value; } }
 
     public Text urgentText;
 
@@ -47,12 +48,12 @@ public class UrgentManager : MonoBehaviour
 
     void OnTriggerStay(Collider coll)
     {
-        if (!mc.teleported)
-            return;
-
-        if(coll.tag=="ENEMYBULLET")
+        if (mc.teleported)
         {
-            m_isRanged = true;
+            if (coll.tag == "ENEMYBULLET")
+            {
+                m_isRanged = true;
+            }
         }
     }
 }

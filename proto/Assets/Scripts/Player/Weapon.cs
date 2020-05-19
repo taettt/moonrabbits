@@ -112,7 +112,7 @@ public class Weapon : MonoBehaviour
 
             if(um.urgentChargeBonus!=0)
             {
-                StartCoroutine(Attack_Charge_Check(Input.mousePosition));
+                StartCoroutine(Attack_Urgent_Charge(Input.mousePosition));
             }
             else
             {
@@ -223,14 +223,18 @@ public class Weapon : MonoBehaviour
 
     private IEnumerator Attack_Urgent_Charge(Vector3 mousePos)
     {
+        curState = AttackState.CHARGE;
+
         Vector3 pos = ConversionPos(mousePos);
 
         speed = 24.0f;
         attack = 2;
 
         Attack_Charge(pos, 4, 2);
+        um.urgentChargeBonus--;
 
         yield return new WaitForSeconds(0.25f);
+        curState = AttackState.NONE;
 
     }
 
