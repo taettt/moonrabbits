@@ -15,6 +15,7 @@
         Tags {"RenderType" = "Transparent" "Queue" = "Transparent"}
         blend SrcAlpha One
         zwrite off
+        cull off //Two Side
 
         CGPROGRAM
         #pragma surface surf Lambert
