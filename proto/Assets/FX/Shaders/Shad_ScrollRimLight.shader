@@ -17,7 +17,7 @@
 
             CGPROGRAM
 
-            #pragma surface surf Lambert
+            #pragma surface surf Lambert nofog
 
             sampler2D _MainTex;
             sampler2D _BumpMap;

@@ -13,7 +13,7 @@
         GrabPass{}
 
         CGPROGRAM
-        #pragma surface surf Standard fullforwardshadows
+        #pragma surface surf Lambert nofog
         #pragma target 3.0
 
         sampler2D _GrabTexture;
@@ -26,7 +26,7 @@
             float4 screenPos;
         };
 
-        void surf (Input IN, inout SurfaceOutputStandard o)
+        void surf (Input IN, inout SurfaceOutput o)
         {
             float4 bump = tex2D(_MainBump, IN.uv_MainBump + _Time.x);
             float2 screenUV = IN.screenPos.rgb / IN.screenPos.a;

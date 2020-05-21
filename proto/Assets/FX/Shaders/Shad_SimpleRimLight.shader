@@ -14,7 +14,7 @@
 
           CGPROGRAM
 
-          #pragma surface surf Lambert
+          #pragma surface surf Lambert nofog
 
           struct Input {
               float2 uv_MainTex;

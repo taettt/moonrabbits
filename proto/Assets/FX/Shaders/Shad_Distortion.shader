@@ -18,7 +18,7 @@
         cull off //Two Side
 
         CGPROGRAM
-        #pragma surface surf Lambert
+        #pragma surface surf Lambert nofog
         #pragma target 3.0
 
         sampler2D _MainTex;
