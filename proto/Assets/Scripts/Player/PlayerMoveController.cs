@@ -16,7 +16,7 @@ public class PlayerMoveController : MonoBehaviour
     public float moveSpeed = 8.0f;
 
     private float teleportTimer;
-    public float teleportSpeed = 5.0f;
+    public float teleportSpeed = 10.0f;
     [SerializeField]
     private bool m_teleported;
     public bool teleported { get { return m_teleported; } }
@@ -43,21 +43,9 @@ public class PlayerMoveController : MonoBehaviour
         m_teleported = false;
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        Move();
-        MoveAnim();
-
         teleportText.text = "Dash Cool" + teleportTimer.ToString();
-
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            if (teleported)
-                return;
-
-            m_teleported = true;
-            PlayTeleportFX();
-        }
 
         if (m_teleported)
         {
@@ -70,6 +58,21 @@ public class PlayerMoveController : MonoBehaviour
                 m_teleported = false;
             }
         }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if (teleported)
+                return;
+
+            m_teleported = true;
+            PlayTeleportFX();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        Move();
+        MoveAnim();
     }
 
     private void PlayTeleportFX()

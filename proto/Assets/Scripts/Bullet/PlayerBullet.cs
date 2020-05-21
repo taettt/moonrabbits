@@ -54,11 +54,11 @@ public class PlayerBullet : Bullet
         switch(coll.gameObject.tag)
         {
             case "WALL":
-                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.LookRotation(this.transform.forward));
+                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.LookRotation(this.transform.forward * -1f));
                 Destroy();
                 break;
             case "OBSTACLE":
-                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.LookRotation(this.transform.forward));
+                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.LookRotation(this.transform.forward * -1f));
                 Destroy();
                 break;
         }
