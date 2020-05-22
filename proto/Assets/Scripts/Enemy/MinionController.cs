@@ -16,6 +16,8 @@ public class MinionController : MonoBehaviour
     private float m_attackDelay;
     private int m_attackStat;
 
+    public GameObject[] m_minionFXPrefabs;
+
     void Awake()
     {
         seedParent = GameObject.Find("Traps").transform;
@@ -31,7 +33,7 @@ public class MinionController : MonoBehaviour
 
     void Update()
     {
-        //this.transform.position = Vector3.MoveTowards(this.transform.position, playerTr.position, m_moveSpeed * Time.deltaTime);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, playerTr.position, m_moveSpeed * Time.deltaTime);
     }
 
     void OnTriggernEnter(Collider coll)
@@ -42,6 +44,7 @@ public class MinionController : MonoBehaviour
         }
         else if (coll.tag == "PLAYER")
         {
+            Instantiate(m_minionFXPrefabs[1], this.transform.position, Quaternion.identity);
             coll.GetComponent<PlayerController>().DecreaseHP(m_attackStat);
             Destroy(this.gameObject);
         }
@@ -49,11 +52,13 @@ public class MinionController : MonoBehaviour
 
     private void Init()
     {
-        m_hp = 2;
-        m_moveSpeed = 2.0f;
-        m_attackDelay = 2.0f;
-        m_attackSpeed = 2.0f;
-        m_attackStat = 1;
+        m_hp = 4;
+        m_moveSpeed = 4.0f;
+        m_attackDelay = 1.0f;
+        m_attackSpeed = 4.0f;
+        m_attackStat = 2;
+
+        Instantiate(m_minionFXPrefabs[0], this.transform);
     }
 
     public void DropSeed()
@@ -87,6 +92,6 @@ public class MinionController : MonoBehaviour
     {
         var bullet = ObjectManager.PushObject("EnemyBullet").GetComponent<EnemyBullet>();
         bullet.transform.position = this.transform.position;
-        bullet.Spawn(bullet.transform.position, m_dir * -1f, m_attackSpeed, m_attackStat);
+        bullet.Spawn(this.transform.position, m_dir, m_attackSpeed, m_attackStat);
     }
 }

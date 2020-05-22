@@ -124,3 +124,7 @@ MonoBehaviour:
   seedPrefab: {fileID: 1367948486452292865, guid: 98c431c6e425e944d87434865270c2f0,
     type: 3}
   seedParent: {fileID: 0}
+  playerTr: {fileID: 0}
+  m_minionFXPrefabs:
+  - {fileID: 5511219249727841981, guid: 82962bc9ce93ec1448fbd89b4f6e2fbc, type: 3}
+  - {fileID: 6482730605621403187, guid: 220cf229ecff0a548b5f91f33f0a7ebc, type: 3}

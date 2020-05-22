@@ -13,6 +13,7 @@ public enum PlayerBulletKind
 public class PlayerBullet : Bullet
 {
     private PlayerBulletKind m_kind;
+
     public GameObject destroyPrefab_1;
     public GameObject destroyPrefab_2;
 
@@ -20,7 +21,7 @@ public class PlayerBullet : Bullet
 
     void Update()
     {
-        this.transform.Translate(dir * Time.smoothDeltaTime * speed);
+        this.transform.Translate(this.transform.forward * Time.smoothDeltaTime * speed);
     }
 
     void OnTriggerEnter(Collider coll)
@@ -67,6 +68,7 @@ public class PlayerBullet : Bullet
     public override void Spawn(Vector3 spawnPos, Vector3 dir, float speed, int attack)
     {
         base.Spawn(spawnPos, dir, speed, attack);
+        this.transform.forward = dir;
     }
 
     public void SetVisual(PlayerBulletKind kind)

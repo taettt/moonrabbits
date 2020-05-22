@@ -19,7 +19,7 @@ public class Boss_1Control : BossControl
     [SerializeField]
     private int m_curPatternIndex = -1;
     private int m_curPatternCount = 0;
-    private int[] m_patternMaxCount = new int[4] { 16, 10, 3, 4 };
+    private int[] m_patternMaxCount = new int[4] { 16, 10, 3, 5 };
 
     public Text patternText;
     public float patternTimer;
@@ -28,11 +28,14 @@ public class Boss_1Control : BossControl
     public Vector3[] m_pattern_1Moves;
     public Vector3 m_pattern_2Move;
     public Vector3[] m_pattern_3Moves;
+    public Vector3 m_pattern_4Move;
+    public Vector3[] m_pattern_4Spawns;
     private float m_moveTimer = 0.0f;
 
     private float m_waiter = 0.0f;
 
     public GameObject minionPrefab;
+    public GameObject minionSpawnFX;
 
     void Awake()
     {
@@ -52,6 +55,7 @@ public class Boss_1Control : BossControl
         if (bc.init)
             return;
 
+        animator.SetBool("IsRun", m_isMoving);
         patternTimer += Time.deltaTime;
         switch (m_curPatternIndex)
         {
@@ -66,6 +70,9 @@ public class Boss_1Control : BossControl
             case 2:
                 patternText.text = "Pattern 3 : " + patternTimer;
                 //Pattern3Move();
+                break;
+            case 3:
+                Pattern4Move();
                 break;
         }
     }
@@ -103,21 +110,21 @@ public class Boss_1Control : BossControl
     {
         if (!randomRound)
         {
-            m_curPatternIndex = m_curPatternIndex == 2 ? 3 : m_curPatternIndex + 1;
+            m_curPatternIndex = m_curPatternIndex == 3 ? 4 : m_curPatternIndex + 1;
             m_curPatternCount = 0;
-            if (m_curPatternIndex == 3)
+            if (m_curPatternIndex == 4)
             {
                 m_curPatternCount = 0;
                 randomRound = true;
 
-                SetRandQueue(3);
+                SetRandQueue(4);
                 m_curPatternIndex = phaseRandQueue.Dequeue();
             }
         }
         else
         {
             if (phaseRandQueue.Count <= 0 || phaseRandQueue == null)
-                SetRandQueue(3);
+                SetRandQueue(4);
 
             m_curPatternIndex = phaseRandQueue.Dequeue();
         }
@@ -136,11 +143,16 @@ public class Boss_1Control : BossControl
                 m_isMoving = true;
                 break;
             case 2:
+                StopCoroutine(curCoroutine_F);
                 StopCoroutine(curCoroutine_S);
                 m_isMoving = true;
                 curCoroutine_F = StartCoroutine(Pattern3Move());
                 break;
             case 3:
+                Invoke("Pattern4Shoot", 2.0f);
+                m_isMoving = true;
+                break;
+            case 4:
                 Invoke("ExcutePhase", 0.1f);
                 break;
         }
@@ -188,7 +200,6 @@ public class Boss_1Control : BossControl
         }
 
         //animator.SetBool("IsAttack", false);
-        animator.SetBool("IsRun", true);
         m_moveTimer += Time.deltaTime;
 
         if (m_curMoveIndex + 1 != m_pattern_1Moves.Length)
@@ -200,7 +211,6 @@ public class Boss_1Control : BossControl
 
         if (m_moveTimer >= 1.0f)
         {
-            animator.SetBool("IsRun", false);
             m_curMoveIndex++;
             m_moveTimer = 0.0f;
         }
@@ -269,13 +279,11 @@ public class Boss_1Control : BossControl
 
         m_moveTimer += Time.deltaTime;
 
-        animator.SetBool("IsRun", true);
         this.transform.position = Vector3.MoveTowards(this.transform.position,
             m_pattern_2Move, Time.deltaTime * bc.moveSpeed * 2.0f);
 
         if (m_moveTimer >= 1.0f)
         {
-            animator.SetBool("IsRun", false);
             m_moveTimer = 0.0f;
             m_isMoving = false;
         }
@@ -328,7 +336,6 @@ public class Boss_1Control : BossControl
                     targetPos = new Vector3((playerTr.position.x), 0.2f, (playerTr.position.z + 20.0f) * -1f);
                 }
 
-                animator.SetBool("IsRun", true);
                 this.transform.position = Vector3.MoveTowards(this.transform.position,
                     targetPos, Time.deltaTime * bc.moveSpeed);
                 this.transform.forward = dir;
@@ -336,7 +343,6 @@ public class Boss_1Control : BossControl
                 m_moveTimer += Time.deltaTime;
                 if (m_moveTimer > 0.3f)
                 {
-                    animator.SetBool("IsRun", false);
                     m_moveTimer = 0.0f;
                     m_isMoving = false;
                 }
@@ -385,6 +391,44 @@ public class Boss_1Control : BossControl
         }
     }
 
+    private void Pattern4Shoot()
+    {
+        if (bc.init)
+            return;
+
+        Instantiate(minionPrefab, m_pattern_4Spawns[m_curPatternCount], Quaternion.identity);
+        GameObject fx = Instantiate(minionSpawnFX, this.transform);
+
+        m_curPatternCount++;
+        if (m_curPatternCount >= m_patternMaxCount[m_curPatternIndex])
+        {
+            DestroyImmediate(fx);
+            ExcutePhase();
+        }
+        else
+        {
+            Invoke("Pattern4Shoot", 1.0f);
+        }
+    }
+
+    private void Pattern4Move()
+    {
+        if (bc.init)
+            return;
+
+        m_moveTimer += Time.deltaTime;
+
+        this.transform.position = Vector3.MoveTowards(this.transform.position,
+            m_pattern_4Move, Time.deltaTime * bc.moveSpeed * 2.0f);
+
+        if (m_moveTimer >= 1.0f)
+        {
+            m_moveTimer = 0.0f;
+            m_isMoving = false;
+        }
+    }
+
+    /*
     // weapon도 가져와서 shootbullet
     private IEnumerator Pattern4Shoot()
     {
@@ -445,11 +489,7 @@ public class Boss_1Control : BossControl
             curCoroutine_F = StartCoroutine(Pattern4Shoot());
         }
     }
-
-    private void Pattern_MinionSpawn()
-    {
-
-    }
+    */
 
     // rand spawn(필드 내 정해진 범위 내에서 하는걸로 의견), 보스 앞,양옆 spawn)
     private void Pattern_MinionDistanceCheck()

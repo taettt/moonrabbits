@@ -79,6 +79,7 @@ public class PlayerMoveController : MonoBehaviour
     {
         GameObject go = Instantiate(m_teleportFX, this.transform.position, Quaternion.LookRotation(playerModelTr.forward));
         go.transform.SetParent(this.transform);
+        Destroy(go, 1.0f);
     }
 
     private void CheckWallAndTeleport()
