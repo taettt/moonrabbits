@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
         m_attack = attack;
 
         this.transform.position = m_spawnPos;
-        //this.transform.rotation = Quaternion.LookRotation(m_dir);
+        this.transform.rotation = Quaternion.LookRotation(m_dir);
     }
 
     // mat, prefab setting

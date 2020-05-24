@@ -34,6 +34,7 @@ public class BossController : MonoBehaviour
     public GameObject wavePrefab;
     public Transform bulletParent;
     public Transform playerTr;
+    public Transform weaponTr;
 
     private bool m_isLifeDown;
     public bool isLifeDown { get { return m_isLifeDown; } set { m_isLifeDown = value; } }
@@ -90,8 +91,7 @@ public class BossController : MonoBehaviour
     {
         var bullet = ObjectManager.PushObject("EnemyBullet").GetComponent<EnemyBullet>();
         bullet.transform.SetParent(bulletParent);
-        bullet.transform.position = this.transform.position;
-        bullet.transform.rotation = this.transform.rotation;
+        bullet.transform.position = weaponTr.position;
         bullet.Spawn(bullet.transform.position,
             dir, speed, attackVal);
     }

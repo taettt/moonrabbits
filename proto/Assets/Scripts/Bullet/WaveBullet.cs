@@ -14,7 +14,6 @@ public class WaveBullet : MonoBehaviour
 
     void Start()
     {
-        //StartCoroutine(ScaleUp());
     }
 
     void Update()

@@ -12,14 +12,13 @@ public enum EnemyBulletKind
 public class EnemyBullet : Bullet
 {
     private EnemyBulletKind m_kind;
-    private bool m_direct = false;
 
     public GameObject m_objectDestroyPrefab;
     public GameObject m_playerDestroyPrefab;
 
     void Update()
     {
-        this.transform.Translate(dir * Time.smoothDeltaTime * speed);
+        this.transform.Translate(this.transform.forward * Time.smoothDeltaTime * speed);
     }
 
     private void OnTriggerEnter(Collider coll)
@@ -77,15 +76,9 @@ public class EnemyBullet : Bullet
         }
     }
 
-    // 외부(enemy)에서 설정하고 내부로 전달
     public override void Spawn(Vector3 spawnPos, Vector3 dir, float speed, int attack)
     {
         base.Spawn(spawnPos, dir, speed, attack);
-    }
-
-    public void SetDirect(bool direct)
-    {
-        m_direct = direct;
     }
 
     public override void Destroy()

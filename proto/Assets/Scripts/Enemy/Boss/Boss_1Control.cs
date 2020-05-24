@@ -9,6 +9,7 @@ public class Boss_1Control : BossControl
     public BossPhase curPhase;
 
     public Transform playerTr;
+    public Transform weaponTr;
 
     private Coroutine curCoroutine_F = null;
     private Coroutine curCoroutine_S = null;
@@ -55,7 +56,6 @@ public class Boss_1Control : BossControl
         if (bc.init)
             return;
 
-        animator.SetBool("IsRun", m_isMoving);
         patternTimer += Time.deltaTime;
         switch (m_curPatternIndex)
         {
@@ -195,10 +195,12 @@ public class Boss_1Control : BossControl
 
         if (m_curMoveIndex >= m_pattern_1Moves.Length)
         {
+            animator.SetBool("IsRun", false);
             m_isMoving = false;
             return;
         }
 
+        animator.SetBool("IsRun", true);
         //animator.SetBool("IsAttack", false);
         m_moveTimer += Time.deltaTime;
 
@@ -278,6 +280,7 @@ public class Boss_1Control : BossControl
             return;
 
         m_moveTimer += Time.deltaTime;
+        animator.SetBool("IsRun", true);
 
         this.transform.position = Vector3.MoveTowards(this.transform.position,
             m_pattern_2Move, Time.deltaTime * bc.moveSpeed * 2.0f);
@@ -286,6 +289,7 @@ public class Boss_1Control : BossControl
         {
             m_moveTimer = 0.0f;
             m_isMoving = false;
+            animator.SetBool("IsRun", false);
         }
     }
 
@@ -300,7 +304,6 @@ public class Boss_1Control : BossControl
 
         Vector3 dir = playerTr.position - this.transform.position;
         dir = dir.normalized;
-        Debug.DrawRay(this.transform.position, dir * 10.0f, Color.red);
 
         bc.ShootBullet(dir, bc.attackSpeed * 2.0f, bc.damage * 4);
 
@@ -340,11 +343,13 @@ public class Boss_1Control : BossControl
                     targetPos, Time.deltaTime * bc.moveSpeed);
                 this.transform.forward = dir;
 
+                animator.SetBool("IsRun", true);
                 m_moveTimer += Time.deltaTime;
                 if (m_moveTimer > 0.3f)
                 {
                     m_moveTimer = 0.0f;
                     m_isMoving = false;
+                    animator.SetBool("IsRun", false);
                 }
             }
             else
@@ -352,6 +357,8 @@ public class Boss_1Control : BossControl
                 m_isMoving = false;
             }
         }
+
+        animator.SetBool("IsRun", m_isMoving);
 
         yield return new WaitForSeconds(0.5f);
         Invoke("Pattern3Shoot", 0.5f);
@@ -417,6 +424,7 @@ public class Boss_1Control : BossControl
             return;
 
         m_moveTimer += Time.deltaTime;
+        animator.SetBool("IsRun", true);
 
         this.transform.position = Vector3.MoveTowards(this.transform.position,
             m_pattern_4Move, Time.deltaTime * bc.moveSpeed * 2.0f);
@@ -425,6 +433,7 @@ public class Boss_1Control : BossControl
         {
             m_moveTimer = 0.0f;
             m_isMoving = false;
+            animator.SetBool("IsRun", false);
         }
     }
 

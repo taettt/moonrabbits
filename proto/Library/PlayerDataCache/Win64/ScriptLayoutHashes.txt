@@ -1,6 +1,6 @@
 Win64
 PlayerPath?
-C:/Users/user/Desktop/문래빗/build_05_22/proto.exe
+C:/Users/user/Desktop/문래빗/build_05_24/proto.exe
 SceneListBegin?
 Assets/Scenes/MainScene.unity
 Assets/Scenes/AssstsScene.unity
@@ -22,7 +22,6 @@ e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 201e3fde670b00545944bb3db215c80a UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.DestroyFX
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Polybrush.dll:UnityEngine.Polybrush.ZoomOverride
 71f7f12b8d0f4fd73590db8bcb6d453c Unity.Postprocessing.Runtime.dll:UnityEngine.Rendering.PostProcessing.Bloom
 e7a73f5f78ba6445195ec23b74a1ce2d Unity.TextMeshPro.dll:TMPro.TMP_ScrollbarEventHandler
@@ -136,15 +135,15 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 b8a5e8091ab0b8861d2add371082c5e0 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
 9869d29a5e06e89901b88d69e4225ddf Unity.Polybrush.dll:Polybrush.z_AdditionalVertexStreams
 61b9d9b6f4b6a222dfea8b131b3d3227 Unity.Postprocessing.Runtime.dll:UnityEngine.Rendering.PostProcessing.ChromaticAberration
-e31cfdef9095510dd8fcf6eedd94e0d4 Assembly-CSharp.dll:.Boss_1Control
+1f9d9edbba450ddd9e23181461c0bbcc Assembly-CSharp.dll:.Boss_1Control
 8dd97b7e07915c183f8454a86716d325 Assembly-CSharp.dll:UnityChan.CameraController
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.WaveBullet
 85045a1c02a413b343339373cf8e5d0b Assembly-CSharp.dll:UnityChan.IdleChanger
-c0f2ebf96552048a9fb8ffc817899c51 Assembly-CSharp.dll:.BossController
+136217e213c95c18fdbff11ae2cc7f59 Assembly-CSharp.dll:.BossController
 55ebaf476ec5c38c04c72ce497a05f57 Assembly-CSharp.dll:.PlayerController
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 dec38e8c0473fb4fec0ed35c638b5a5b Assembly-CSharp.dll:UnityChan.SpringManager
-2473f300e68ab1bc76b18be1688e7eae Assembly-CSharp.dll:.GameManager
+903378203ef6436d5bf1b95ad4b5427a Assembly-CSharp.dll:.GameManager
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.Pattern
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor
 14d684e5eb706041b258044f3a2d3861 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.PlanarReflection
@@ -205,7 +204,7 @@ d2ea14b916674ffc62e2e54ebbbaf304 Assembly-CSharp.dll:.UrgentManager
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 f9e9c46f82ef7b6a0249ff97b5d1b3e1 Assembly-CSharp.dll:.SeedTrap
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.FXManager
-1fedce98d70d259d0f81039349566deb Assembly-CSharp.dll:.HPUIShower
+3fa1cb955b1ded5c9d8362a12eb8dffa Assembly-CSharp.dll:.HPUIShower
 d8fa56c444095472df2811298594dbb3 Assembly-CSharp.dll:UnityChan.FaceUpdate
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.GerstnerDisplace
 d0e5139fb2593ffc620d585df8fa2ae9 Assembly-CSharp.dll:UnityChan.SpringBone

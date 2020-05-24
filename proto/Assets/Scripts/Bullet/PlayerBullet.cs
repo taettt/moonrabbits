@@ -68,7 +68,6 @@ public class PlayerBullet : Bullet
     public override void Spawn(Vector3 spawnPos, Vector3 dir, float speed, int attack)
     {
         base.Spawn(spawnPos, dir, speed, attack);
-        this.transform.forward = dir;
     }
 
     public void SetVisual(PlayerBulletKind kind)

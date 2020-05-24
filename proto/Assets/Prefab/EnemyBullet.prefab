@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5575792805557208681}
   - component: {fileID: 5575792805557208682}
   - component: {fileID: 5575792805557208676}
+  - component: {fileID: 2450465267401029877}
   - component: {fileID: 4844091512362580038}
-  - component: {fileID: 1601519019837745378}
-  - component: {fileID: 1805207006292343681}
+  - component: {fileID: 8871031299025620365}
   m_Layer: 0
   m_Name: EnemyBullet
   m_TagString: ENEMYBULLET
@@ -29,10 +29,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5575792805557208677}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
-  - {fileID: 7936982858569727191}
+  - {fileID: 1954561669628643209}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -57,6 +57,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &2450465267401029877
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5575792805557208677}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4844091512362580038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,20 +86,7 @@ MonoBehaviour:
     type: 3}
   m_playerDestroyPrefab: {fileID: 5943650051753669964, guid: 0cc0eb0ce8294d1448572ded7c63da6c,
     type: 3}
---- !u!135 &1601519019837745378
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5575792805557208677}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1805207006292343681
+--- !u!54 &8871031299025620365
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,6 +109,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5575792805557208681}
     m_Modifications:
+    - target: {fileID: 8147365725412094032, guid: 0c5d1e3a41bd1f94db04cf2a446f04ba,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 507094428481458625, guid: 0c5d1e3a41bd1f94db04cf2a446f04ba,
         type: 3}
       propertyPath: m_Name
@@ -171,9 +176,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c5d1e3a41bd1f94db04cf2a446f04ba, type: 3}
---- !u!4 &7936982858569727191 stripped
+--- !u!4 &1954561669628643209 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 300454015593319182, guid: 0c5d1e3a41bd1f94db04cf2a446f04ba,
+  m_CorrespondingSourceObject: {fileID: 8147365725412094032, guid: 0c5d1e3a41bd1f94db04cf2a446f04ba,
     type: 3}
   m_PrefabInstance: {fileID: 7642255136796850137}
   m_PrefabAsset: {fileID: 0}

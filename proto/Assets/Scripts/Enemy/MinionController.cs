@@ -72,6 +72,7 @@ public class MinionController : MonoBehaviour
         while (true)
         {
             m_dir = (this.transform.position - playerTr.position).normalized;
+            Debug.DrawRay(this.transform.position, m_dir * 20.0f, Color.red);
             ShootBullet();
 
             yield return new WaitForSeconds(m_attackDelay);

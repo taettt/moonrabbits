@@ -87,7 +87,7 @@ public class PlayerMoveController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed, wallCollisionMask))
         {
-            tr.Translate(new Vector3(hit.point.x, 1.2f, hit.point.z) * Time.deltaTime);
+            tr.Translate(new Vector3(hit.point.x, 0.0f, hit.point.z) * Time.deltaTime);
         }
         else
         {

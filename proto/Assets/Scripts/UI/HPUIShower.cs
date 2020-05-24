@@ -12,15 +12,15 @@ public class HPUIShower : MonoBehaviour
     public EnemyStateController esc;
 
     public Image m_playerHpFillImages;
-    public Image m_playerLife;
-    public Sprite[] m_playerLifeImage = new Sprite[4];
+    public Text m_playerLife;
 
     public Text playerHpText;
     public Text bossHpText;
 
     public Image m_enemyHpFillImages;
-    public Image m_bossLife;
-    public Sprite[] m_enemyLifeImage = new Sprite[6];
+    public Image m_bossLifeGague;
+    public Image[] m_bossLife;
+    public Sprite[] m_lifeOnOff;
 
     //time
     private float m_hpDownTime = 1.0f;
@@ -47,6 +47,11 @@ public class HPUIShower : MonoBehaviour
     {
         m_playerHpFillImages.fillAmount = 1.0f;
         m_enemyHpFillImages.fillAmount = 1.0f;
+        m_bossLifeGague.fillAmount = 1.0f;
+        for(int i=0; i < 4; i++)
+        {
+            m_bossLife[i].sprite = m_lifeOnOff[1];
+        }
     }
 
     private void PlayerUpdate()
@@ -98,22 +103,17 @@ public class HPUIShower : MonoBehaviour
 
     private void SetLifeDown()
     {
-        m_playerLife.sprite = m_playerLifeImage[(int)pc.life];
+        m_playerLife.text = pc.life.ToString();
     }
 
     private void SetLifeDown_Enemy()
     {
-        m_bossLife.sprite = m_enemyLifeImage[(int)ec.curLife];
-    }
-
-    private void SetLifeFill()
-    {
-        m_playerLife.sprite = m_playerLifeImage[(int)pc.life];
-        m_bossLife.sprite = m_enemyLifeImage[(int)ec.curLife];
+        m_bossLifeGague.fillAmount = (ec.curLife / 5.0f);
+        m_bossLife[ec.curLife - 2].sprite = m_lifeOnOff[0];
     }
 
     public void RetryFill()
     {
-        SetLifeFill();
+        Initialize();
     }
 }

@@ -100,7 +100,6 @@ public class Weapon : MonoBehaviour
 
             if (curState == AttackState.CHARGE)
             {
-                pc.SetKoncked(2.0f, playerModelTr.forward);
                 StartCoroutine(Attack_Charge_Check(Input.mousePosition));
             }
         }
