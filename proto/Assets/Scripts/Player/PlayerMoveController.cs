@@ -59,7 +59,7 @@ public class PlayerMoveController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (teleported)
                 return;
@@ -108,9 +108,10 @@ public class PlayerMoveController : MonoBehaviour
         if (m_dir != Vector3.zero)
         {
             playerModelTr.forward = m_dir;
-            if (teleported)
+            RaycastHit hit;
+            if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed, wallCollisionMask))
             {
-                tr.position += m_movement * 1.2f;
+                tr.Translate(new Vector3(hit.point.x, 0.0f, hit.point.z) * Time.deltaTime);
             }
             else
             {

@@ -18,6 +18,7 @@ public class EnemyBullet : Bullet
 
     void Update()
     {
+        RaycastObject();
         this.transform.Translate(this.transform.forward * Time.smoothDeltaTime * speed);
     }
 
@@ -48,18 +49,13 @@ public class EnemyBullet : Bullet
         }
     }
 
-    private void OnCollisionEnter(Collision coll)
+    private void RaycastObject()
     {
-        switch(coll.gameObject.tag)
+        RaycastHit hit;
+        if(Physics.Raycast(this.transform.position, this.transform.forward, out hit, 1f, wallCollisionMask))
         {
-            case "WALL":
-                Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(dir));
-                Destroy();
-                break;
-            case "OBSTACLE":
-                Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(dir));
-                Destroy();
-                break;
+            Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(dir));
+            Destroy();
         }
     }
 

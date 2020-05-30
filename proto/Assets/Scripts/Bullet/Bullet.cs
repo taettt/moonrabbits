@@ -14,6 +14,8 @@ public class Bullet : MonoBehaviour
     private Vector3 m_spawnPos;
     public Vector3 spawnPos { get { return m_spawnPos; } }
 
+    public LayerMask wallCollisionMask;
+
     public virtual void Spawn(Vector3 spawnPos, Vector3 dir, float speed, int attack)
     {
         m_spawnPos = spawnPos;
