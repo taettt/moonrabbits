@@ -3,7 +3,7 @@
     Properties{
       _MainTex("Texture", 2D) = "white" {}
       _BumpMap("Bumpmap", 2D) = "bump" {}
-      _RimColor("Rim Color", Color) = (1,1,1,1)
+      [HDR]_RimColor("Rim Color", Color) = (1,1,1,1)
       _RimPower("Rim Power", Range(0.1,8.0)) = 1.0
     }
 
@@ -30,7 +30,7 @@
           float _RimPower;
 
           void surf(Input IN, inout SurfaceOutput o) {
-              o.Albedo = tex2D(_MainTex, IN.uv_MainTex).rgb;
+              o.Alpha = tex2D(_MainTex, IN.uv_MainTex).rgb;
               o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
 
               half rim = 1.0 - saturate(dot(normalize(IN.viewDir), o.Normal));

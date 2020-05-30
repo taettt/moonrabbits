@@ -4,7 +4,7 @@
     {
         _MainTex("Main Texture", 2D) = "white" {}
         _BumpMap("Rim Bump", 2D) = "Bump" {}
-        _RimColor("Rim Color", Color) = (1,1,1,1)
+        [HDR]_RimColor("Rim Color", Color) = (1,1,1,1)
         _RimPower("Rim Power", Range(0.0,10.0)) = 0.0
         _RimScrSpd("Rim Scroll Speed", float) = 0
     }
@@ -35,7 +35,6 @@
 
         void surf (Input IN, inout SurfaceOutput o)
         {
-            o.Albedo = tex2D(_MainTex, IN.uv_MainTex).rgb;
             o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap + (_Time.y * _RimScrSpd)));
             half Rim = 1 - saturate(dot(normalize(IN.viewDir), o.Normal));
             o.Emission = _RimColor.rgb * pow(Rim, _RimPower);

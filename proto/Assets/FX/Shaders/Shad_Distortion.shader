@@ -2,7 +2,7 @@
 {
     Properties
     {
-        _MainCol("Color", Color) = (1,1,1,1)
+        [HDR]_MainCol("Color", Color) = (1,1,1,1)
         _MainTex("Texture", 2D) = "white" {}
         _ScrTex("Scroll Texture", 2D) = "white" {}
         _ScrSpd1("Scroll Speed1", float) = 1.0
