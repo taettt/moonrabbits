@@ -14,7 +14,6 @@ public class CameraController : MonoBehaviour
     public Transform enemyTr;
     private Transform tr;
     private Camera thisCamera;
-    public Transform uiCam;
 
     void Awake()
     {
@@ -26,7 +25,7 @@ public class CameraController : MonoBehaviour
     {
         tr.position = Vector3.Lerp(playerTr.position, enemyTr.position, 0.4f) + pos;
 
-        DistanceDirect();
+        //DistanceDirect();
     }
 
     private void DistanceDirect()

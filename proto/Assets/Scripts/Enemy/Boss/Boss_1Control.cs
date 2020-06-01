@@ -169,7 +169,8 @@ public class Boss_1Control : BossControl
             return;
         }
 
-        //animator.SetBool("IsAttack", true);
+        animator.SetBool("IsAttack", true);
+        animator.SetFloat("AttackBlending", m_curMoveIndex / m_pattern_1Moves.Length);
 
         for (float i = -180.0f; i <= 180.0f; i += 45.0f)
         {
@@ -183,7 +184,7 @@ public class Boss_1Control : BossControl
         else
         {
             m_curMoveIndex = 0;
-            //animator.SetBool("IsAttack", false);
+            animator.SetBool("IsAttack", false);
             Invoke("ExcutePhase", 2);
         }
     }
@@ -203,7 +204,7 @@ public class Boss_1Control : BossControl
         }
 
         animator.SetBool("IsRun", true);
-        //animator.SetBool("IsAttack", false);
+        animator.SetBool("IsAttack", false);
         m_moveTimer += Time.deltaTime;
 
         if (m_curMoveIndex + 1 != m_pattern_1Moves.Length)
@@ -241,10 +242,12 @@ public class Boss_1Control : BossControl
     private IEnumerator Pattern2_2Shoot()
     {
         yield return new WaitForSeconds(2.0f);
-        //animator.SetBool("IsAttack", true);
+        animator.SetBool("IsAttack", true);
 
         while (m_curPatternCount < m_patternMaxCount[m_curPatternIndex])
         {
+            animator.SetFloat("AttackBlending", m_curPatternCount / m_patternMaxCount[m_curPatternIndex]);
+
             Vector3 dir = playerTr.position - this.transform.position;
             dir = dir.normalized;
             Debug.DrawRay(this.transform.position, dir * 20.0f, Color.blue);
@@ -271,7 +274,7 @@ public class Boss_1Control : BossControl
 
         if (m_curPatternCount >= m_patternMaxCount[m_curPatternIndex])
         {
-            //animator.SetBool("IsAttack", false);
+            animator.SetBool("IsAttack", false);
             StopCoroutine(curCoroutine_F);
             Invoke("ExcutePhase", 2);
         }
@@ -303,7 +306,8 @@ public class Boss_1Control : BossControl
 
         StopCoroutine(curCoroutine_F);
 
-        //animator.SetBool("IsAttack", true);
+        animator.SetBool("IsAttack", true);
+        animator.SetFloat("AttackBlending", m_curPatternCount / m_patternMaxCount[m_curPatternIndex]);
 
         Vector3 dir = playerTr.position - this.transform.position;
         dir = dir.normalized;
@@ -313,12 +317,12 @@ public class Boss_1Control : BossControl
         m_curPatternCount++;
         if (m_curPatternCount < m_patternMaxCount[m_curPatternIndex])
         {
-            //animator.SetBool("IsAttack", false);
+            animator.SetBool("IsAttack", false);
             Invoke("Pattern3Shoot", 1.0f);
         }
         else
         {
-            //animator.SetBool("IsAttack", false);
+            animator.SetBool("IsAttack", false);
             Invoke("ExcutePhase", 2.0f);
         }
     }
@@ -361,8 +365,6 @@ public class Boss_1Control : BossControl
             }
         }
 
-        animator.SetBool("IsRun", m_isMoving);
-
         yield return new WaitForSeconds(0.5f);
         Invoke("Pattern3Shoot", 0.5f);
     }
@@ -388,10 +390,12 @@ public class Boss_1Control : BossControl
                 targetPos, Time.deltaTime * bc.moveSpeed);
             this.transform.forward = dir;
 
+            animator.SetBool("IsRun", true);
             m_moveTimer += Time.deltaTime;
             if (m_moveTimer > 1.0f)
             {
                 m_moveTimer = 0.0f;
+                animator.SetBool("IsRun", false);
                 Invoke("Pattern3Shoot", 0.5f);
             }
         }
@@ -406,6 +410,7 @@ public class Boss_1Control : BossControl
         if (bc.init)
             return;
 
+        animator.SetBool("IsSummon", true);
         Instantiate(minionPrefab, m_pattern_4Spawns[m_curPatternCount], Quaternion.identity);
         GameObject fx = Instantiate(minionSpawnFX, this.transform);
 
@@ -417,6 +422,7 @@ public class Boss_1Control : BossControl
         }
         else
         {
+            animator.SetBool("IsSummon", false);
             Invoke("Pattern4Shoot", 1.0f);
         }
     }

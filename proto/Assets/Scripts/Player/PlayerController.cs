@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
             if(value < m_attackedMaxDamage)
             {
                 sc.SetState(PlayerState.ATTACKED);
-                StartCoroutine(KnockbackCoroutine(2.0f, mc.playerModelTr.forward));
+                StartCoroutine(KnockbackCoroutine(5.0f, mc.playerModelTr.forward));
             }
             else
             {

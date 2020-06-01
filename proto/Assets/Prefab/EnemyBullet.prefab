@@ -75,6 +75,8 @@ MonoBehaviour:
     type: 3}
   m_playerDestroyPrefab: {fileID: 5407729615781153014, guid: 0cc0eb0ce8294d1448572ded7c63da6c,
     type: 3}
+  m_urgentPrefab: {fileID: 2796572505813701792, guid: 82962bc9ce93ec1448fbd89b4f6e2fbc,
+    type: 3}
 --- !u!54 &8371651418215177440
 Rigidbody:
   m_ObjectHideFlags: 0

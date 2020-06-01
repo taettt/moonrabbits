@@ -35,6 +35,7 @@ public class BossController : MonoBehaviour
     public Transform bulletParent;
     public Transform playerTr;
     public Transform weaponTr;
+    public Animator animator;
 
     private bool m_isLifeDown;
     public bool isLifeDown { get { return m_isLifeDown; } set { m_isLifeDown = value; } }
@@ -134,6 +135,7 @@ public class BossController : MonoBehaviour
             m_curLife -= 1;
             if (m_curLife < 0)
             {
+                animator.SetTrigger("IsDead");
                 sc.SetState(EnemyState.DEATH);
             }
             else
