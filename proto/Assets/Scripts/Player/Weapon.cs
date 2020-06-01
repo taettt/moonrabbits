@@ -18,8 +18,6 @@ enum ChargeFXState
     CHARGING,
     FULL,
     SHOOT,
-    CHARGE_1,
-    CHARGE_2,
     NUM
 }
 
@@ -28,8 +26,8 @@ public class Weapon : MonoBehaviour
 {
     // default
     public GameObject bulletPrefab;
-    private float speed;
-    private int attack;
+    public float attackSpeed;
+    public int attackValue;
     public Transform shootHoleTr;
     public Transform bulletParent;
     private Vector3 m_shootPos;
@@ -59,24 +57,26 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        UpdateFX();
-
-        if(Input.GetMouseButtonDown(0))
+        if (psc.curState == PlayerState.RETIRE || psc.curState == PlayerState.NOCK || psc.curState == PlayerState.ATTACKED)
         {
-            if (psc.curState == PlayerState.ATTACKED)
-                return;
-
-            curState = AttackState.CHARGE;
-            pmc.moveSpeed = 5.6f;
+            return;
         }
 
-        else if(Input.GetMouseButton(0))
+        UpdateFX();
+
+        if(Input.GetMouseButtonDown(1))
         {
-            if (psc.curState == PlayerState.ATTACKED)
+            if (curState != AttackState.NONE)
                 return;
 
             curState = AttackState.CHARGE;
-            pmc.moveSpeed = 5.6f;
+            pmc.SetCurMoveSpeed(pmc.shootMoveSpeed);
+        }
+
+        else if(Input.GetMouseButton(1))
+        {
+            curState = AttackState.CHARGE;
+            pmc.SetCurMoveSpeed(pmc.shootMoveSpeed);
 
             curChargeTime += Time.deltaTime;
 
@@ -90,13 +90,10 @@ public class Weapon : MonoBehaviour
             }
         }
 
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(1))
         {
             m_chargeFX[(int)ChargeFXState.FULL].SetActive(false);
             m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(false);
-
-            if (psc.curState == PlayerState.ATTACKED)
-                return;
 
             if (curState == AttackState.CHARGE)
             {
@@ -104,12 +101,12 @@ public class Weapon : MonoBehaviour
             }
         }
 
-        else if(Input.GetMouseButton(1))
+        else if(Input.GetMouseButton(0))
         {
             if (curState != AttackState.NONE)
                 return;
 
-            if(um.urgentChargeBonus!=0)
+            if(um.urgentChargeBonus)
             {
                 StartCoroutine(Attack_Urgent_Charge(Input.mousePosition));
             }
@@ -120,13 +117,17 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            pmc.moveSpeed = 8.0f;
+            pmc.SetCurMoveSpeed(pmc.moveSpeed);
         }
     }
 
     private void UpdateFX()
     {
-        if(curChargeTime == chargeStep[1] || curChargeTime == chargeStep[2])
+        if(curChargeTime >= chargeStep[1] && curChargeTime < chargeStep[1] + 0.5f)
+        {
+            Instantiate(m_chargeFX[(int)ChargeFXState.READY], weaponTr);
+        }
+        else if(curChargeTime >= chargeStep[2] && curChargeTime < chargeStep[2] + 0.5f)
         {
             Instantiate(m_chargeFX[(int)ChargeFXState.READY], weaponTr);
         }
@@ -173,10 +174,7 @@ public class Weapon : MonoBehaviour
     {
         Vector3 pos = ConversionPos(mousePos);
         curState = AttackState.LONG;
-        pmc.moveSpeed = 5.6f;
-
-        speed = 24.0f;
-        attack = 2;
+        pmc.SetCurMoveSpeed(pmc.shootMoveSpeed);
 
         Attack_Long(pos);
 
@@ -202,16 +200,10 @@ public class Weapon : MonoBehaviour
 
             if (curChargeTime > chargeStep[2])
             {
-                speed = 24.0f;
-                attack = 2;
-
                 Attack_Charge(pos, 4, 2);
             }
             else if (curChargeTime < chargeStep[2])
             {
-                speed = 24.0f;
-                attack = 2;
-
                 Attack_Charge(pos, 2, 1);
             }
 
@@ -226,11 +218,8 @@ public class Weapon : MonoBehaviour
 
         Vector3 pos = ConversionPos(mousePos);
 
-        speed = 24.0f;
-        attack = 2;
-
         Attack_Charge(pos, 4, 2);
-        um.urgentChargeBonus--;
+        um.urgentChargeBonus = false;
 
         yield return new WaitForSeconds(0.25f);
         curState = AttackState.NONE;
@@ -246,7 +235,7 @@ public class Weapon : MonoBehaviour
 
         var bullet = ObjectManager.PushObject("PlayerBullet").GetComponent<PlayerBullet>();
         bullet.GetComponent<PlayerBullet>().SetVisual((PlayerBulletKind)kind);
-        bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, speed, attack * attackPlus);
+        bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, attackSpeed, attackValue * attackPlus);
 
         playerModelTr.transform.forward = m_dirVec;
     }
@@ -257,7 +246,7 @@ public class Weapon : MonoBehaviour
 
         var bullet = ObjectManager.PushObject("PlayerBullet").GetComponent<PlayerBullet>();
         bullet.GetComponent<PlayerBullet>().SetVisual(PlayerBulletKind.DEF);
-        bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, speed, attack);
+        bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, attackSpeed, attackValue);
 
         playerModelTr.transform.forward = m_dirVec;
     }

@@ -15,11 +15,12 @@ public class EnemyBullet : Bullet
 
     public GameObject m_objectDestroyPrefab;
     public GameObject m_playerDestroyPrefab;
+    public GameObject m_urgentPrefab;
 
     void Update()
     {
         RaycastObject();
-        this.transform.Translate(this.transform.forward * Time.smoothDeltaTime * speed);
+        this.transform.Translate(dir * Time.smoothDeltaTime * speed, Space.World);
     }
 
     private void OnTriggerEnter(Collider coll)
@@ -29,6 +30,8 @@ public class EnemyBullet : Bullet
             case "PLAYER":
                 if(coll.GetComponent<PlayerMoveController>().teleported)
                 {
+                    Instantiate(m_urgentPrefab, coll.transform);
+                    coll.GetComponent<UrgentManager>().urgentChargeBonus = true;
                     return;
                 }
 
@@ -46,13 +49,17 @@ public class EnemyBullet : Bullet
                 pc.DecreaseHP(attack);
                 Destroy();
                 break;
+            case "WALL":
+                Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(dir));
+                Destroy();
+                break;
         }
     }
 
     private void RaycastObject()
     {
         RaycastHit hit;
-        if(Physics.Raycast(this.transform.position, this.transform.forward, out hit, 1f, wallCollisionMask))
+        if(Physics.Raycast(this.transform.position, this.transform.forward, out hit, 0.9f, wallCollisionMask))
         {
             Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(dir));
             Destroy();

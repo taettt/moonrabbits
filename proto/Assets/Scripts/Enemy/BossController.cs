@@ -109,17 +109,6 @@ public class BossController : MonoBehaviour
         yield return 0;
     }
 
-    /*
-    private void ShootWave(Vector3 dir, float speed, int attackVal, float dis, float limit)
-    {
-        GameObject wave = Instantiate(wavePrefab);
-        wave.transform.position = new Vector3(this.transform.position.x,
-            0.3f, this.transform.position.z);
-        wave.transform.rotation = this.transform.rotation;
-        wave.GetComponent<WaveBullet>().SetStatus(dir, speed, attackVal, dis, limit);
-    }
-    */
-
     public Vector3 GetDirection(float angle)
     {
         Vector3 dir = Vector3.forward;
@@ -143,7 +132,7 @@ public class BossController : MonoBehaviour
             m_isLifeDown = true;
             m_curHp = 120;
             m_curLife -= 1;
-            if (m_curLife <= 0)
+            if (m_curLife < 0)
             {
                 sc.SetState(EnemyState.DEATH);
             }

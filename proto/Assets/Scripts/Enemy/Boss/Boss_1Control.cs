@@ -102,6 +102,8 @@ public class Boss_1Control : BossControl
         m_curPatternCount = 0;
         m_curMoveIndex = 0;
 
+        this.transform.position = new Vector3(0.0f, 0.2f, 0.0f);
+
         bc.init = false;
         Invoke("ExcutePhase", 2.0f);
     }
@@ -245,6 +247,7 @@ public class Boss_1Control : BossControl
         {
             Vector3 dir = playerTr.position - this.transform.position;
             dir = dir.normalized;
+            Debug.DrawRay(this.transform.position, dir * 20.0f, Color.blue);
 
             for (float i = -30.0f; i <= 30.0f; i += 30.0f)
             {

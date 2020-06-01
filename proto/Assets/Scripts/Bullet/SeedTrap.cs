@@ -15,9 +15,13 @@ public class SeedTrap : MonoBehaviour
     private bool m_flowerTurn;
     private int m_damage;
 
+    private Image spriteColor;
+    public Color m_turnColor;
+
     void Awake()
     {
         seedText = GameObject.Find("UI").transform.GetChild(1).GetChild(4).GetChild(0).GetComponent<Text>();
+        spriteColor = this.transform.GetChild(0).GetComponent<Image>();
         Init();
     }
 
@@ -28,6 +32,7 @@ public class SeedTrap : MonoBehaviour
         if(m_seedTimer>m_seedTime)
         {
             m_flowerTurn = true;
+            spriteColor.color = m_turnColor;
         }
     }
 
@@ -52,11 +57,6 @@ public class SeedTrap : MonoBehaviour
                 Destroy(this.gameObject);
                 break;
         }
-    }
-
-    private void KinematicActive(Collision coll, bool active)
-    {
-        coll.gameObject.GetComponent<Rigidbody>().isKinematic = active;
     }
 
     private void Init()

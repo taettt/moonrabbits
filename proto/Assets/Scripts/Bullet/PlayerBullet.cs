@@ -16,13 +16,15 @@ public class PlayerBullet : Bullet
 
     public GameObject destroyPrefab_1;
     public GameObject destroyPrefab_2;
+    public GameObject destroyPrefab_3;
 
     public GameObject[] chargingPrefab;
 
     void Update()
     {
         RaycastObject();
-        this.transform.Translate(dir * Time.smoothDeltaTime * speed);
+        Debug.Log(dir);
+        this.transform.Translate(dir * Time.smoothDeltaTime * speed, Space.World);
     }
 
     void OnTriggerEnter(Collider coll)
@@ -30,7 +32,14 @@ public class PlayerBullet : Bullet
         switch(coll.tag)
         {
             case "ENEMY":
-                Instantiate(destroyPrefab_2, this.transform.position, Quaternion.LookRotation(dir));
+                if (m_kind == PlayerBulletKind.DEF)
+                {
+                    Instantiate(destroyPrefab_2, this.transform.position, Quaternion.LookRotation(dir));
+                }
+                else
+                {
+                    Instantiate(destroyPrefab_3, this.transform.position, Quaternion.LookRotation(dir));
+                }
 
                 BossController ec = coll.GetComponent<BossController>();
                 ec.DecreaseHP(attack);
@@ -42,10 +51,21 @@ public class PlayerBullet : Bullet
                 Destroy();
                 break;
             case "MINION":
-                Instantiate(destroyPrefab_2, this.transform.position, Quaternion.LookRotation(dir));
+                if (m_kind == PlayerBulletKind.DEF)
+                {
+                    Instantiate(destroyPrefab_2, this.transform.position, Quaternion.LookRotation(dir));
+                }
+                else
+                {
+                    Instantiate(destroyPrefab_3, this.transform.position, Quaternion.LookRotation(dir));
+                }
 
                 coll.GetComponent<MinionController>().DropSeed();
                 Destroy(coll.gameObject);
+                Destroy();
+                break;
+            case "WALL":
+                Instantiate(destroyPrefab_1, this.transform.position, Quaternion.LookRotation(dir));
                 Destroy();
                 break;
         }
@@ -54,7 +74,7 @@ public class PlayerBullet : Bullet
     private void RaycastObject()
     {
         RaycastHit hit;
-        if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 1f, wallCollisionMask))
+        if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 0.9f, wallCollisionMask))
         {
             Instantiate(destroyPrefab_1, this.transform.position, Quaternion.LookRotation(dir));
             Destroy();

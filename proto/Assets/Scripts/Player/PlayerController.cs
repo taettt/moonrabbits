@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         while (timer < 0.4f)
         {
             timer += Time.deltaTime;
-            this.transform.Translate(dir * 2.0f * -1f * Time.deltaTime);
+            this.transform.Translate(dir * knockVal * -1f * Time.deltaTime);
         }
 
         yield return 0;
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
         {
             m_life -= 1;
             m_hp = 0;
-            if (m_life <= 0)
+            if (m_life < 0)
             {
                 sc.SetState(PlayerState.DEATH);
             }
@@ -77,13 +77,14 @@ public class PlayerController : MonoBehaviour
 
         else
         {
-            if (value < m_attackedMaxDamage)
+            if(value < m_attackedMaxDamage)
             {
                 sc.SetState(PlayerState.ATTACKED);
+                StartCoroutine(KnockbackCoroutine(2.0f, mc.playerModelTr.forward));
             }
             else
             {
-                sc.SetState(PlayerState.NOCK);
+                SetKoncked(4.0f, mc.playerModelTr.forward * -1f);
             }
 
             m_isAttacked = true;

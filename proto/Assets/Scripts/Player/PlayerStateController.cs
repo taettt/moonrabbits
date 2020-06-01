@@ -19,6 +19,10 @@ public class PlayerStateController : MonoBehaviour
     private PlayerState m_curState;
     public PlayerState curState { get { return m_curState; } set { m_curState = value; } }
 
+    public SkinnedMeshRenderer renderer;
+    public Color attackColor;
+    public Color originColor;
+
     public Text stateText;
     public GameManager gm;
 
@@ -34,7 +38,10 @@ public class PlayerStateController : MonoBehaviour
     {
         m_curState = state;
         if (m_curState == PlayerState.IDLE)
+        {
+            renderer.materials[0].color = originColor;
             return;
+        }
 
         if(m_curState == PlayerState.RETIRE)
         {
@@ -48,6 +55,7 @@ public class PlayerStateController : MonoBehaviour
         if (m_curState == PlayerState.ATTACKED || m_curState == PlayerState.NOCK)
         {
             StartCoroutine(ProcessState(m_delayTime[(int)m_curState - 1], PlayerState.INVI));
+            renderer.materials[0].color = attackColor;
         }
         else
         {

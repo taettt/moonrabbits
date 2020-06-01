@@ -10,6 +10,7 @@ public enum EnemyState
     NOCK,
     RETIRE,
     DEATH,
+    INIT,
     NUM
 }
 
@@ -35,6 +36,11 @@ public class EnemyStateController : MonoBehaviour
         m_curState = state;
         if (m_curState == EnemyState.IDLE)
             return;
+
+        if(m_curState == EnemyState.INIT)
+        {
+            StartCoroutine(ProcessState(5.0f, EnemyState.IDLE));
+        }
 
         if(m_curState == EnemyState.DEATH)
         {

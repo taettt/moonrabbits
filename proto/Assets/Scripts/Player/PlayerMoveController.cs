@@ -7,16 +7,19 @@ public class PlayerMoveController : MonoBehaviour
 {
     private Transform tr;
     public Transform playerModelTr;
+    public PlayerStateController psc;
     public LayerMask wallCollisionMask;
     private Animator animator;
     private Vector3 forwardVec, rightVec;
     private Vector3 m_movement;
-    [SerializeField]
     private Vector3 m_dir;
+
+    private float curMoveSpeed;
     public float moveSpeed = 8.0f;
+    public float shootMoveSpeed = 7.2f;
+    public float teleportSpeed = 10.0f;
 
     private float teleportTimer;
-    public float teleportSpeed = 10.0f;
     [SerializeField]
     private bool m_teleported;
     public bool teleported { get { return m_teleported; } }
@@ -39,12 +42,22 @@ public class PlayerMoveController : MonoBehaviour
         forwardVec = forwardVec.normalized;
         rightVec = Quaternion.Euler(new Vector3(0.0f, 90.0f, 0.0f)) * forwardVec;
 
+        curMoveSpeed = moveSpeed;
+
         teleportTimer = 0.0f;
         m_teleported = false;
     }
 
     void Update()
     {
+        if (psc.curState == PlayerState.RETIRE || psc.curState == PlayerState.NOCK || psc.curState == PlayerState.ATTACKED)
+        {
+            return;
+        }
+
+        Move();
+        MoveAnim();
+
         teleportText.text = "Dash Cool" + teleportTimer.ToString();
 
         if (m_teleported)
@@ -67,12 +80,6 @@ public class PlayerMoveController : MonoBehaviour
             m_teleported = true;
             PlayTeleportFX();
         }
-    }
-
-    void FixedUpdate()
-    {
-        Move();
-        MoveAnim();
     }
 
     private void PlayTeleportFX()
@@ -104,14 +111,14 @@ public class PlayerMoveController : MonoBehaviour
         Vector3 rMovement = rightVec * Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         m_movement = fMovement + rMovement;
         m_dir = Vector3.Normalize(m_movement);
+        playerModelTr.forward = m_dir;
 
         if (m_dir != Vector3.zero)
         {
-            playerModelTr.forward = m_dir;
             RaycastHit hit;
-            if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed, wallCollisionMask))
+            if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, 0.3f, wallCollisionMask))
             {
-                tr.Translate(new Vector3(hit.point.x, 0.0f, hit.point.z) * Time.deltaTime);
+                tr.position = new Vector3(hit.point.x, 0.2f, hit.point.z);
             }
             else
             {
@@ -131,5 +138,10 @@ public class PlayerMoveController : MonoBehaviour
         {
             animator.SetBool("IsRun", false);
         }
+    }
+
+    public void SetCurMoveSpeed(float value)
+    {
+        curMoveSpeed = value;
     }
 }

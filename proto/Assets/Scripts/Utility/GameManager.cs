@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void PhaseRetry()
     {
+        bc.sc.SetState(EnemyState.INIT);
         bc.PhaseInit();
     }
 
