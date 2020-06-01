@@ -63,6 +63,7 @@ public class Weapon : MonoBehaviour
         }
 
         UpdateFX();
+        UpdateUI();
 
         if(Input.GetMouseButtonDown(1))
         {

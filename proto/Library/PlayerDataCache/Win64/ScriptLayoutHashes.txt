@@ -1,6 +1,6 @@
 Win64
 PlayerPath?
-C:/Users/user/Desktop/문래빗/build_06_01/proto.exe
+C:/Users/user/Desktop/문래빗/build_06_01_2/proto.exe
 SceneListBegin?
 Assets/Scenes/MainScene.unity
 Assets/Scenes/AssstsScene.unity

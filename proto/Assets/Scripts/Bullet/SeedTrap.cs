@@ -15,13 +15,13 @@ public class SeedTrap : MonoBehaviour
     private bool m_flowerTurn;
     private int m_damage;
 
-    private Image spriteColor;
+    private SpriteRenderer spriteColor;
     public Color m_turnColor;
 
     void Awake()
     {
         seedText = GameObject.Find("UI").transform.GetChild(1).GetChild(4).GetChild(0).GetComponent<Text>();
-        spriteColor = this.transform.GetChild(0).GetComponent<Image>();
+        spriteColor = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
         Init();
     }
 
