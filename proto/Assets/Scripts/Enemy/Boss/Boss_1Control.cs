@@ -35,6 +35,7 @@ public class Boss_1Control : BossControl
 
     private float m_waiter = 0.0f;
 
+    private bool m_onceExcute;
     public GameObject minionPrefab;
     public GameObject minionSpawnFX;
 
@@ -410,14 +411,18 @@ public class Boss_1Control : BossControl
         if (bc.init)
             return;
 
-        animator.SetBool("IsSummon", true);
+        if(!m_onceExcute)
+        {
+            animator.SetBool("IsSummon", true);
+            GameObject fx = Instantiate(minionSpawnFX, this.transform);
+            m_onceExcute = true;
+        }
+
         Instantiate(minionPrefab, m_pattern_4Spawns[m_curPatternCount], Quaternion.identity);
-        GameObject fx = Instantiate(minionSpawnFX, this.transform);
 
         m_curPatternCount++;
         if (m_curPatternCount >= m_patternMaxCount[m_curPatternIndex])
         {
-            DestroyImmediate(fx);
             ExcutePhase();
         }
         else

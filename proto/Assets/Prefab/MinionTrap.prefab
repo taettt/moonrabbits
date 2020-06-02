@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedText: {fileID: 0}
   m_flowerTurn: 0
-  m_turnColor: {r: 1, g: 0.6101179, b: 0, a: 0}
+  m_turnColor: {r: 1, g: 0.6101179, b: 0, a: 1}
 --- !u!54 &6063944207422476510
 Rigidbody:
   m_ObjectHideFlags: 0
