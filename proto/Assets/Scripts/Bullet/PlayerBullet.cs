@@ -23,7 +23,6 @@ public class PlayerBullet : Bullet
     void Update()
     {
         RaycastObject();
-        Debug.Log(dir);
         this.transform.Translate(dir * Time.smoothDeltaTime * speed, Space.World);
     }
 

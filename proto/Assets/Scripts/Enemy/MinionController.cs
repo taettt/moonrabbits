@@ -54,7 +54,7 @@ public class MinionController : MonoBehaviour
     {
         m_hp = 4;
         m_moveSpeed = 4.0f;
-        m_attackDelay = 1.0f;
+        m_attackDelay = 0.5f;
         m_attackSpeed = 4.0f;
         m_attackStat = 2;
 
@@ -63,6 +63,8 @@ public class MinionController : MonoBehaviour
 
     public void DropSeed()
     {
+        StopCoroutine(ShootBulletCoroutine());
+
         GameObject go = Instantiate(seedPrefab, this.transform.position, Quaternion.identity);
         go.transform.SetParent(seedParent);
     }

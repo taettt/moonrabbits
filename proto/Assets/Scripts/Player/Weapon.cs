@@ -27,7 +27,9 @@ public class Weapon : MonoBehaviour
     // default
     public GameObject bulletPrefab;
     public float attackSpeed;
-    public int attackValue;
+    public int attackValue_default;
+    public int attackValue_charge_1;
+    public int attackValue_charge_2;
     public Transform shootHoleTr;
     public Transform bulletParent;
     private Vector3 m_shootPos;
@@ -71,14 +73,10 @@ public class Weapon : MonoBehaviour
                 return;
 
             curState = AttackState.CHARGE;
-            pmc.SetCurMoveSpeed(pmc.shootMoveSpeed);
         }
 
         else if(Input.GetMouseButton(1))
         {
-            curState = AttackState.CHARGE;
-            pmc.SetCurMoveSpeed(pmc.shootMoveSpeed);
-
             curChargeTime += Time.deltaTime;
 
             if (curChargeTime >= chargeStep[2])
@@ -104,7 +102,7 @@ public class Weapon : MonoBehaviour
 
         else if(Input.GetMouseButton(0))
         {
-            if (curState != AttackState.NONE)
+            if (curState != AttackState.NONE || Input.GetMouseButton(1))
                 return;
 
             if(um.urgentChargeBonus)
@@ -115,10 +113,6 @@ public class Weapon : MonoBehaviour
             {
                 StartCoroutine(Attack_Long_Check(Input.mousePosition));
             }
-        }
-        else
-        {
-            pmc.SetCurMoveSpeed(pmc.moveSpeed);
         }
     }
 
@@ -175,7 +169,6 @@ public class Weapon : MonoBehaviour
     {
         Vector3 pos = ConversionPos(mousePos);
         curState = AttackState.LONG;
-        pmc.SetCurMoveSpeed(pmc.shootMoveSpeed);
 
         Attack_Long(pos);
 
@@ -201,11 +194,11 @@ public class Weapon : MonoBehaviour
 
             if (curChargeTime > chargeStep[2])
             {
-                Attack_Charge(pos, 4, 2);
+                Attack_Charge(pos, attackValue_charge_2, 2);
             }
             else if (curChargeTime < chargeStep[2])
             {
-                Attack_Charge(pos, 2, 1);
+                Attack_Charge(pos, attackValue_charge_1, 1);
             }
 
             yield return new WaitForSeconds(0.25f);
@@ -227,7 +220,7 @@ public class Weapon : MonoBehaviour
 
     }
 
-    private void Attack_Charge(Vector3 targetPos, int attackPlus, int kind)
+    private void Attack_Charge(Vector3 targetPos, int attackValue, int kind)
     {
         GameObject go = Instantiate(m_chargeFX[(int)ChargeFXState.SHOOT], this.transform.position, Quaternion.LookRotation(m_dirVec));
         go.transform.SetParent(this.transform);
@@ -236,7 +229,7 @@ public class Weapon : MonoBehaviour
 
         var bullet = ObjectManager.PushObject("PlayerBullet").GetComponent<PlayerBullet>();
         bullet.GetComponent<PlayerBullet>().SetVisual((PlayerBulletKind)kind);
-        bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, attackSpeed, attackValue * attackPlus);
+        bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, attackSpeed, attackValue);
 
         playerModelTr.transform.forward = m_dirVec;
     }
@@ -247,7 +240,7 @@ public class Weapon : MonoBehaviour
 
         var bullet = ObjectManager.PushObject("PlayerBullet").GetComponent<PlayerBullet>();
         bullet.GetComponent<PlayerBullet>().SetVisual(PlayerBulletKind.DEF);
-        bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, attackSpeed, attackValue);
+        bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, attackSpeed, attackValue_default);
 
         playerModelTr.transform.forward = m_dirVec;
     }

@@ -39,7 +39,7 @@ public class PlayerStateController : MonoBehaviour
         m_curState = state;
         if (m_curState == PlayerState.IDLE)
         {
-            renderer.materials[0].color = originColor;
+            renderer.materials[0].SetColor("_EmissionColor", originColor);
             return;
         }
 
@@ -55,7 +55,7 @@ public class PlayerStateController : MonoBehaviour
         if (m_curState == PlayerState.ATTACKED || m_curState == PlayerState.NOCK)
         {
             StartCoroutine(ProcessState(m_delayTime[(int)m_curState - 1], PlayerState.INVI));
-            renderer.materials[0].color = attackColor;
+            renderer.materials[0].SetColor("_EmissionColor", attackColor);
         }
         else
         {

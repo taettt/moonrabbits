@@ -15,7 +15,6 @@ public class EnemyBullet : Bullet
 
     public GameObject m_objectDestroyPrefab;
     public GameObject m_playerDestroyPrefab;
-    public GameObject m_urgentPrefab;
 
     void Update()
     {
@@ -28,13 +27,6 @@ public class EnemyBullet : Bullet
         switch(coll.tag)
         {
             case "PLAYER":
-                if(coll.GetComponent<PlayerMoveController>().teleported)
-                {
-                    Instantiate(m_urgentPrefab, coll.transform);
-                    coll.GetComponent<UrgentManager>().urgentChargeBonus = true;
-                    return;
-                }
-
                 if (coll.GetComponent<PlayerStateController>().curState == PlayerState.ATTACKED ||
                     coll.GetComponent<PlayerStateController>().curState == PlayerState.NOCK ||
                     coll.GetComponent<PlayerStateController>().curState == PlayerState.INVI ||

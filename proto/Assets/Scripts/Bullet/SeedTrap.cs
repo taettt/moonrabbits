@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class SeedTrap : MonoBehaviour
 {
-    private float m_rad;
     private float m_seedTime;
     private float m_seedTimer;
 

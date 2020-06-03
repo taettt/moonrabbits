@@ -10,10 +10,13 @@ public class UrgentManager : MonoBehaviour
     [SerializeField]
     private bool m_urgentChargeBonus;
     public bool urgentChargeBonus { get { return m_urgentChargeBonus; } set { m_urgentChargeBonus = value; } }
+    [SerializeField]
+    private bool m_urgentRangeIn;
+    public bool urgentRangeIn { get { return m_urgentRangeIn; } }
+
+    public GameObject m_urgentFXPrefab;
 
     public Text urgentText;
-
-    public PlayerMoveController mc;
 
     void Start()
     {
@@ -35,5 +38,24 @@ public class UrgentManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    void OnTriggerEnter(Collider coll)
+    {
+        if (m_urgentChargeBonus)
+            return;
+
+        if (coll.tag == "ENEMYBULLET")
+        {
+            m_urgentRangeIn = true;
+        }
+    }
+
+    public void BonusOn()
+    {
+        m_urgentChargeBonus = true;
+        m_urgentRangeIn = false;
+
+        Instantiate(m_urgentFXPrefab, this.transform);
     }
 }

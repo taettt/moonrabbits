@@ -14,9 +14,7 @@ public class PlayerMoveController : MonoBehaviour
     private Vector3 m_movement;
     private Vector3 m_dir;
 
-    private float curMoveSpeed;
     public float moveSpeed = 8.0f;
-    public float shootMoveSpeed = 7.2f;
     public float teleportSpeed = 10.0f;
 
     private float teleportTimer;
@@ -24,6 +22,8 @@ public class PlayerMoveController : MonoBehaviour
     private bool m_teleported;
     public bool teleported { get { return m_teleported; } }
     private float teleportDelay = 0.4f;
+
+    public UrgentManager um;
 
     public Text teleportText;
 
@@ -41,8 +41,6 @@ public class PlayerMoveController : MonoBehaviour
         forwardVec.y = 0.0f;
         forwardVec = forwardVec.normalized;
         rightVec = Quaternion.Euler(new Vector3(0.0f, 90.0f, 0.0f)) * forwardVec;
-
-        curMoveSpeed = moveSpeed;
 
         teleportTimer = 0.0f;
         m_teleported = false;
@@ -79,6 +77,12 @@ public class PlayerMoveController : MonoBehaviour
 
             m_teleported = true;
             PlayTeleportFX();
+
+            if (um.urgentRangeIn)
+            {
+                Debug.Log("urgent bonus");
+                um.BonusOn();
+            }
         }
     }
 
@@ -138,10 +142,5 @@ public class PlayerMoveController : MonoBehaviour
         {
             animator.SetBool("IsRun", false);
         }
-    }
-
-    public void SetCurMoveSpeed(float value)
-    {
-        curMoveSpeed = value;
     }
 }
