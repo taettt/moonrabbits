@@ -13,16 +13,22 @@ public class HPUIShower : MonoBehaviour
 
     public Image m_playerHpFillImages;
     public Image m_playerLifeBg;
+    public RectTransform playerGlow;
+    public Vector2 playerGlowstartPos, playerGlowEndPos;
     public Sprite[] m_playerLifes;
 
     public Text playerHpText;
     public Text bossHpText;
 
     public Image m_enemyHpFillImages;
+    public RectTransform bossGlow;
+    public Vector2 bossGlowstartPos, bossGlowEndPos;
     public Image m_bossLifeBg;
     public Sprite[] m_bossLifes;
 
     //time
+    private float m_playerHpDownTimer = 0.0f;
+    private float m_bossHpDownTimer = 0.0f;
     private float m_hpDownTime = 1.0f;
     private float m_HealTime = 1.0f;
     private float m_maxHealTimer = 0.0f;
@@ -51,9 +57,10 @@ public class HPUIShower : MonoBehaviour
         m_playerLifeBg.sprite = m_playerLifes[3];
     }
 
+    // glow -> start pos ~ end pos lerp, t = player cur hp / hp
     private void PlayerUpdate()
     {
-        m_playerHpFillImages.fillAmount = pc.hp / 40.0f;
+        PlayerHPUpdate();
 
         if (psc.curState == PlayerState.RETIRE)
         {
@@ -65,7 +72,7 @@ public class HPUIShower : MonoBehaviour
 
     private void EnemyUpdate()
     {
-        m_enemyHpFillImages.fillAmount = ec.curHp / 120f;
+        BossHPUpdate();
 
         if (m_enemyHpFillImages.fillAmount <= 0.0f)
         {
@@ -78,9 +85,40 @@ public class HPUIShower : MonoBehaviour
         }
     }
 
+    private void PlayerHPUpdate()
+    {
+        m_playerHpDownTimer += Time.deltaTime;
+        if(m_playerHpDownTimer >= m_hpDownTime)
+        {
+            m_playerHpDownTimer = 0.0f;
+            return;
+        }
+
+        m_playerHpFillImages.fillAmount = Mathf.Lerp(m_playerHpFillImages.fillAmount,
+            pc.hp / 40.0f, m_playerHpDownTimer / m_hpDownTime);
+        playerGlow.anchoredPosition = Vector2.Lerp(playerGlowstartPos, playerGlowEndPos,
+            1 - (pc.hp / 40.0f));
+    }
+
+    private void BossHPUpdate()
+    {
+        m_bossHpDownTimer += Time.deltaTime;
+        if (m_bossHpDownTimer >= m_hpDownTime)
+        {
+            m_bossHpDownTimer = 0.0f;
+            return;
+        }
+
+        m_enemyHpFillImages.fillAmount = Mathf.Lerp(m_enemyHpFillImages.fillAmount,
+            ec.curHp / 120.0f, m_bossHpDownTimer / m_hpDownTime);
+        bossGlow.anchoredPosition = Vector2.Lerp(bossGlowstartPos, bossGlowEndPos,
+            1 - (ec.curHp / 120.0f));
+    }
+
     // state iniv & life down true
     private void SetHealAllFill()
     {
+        m_maxHealTimer += Time.deltaTime;
         if (m_maxHealTimer >= m_maxHealTime)
         {
             m_maxHealTimer = 0.0f;
@@ -94,8 +132,15 @@ public class HPUIShower : MonoBehaviour
 
     private void SetHealAllFill_Enemy()
     {
+        m_maxHealTimer += Time.deltaTime;
+        if (m_maxHealTimer >= m_maxHealTime)
+        {
+            m_maxHealTimer = 0.0f;
+            return;
+        }
+
         m_enemyHpFillImages.fillAmount = Mathf.Lerp(m_enemyHpFillImages.fillAmount,
-            1.0f, 3.0f * Time.deltaTime);
+            1.0f, m_maxHealTimer / m_maxHealTime);
     }
 
     private void SetLifeDown()

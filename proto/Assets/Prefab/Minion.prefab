@@ -111,7 +111,7 @@ MonoBehaviour:
   playerTr: {fileID: 0}
   m_minionFXPrefabs:
   - {fileID: 2796572505813701792, guid: 82962bc9ce93ec1448fbd89b4f6e2fbc, type: 3}
-  - {fileID: 8339178439866824588, guid: 220cf229ecff0a548b5f91f33f0a7ebc, type: 3}
+  - {fileID: 365509704517982365, guid: 220cf229ecff0a548b5f91f33f0a7ebc, type: 3}
 --- !u!54 &134184262323825492
 Rigidbody:
   m_ObjectHideFlags: 0

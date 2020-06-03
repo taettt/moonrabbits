@@ -31,7 +31,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
-  - {fileID: 8595792979542107640}
+  - {fileID: 4808144279419181782}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -71,11 +71,9 @@ MonoBehaviour:
   wallCollisionMask:
     serializedVersion: 2
     m_Bits: 1024
-  m_objectDestroyPrefab: {fileID: 7557678115782089267, guid: 59662a9b754d19644888c9cb3e8b7b14,
+  m_objectDestroyPrefab: {fileID: 9113714802972627029, guid: 59662a9b754d19644888c9cb3e8b7b14,
     type: 3}
   m_playerDestroyPrefab: {fileID: 5407729615781153014, guid: 0cc0eb0ce8294d1448572ded7c63da6c,
-    type: 3}
-  m_urgentPrefab: {fileID: 2796572505813701792, guid: 82962bc9ce93ec1448fbd89b4f6e2fbc,
     type: 3}
 --- !u!54 &8371651418215177440
 Rigidbody:
@@ -167,9 +165,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c5d1e3a41bd1f94db04cf2a446f04ba, type: 3}
---- !u!4 &8595792979542107640 stripped
+--- !u!4 &4808144279419181782 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 2109050916241494561, guid: 0c5d1e3a41bd1f94db04cf2a446f04ba,
+  m_CorrespondingSourceObject: {fileID: 2933896356822347023, guid: 0c5d1e3a41bd1f94db04cf2a446f04ba,
     type: 3}
   m_PrefabInstance: {fileID: 7642255136796850137}
   m_PrefabAsset: {fileID: 0}
