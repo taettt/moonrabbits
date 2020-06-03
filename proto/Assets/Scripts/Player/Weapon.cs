@@ -61,6 +61,8 @@ public class Weapon : MonoBehaviour
     {
         if (psc.curState == PlayerState.RETIRE || psc.curState == PlayerState.NOCK || psc.curState == PlayerState.ATTACKED)
         {
+            m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(false);
+            m_chargeFX[(int)ChargeFXState.FULL].SetActive(false);
             return;
         }
 

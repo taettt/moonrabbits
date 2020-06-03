@@ -47,6 +47,7 @@ public class EnemyStateController : MonoBehaviour
             gm.GameClear();
         }
 
+        // 수정 필요
         StartCoroutine(ProcessState(m_delayTime[(int)m_curState - 1], EnemyState.IDLE));
     }
 

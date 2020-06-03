@@ -74,6 +74,7 @@ public class EnemyBullet : Bullet
     public override void Spawn(Vector3 spawnPos, Vector3 dir, float speed, int attack)
     {
         base.Spawn(spawnPos, dir, speed, attack);
+        this.transform.localPosition += new Vector3(0.0f, 0.3f, 0.0f);
     }
 
     public override void Destroy()
