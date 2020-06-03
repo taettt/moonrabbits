@@ -40,7 +40,7 @@ public class UrgentManager : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider coll)
+    void OnTriggerStay(Collider coll)
     {
         if (m_urgentChargeBonus)
             return;
