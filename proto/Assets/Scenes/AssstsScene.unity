@@ -12136,7 +12136,7 @@ MonoBehaviour:
   - {x: 10, y: 0.6, z: 10}
   minionPrefab: {fileID: 7916648091830085184, guid: f09b10e783a5ff84697ea7fed7b950fa,
     type: 3}
-  minionSpawnFX: {fileID: 7708128002509919122, guid: 154b621c828bdf84f98b77a653d511d0,
+  minionSpawnFX: {fileID: 4300320797589707129, guid: 154b621c828bdf84f98b77a653d511d0,
     type: 3}
 --- !u!4 &669382374 stripped
 Transform:
