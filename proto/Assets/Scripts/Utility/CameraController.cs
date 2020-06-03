@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Vector3 pos = new Vector3(-11.0f, 18.0f, -11.0f);
-    public float speed;
-    public float zoomDis;
-    public float zoomInFov;
-    public float zoomOutFov;
+    public Vector3 pos;
+    //public float zoomInFov;
+    //public float zoomOutFov;
 
     public Transform playerTr;
     public Transform enemyTr;
@@ -31,6 +29,6 @@ public class CameraController : MonoBehaviour
     private void DistanceDirect()
     {
         float dis = Vector3.Distance(playerTr.position, enemyTr.position);
-        thisCamera.fieldOfView = Mathf.Lerp(zoomInFov, zoomOutFov, dis / 20.0f);
+        //thisCamera.fieldOfView = Mathf.Lerp(zoomInFov, zoomOutFov, dis / 20.0f);
     }
 }
