@@ -120,15 +120,10 @@ public class Weapon : MonoBehaviour
 
     private void UpdateFX()
     {
-        if(curChargeTime >= chargeStep[1] && curChargeTime < chargeStep[1] + 0.5f)
+        if(Mathf.Approximately(curChargeTime, chargeStep[1])|| Mathf.Approximately(curChargeTime, chargeStep[2]))
         {
             Instantiate(m_chargeFX[(int)ChargeFXState.READY], weaponTr);
         }
-        else if(curChargeTime >= chargeStep[2] && curChargeTime < chargeStep[2] + 0.5f)
-        {
-            Instantiate(m_chargeFX[(int)ChargeFXState.READY], weaponTr);
-        }
-
         else if(curChargeTime > chargeStep[2])
         {
             m_chargeFX[(int)ChargeFXState.FULL].SetActive(true);

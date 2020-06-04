@@ -46,7 +46,7 @@ public class MinionController : MonoBehaviour
         {
             Instantiate(m_minionFXPrefabs[1], this.transform.position, Quaternion.identity);
             coll.GetComponent<PlayerController>().DecreaseHP(m_attackStat);
-            Destroy(this.gameObject);
+            Destroy();
         }
     }
 
@@ -67,6 +67,12 @@ public class MinionController : MonoBehaviour
 
         GameObject go = Instantiate(seedPrefab, this.transform.position, Quaternion.identity);
         go.transform.SetParent(seedParent);
+    }
+
+    public void Destroy()
+    {
+        StopCoroutine(ShootBulletCoroutine());
+        DestroyImmediate(this.gameObject);
     }
 
     private IEnumerator ShootBulletCoroutine()

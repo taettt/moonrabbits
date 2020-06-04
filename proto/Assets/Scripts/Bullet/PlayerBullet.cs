@@ -93,14 +93,19 @@ public class PlayerBullet : Bullet
         switch (m_kind)
         {
             case PlayerBulletKind.DEF:
+                this.transform.GetChild(0).gameObject.SetActive(true);
+                chargingPrefab[0].SetActive(false);
+                chargingPrefab[1].SetActive(false);
                 break;
             case PlayerBulletKind.CHARGE_1:
                 this.transform.GetChild(0).gameObject.SetActive(false);
                 chargingPrefab[0].SetActive(true);
+                chargingPrefab[1].SetActive(false);
 
                 break;
             case PlayerBulletKind.CHARGE_2:
                 this.transform.GetChild(0).gameObject.SetActive(false);
+                chargingPrefab[0].SetActive(false);
                 chargingPrefab[1].SetActive(true);
                 break;
         }
