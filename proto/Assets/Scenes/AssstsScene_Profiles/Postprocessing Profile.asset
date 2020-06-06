@@ -133,19 +133,19 @@ MonoBehaviour:
     defaultState: 1
   tonemapper:
     overrideState: 1
-    value: 1
+    value: 2
   toneCurveToeStrength:
     overrideState: 1
-    value: 0
+    value: 0.669
   toneCurveToeLength:
     overrideState: 1
-    value: 0.5
+    value: 0.237
   toneCurveShoulderStrength:
     overrideState: 1
-    value: 0
+    value: 1
   toneCurveShoulderLength:
     overrideState: 1
-    value: 0.5
+    value: 0
   toneCurveShoulderAngle:
     overrideState: 1
     value: 0
@@ -161,10 +161,10 @@ MonoBehaviour:
     value: 1
   temperature:
     overrideState: 1
-    value: 0
+    value: -0
   tint:
     overrideState: 1
-    value: 0
+    value: -0
   colorFilter:
     overrideState: 1
     value: {r: 1, g: 1, b: 1, a: 1}
@@ -173,13 +173,13 @@ MonoBehaviour:
     value: 0
   saturation:
     overrideState: 1
-    value: 0
+    value: -20
   brightness:
     overrideState: 1
     value: 0
   postExposure:
     overrideState: 1
-    value: 0.4
+    value: 0.5
   contrast:
     overrideState: 1
     value: 0
@@ -212,13 +212,13 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 0.68808424, y: 0.61194587, z: 1, w: 0.012062826}
+    value: {x: 0.6799787, y: 0.6512322, z: 1, w: 0.012062826}
   gamma:
     overrideState: 1
-    value: {x: 0.7592491, y: 0.714713, z: 1, w: -0.0030898652}
+    value: {x: 0.70328474, y: 0.7392138, z: 1, w: -0.0030898652}
   gain:
     overrideState: 1
-    value: {x: 0.68558174, y: 0.59935784, z: 1, w: 0.0076980735}
+    value: {x: 0.7637343, y: 0.82784235, z: 1, w: 0.0076980735}
   masterCurve:
     overrideState: 1
     value:
@@ -1472,7 +1472,7 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.276
+    value: 0.251
   smoothness:
     overrideState: 1
     value: 0.2
@@ -1510,10 +1510,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.42
+    value: 0.54
   color:
     overrideState: 1
-    value: {r: 0.024519408, g: 0.03510906, b: 0.1792453, a: 1}
+    value: {r: 0.023451408, g: 0.033720896, b: 0.16037738, a: 1}
   ambientOnly:
     overrideState: 1
     value: 1
@@ -1578,27 +1578,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b77c5407dc277943b591ade9e6b18c5, type: 3}
   m_Name: LensDistortion
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
   intensity:
-    overrideState: 1
+    overrideState: 0
     value: 0
   intensityX:
-    overrideState: 1
+    overrideState: 0
     value: 1
   intensityY:
-    overrideState: 1
+    overrideState: 0
     value: 1
   centerX:
-    overrideState: 1
+    overrideState: 0
     value: 0
   centerY:
-    overrideState: 1
+    overrideState: 0
     value: 0
   scale:
-    overrideState: 1
+    overrideState: 0
     value: 1
 --- !u!114 &114859487792888812
 MonoBehaviour:
