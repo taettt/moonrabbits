@@ -210,7 +210,7 @@ public class Weapon : MonoBehaviour
         Vector3 pos = ConversionPos(mousePos);
 
         Attack_Charge(pos, 4, 2);
-        um.urgentChargeBonus = false;
+        um.BonusOff();
 
         yield return new WaitForSeconds(0.25f);
         curState = AttackState.NONE;

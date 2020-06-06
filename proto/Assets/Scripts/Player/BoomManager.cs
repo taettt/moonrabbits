@@ -13,7 +13,9 @@ public class BoomManager : MonoBehaviour
 
     private int m_boomCount;
     public int boomCount { get { return m_boomCount; } }
-    public Text boomCountText;
+    public Image boomImage;
+    public Sprite boomOffSprite;
+    public Animation boomUIAnim;
 
     private int m_boomDamage = 16;
     public int boomDamage { get { return m_boomDamage; } }
@@ -24,7 +26,6 @@ public class BoomManager : MonoBehaviour
     {
         m_boomActive = false;
         m_boomCount = 2;
-        boomCountText.text = string.Format("x {0}", m_boomCount);
     }
 
     void Update()
@@ -39,7 +40,6 @@ public class BoomManager : MonoBehaviour
             // 넉백
             DeleteObjects();
             bc.DecreaseHP(m_boomDamage);
-            boomCountText.text = string.Format("x {0}", m_boomCount);
         }
     }
 
@@ -49,10 +49,12 @@ public class BoomManager : MonoBehaviour
         if (trapParent.childCount >= m_boomActiveCount)
         {
             m_boomActive = true;
+            boomUIAnim.Play();
         }
         else
         {
             m_boomActive = false;
+            boomImage.sprite = boomOffSprite;
         }
     }
 

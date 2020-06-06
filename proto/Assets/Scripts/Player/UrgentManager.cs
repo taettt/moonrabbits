@@ -17,6 +17,9 @@ public class UrgentManager : MonoBehaviour
     public GameObject m_urgentFXPrefab;
 
     public Text urgentText;
+    public Image urgentImage;
+    public Sprite urgentOffSprite;
+    public Animation urgentUIAnim;
 
     void Start()
     {
@@ -33,7 +36,7 @@ public class UrgentManager : MonoBehaviour
             m_urgentChargeTimer += Time.deltaTime;
             if (m_urgentChargeTimer >= m_urgentChargeTime)
             {
-                m_urgentChargeBonus = false;
+                BonusOff();
                 m_urgentChargeTimer = 0.0f;
                 return;
             }
@@ -54,8 +57,15 @@ public class UrgentManager : MonoBehaviour
     public void BonusOn()
     {
         m_urgentChargeBonus = true;
+        urgentUIAnim.Play();
         m_urgentRangeIn = false;
 
         Instantiate(m_urgentFXPrefab, this.transform);
+    }
+
+    public void BonusOff()
+    {
+        m_urgentChargeBonus = false;
+        urgentImage.sprite = urgentOffSprite;
     }
 }
