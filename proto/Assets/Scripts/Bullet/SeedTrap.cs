@@ -17,6 +17,9 @@ public class SeedTrap : MonoBehaviour
     private SpriteRenderer spriteColor;
     public Color m_turnColor;
 
+    public GameObject spawnFX;
+    public GameObject boomFX;
+
     void Awake()
     {
         seedText = GameObject.Find("UI").transform.GetChild(1).GetChild(4).GetChild(0).GetComponent<Text>();
@@ -42,6 +45,7 @@ public class SeedTrap : MonoBehaviour
             case "ENEMY":
                 if (m_flowerTurn)
                 {
+                    Instantiate(boomFX, this.transform);
                     coll.gameObject.GetComponent<BossController>().DecreaseHP(m_damage);
                     Destroy(this.gameObject);
                 }
@@ -52,6 +56,7 @@ public class SeedTrap : MonoBehaviour
                     return;
                 }
 
+                Instantiate(boomFX, this.transform);
                 coll.gameObject.GetComponent<PlayerController>().DecreaseHP(m_damage);
                 Destroy(this.gameObject);
                 break;
@@ -63,5 +68,7 @@ public class SeedTrap : MonoBehaviour
         m_seedTime = 5.0f;
         m_damage = 4;
         m_flowerTurn = false;
+
+        Instantiate(spawnFX, this.transform);
     }
 }

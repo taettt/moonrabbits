@@ -23,6 +23,11 @@ public class PlayerStateController : MonoBehaviour
     public Color attackColor;
     public Color originColor;
 
+    private int curPlayerHp;
+    public int hpLimit;
+    public GameObject hitFX;
+    public GameObject lowHpFX;
+
     public Text stateText;
     public GameManager gm;
 
@@ -40,6 +45,8 @@ public class PlayerStateController : MonoBehaviour
         if (m_curState == PlayerState.IDLE)
         {
             renderer.materials[0].SetColor("_EmissionColor", originColor);
+            hitFX.SetActive(false);
+            lowHpFX.SetActive(false);
             return;
         }
 
@@ -56,11 +63,24 @@ public class PlayerStateController : MonoBehaviour
         {
             StartCoroutine(ProcessState(m_delayTime[(int)m_curState - 1], PlayerState.INVI));
             renderer.materials[0].SetColor("_EmissionColor", attackColor);
+            if(curPlayerHp <= hpLimit)
+            {
+                hitFX.SetActive(true);
+            }
+            else
+            {
+                lowHpFX.SetActive(true);
+            }
         }
         else
         {
             StartCoroutine(ProcessState(m_delayTime[(int)m_curState - 1], PlayerState.IDLE));
         }
+    }
+
+    public void SetHpState(int hp)
+    {
+        curPlayerHp = hp;
     }
 
     private IEnumerator ProcessState(float delay, PlayerState nextState)

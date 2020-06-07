@@ -19,7 +19,11 @@ public class UrgentManager : MonoBehaviour
     public Text urgentText;
     public Image urgentImage;
     public Sprite urgentOffSprite;
+    public Sprite urgentOnSprite;
     public Animation urgentUIAnim;
+
+    public GameObject urgentOnFX;
+    public GameObject urgentMoveFX;
 
     void Start()
     {
@@ -56,16 +60,21 @@ public class UrgentManager : MonoBehaviour
 
     public void BonusOn()
     {
+        Instantiate(urgentOnFX, this.transform);
+
         m_urgentChargeBonus = true;
-        urgentUIAnim.Play();
+        //urgentUIAnim.Play();
+        urgentImage.sprite = urgentOnSprite;
         m_urgentRangeIn = false;
 
-        Instantiate(m_urgentFXPrefab, this.transform);
+        urgentMoveFX.SetActive(true);
     }
 
     public void BonusOff()
     {
         m_urgentChargeBonus = false;
         urgentImage.sprite = urgentOffSprite;
+
+        urgentMoveFX.SetActive(false);
     }
 }

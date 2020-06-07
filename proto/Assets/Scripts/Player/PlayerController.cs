@@ -89,6 +89,7 @@ public class PlayerController : MonoBehaviour
 
             m_isAttacked = true;
             m_hp -= value;
+            sc.SetHpState(m_hp);
         }
     }
 

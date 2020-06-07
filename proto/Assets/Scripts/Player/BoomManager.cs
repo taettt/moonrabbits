@@ -15,6 +15,7 @@ public class BoomManager : MonoBehaviour
     public int boomCount { get { return m_boomCount; } }
     public Image boomImage;
     public Sprite boomOffSprite;
+    public Sprite boomOnSprite;
     public Animation boomUIAnim;
 
     private int m_boomDamage = 16;
@@ -49,7 +50,8 @@ public class BoomManager : MonoBehaviour
         if (trapParent.childCount >= m_boomActiveCount)
         {
             m_boomActive = true;
-            boomUIAnim.Play();
+            //boomUIAnim.Play();
+            boomImage.sprite = boomOnSprite;
         }
         else
         {

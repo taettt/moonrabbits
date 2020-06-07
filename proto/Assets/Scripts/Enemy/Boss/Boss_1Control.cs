@@ -31,6 +31,7 @@ public class Boss_1Control : BossControl
     public Vector3[] m_pattern_3Moves;
     public Vector3 m_pattern_4Move;
     public Vector3[] m_pattern_4Spawns;
+    public Vector3 m_pattern_laserMove;
     private float m_moveTimer = 0.0f;
 
     private float m_waiter = 0.0f;
@@ -451,6 +452,28 @@ public class Boss_1Control : BossControl
         }
     }
 
+    private void PatternLaserShoot()
+    {
+
+    }
+
+    private void PatternLaserMove()
+    {
+        m_moveTimer += Time.deltaTime;
+        animator.SetBool("IsRun", true);
+
+        this.transform.position = Vector3.MoveTowards(this.transform.position,
+            m_pattern_laserMove, Time.deltaTime * bc.moveSpeed);
+        weaponTr.position = Vector3.Lerp(weaponTr.position, m_pattern_laserMove, m_moveTimer);
+
+        if(m_moveTimer >= 1.0f)
+        {
+            m_moveTimer = 0.0f;
+            m_isMoving = false;
+            animator.SetBool("isRun", false);
+        }
+    }
+
     /*
     // weapon도 가져와서 shootbullet
     private IEnumerator Pattern4Shoot()
@@ -513,20 +536,4 @@ public class Boss_1Control : BossControl
         }
     }
     */
-
-    // rand spawn(필드 내 정해진 범위 내에서 하는걸로 의견), 보스 앞,양옆 spawn)
-    private void Pattern_MinionDistanceCheck()
-    {
-        Vector3[] spawnPos = new Vector3[]
-        {
-            new Vector3(this.transform.position.x - 3.0f, 1.2f, this.transform.position.z),
-            new Vector3(this.transform.position.x + 3.0f, 1.2f, this.transform.position.z),
-            new Vector3(this.transform.position.x, 1.2f, this.transform.position.z - 3.0f)
-        };
-
-        for (int i = 0; i < 3; i++)
-        {
-            Instantiate(minionPrefab, spawnPos[i], Quaternion.identity);
-        }
-    }
 }
