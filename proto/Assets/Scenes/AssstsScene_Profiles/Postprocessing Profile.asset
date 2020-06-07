@@ -42,7 +42,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 6.96
+    value: 5
   threshold:
     overrideState: 1
     value: 1
@@ -173,7 +173,7 @@ MonoBehaviour:
     value: 0
   saturation:
     overrideState: 1
-    value: -20
+    value: -25
   brightness:
     overrideState: 1
     value: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
     value: 100
   lift:
     overrideState: 1
-    value: {x: 0.6799787, y: 0.6512322, z: 1, w: 0.012062826}
+    value: {x: 0.7287061, y: 0.766472, z: 1, w: 0.012062826}
   gamma:
     overrideState: 1
     value: {x: 0.70328474, y: 0.7392138, z: 1, w: -0.0030898652}
