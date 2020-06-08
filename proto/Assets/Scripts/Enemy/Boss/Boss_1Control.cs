@@ -76,6 +76,10 @@ public class Boss_1Control : BossControl
             case 3:
                 Pattern4Move();
                 break;
+            case 4:
+                PatternCircularSplitMove();
+                break;
+
         }
     }
 
@@ -114,21 +118,21 @@ public class Boss_1Control : BossControl
     {
         if (!randomRound)
         {
-            m_curPatternIndex = m_curPatternIndex == 3 ? 4 : m_curPatternIndex + 1;
+            m_curPatternIndex = m_curPatternIndex == 4 ? 5 : m_curPatternIndex + 1;
             m_curPatternCount = 0;
-            if (m_curPatternIndex == 4)
+            if (m_curPatternIndex == 5)
             {
                 m_curPatternCount = 0;
                 randomRound = true;
 
-                SetRandQueue(4);
+                SetRandQueue(5);
                 m_curPatternIndex = phaseRandQueue.Dequeue();
             }
         }
         else
         {
             if (phaseRandQueue.Count <= 0 || phaseRandQueue == null)
-                SetRandQueue(4);
+                SetRandQueue(5);
 
             m_curPatternIndex = phaseRandQueue.Dequeue();
         }
@@ -138,7 +142,8 @@ public class Boss_1Control : BossControl
         switch (m_curPatternIndex)
         {
             case 0:
-                Invoke("Pattern1Shoot", 2.0f);
+                Invoke("PatternCircularSplitShoot", 2.0f);
+                //Invoke("Pattern1Shoot", 2.0f);
                 m_isMoving = true;
                 break;
             case 1:
@@ -157,6 +162,9 @@ public class Boss_1Control : BossControl
                 m_isMoving = true;
                 break;
             case 4:
+                Invoke("PatternCircularSplitShoot", 2.0f);
+                break;
+            case 5:
                 Invoke("ExcutePhase", 0.1f);
                 break;
         }
@@ -433,6 +441,7 @@ public class Boss_1Control : BossControl
         }
     }
 
+
     private void Pattern4Move()
     {
         if (bc.init)
@@ -471,6 +480,48 @@ public class Boss_1Control : BossControl
             m_moveTimer = 0.0f;
             m_isMoving = false;
             animator.SetBool("isRun", false);
+        }
+    }
+
+
+    public GameObject circularSplitMagicSphere;
+    public bool forceExcutePhase;
+    private void PatternCircularSplitShoot()
+    {
+        Debug.Log("Boss Circular Split Shoot");
+        if (bc.init)
+            return;
+
+        if (!m_onceExcute)
+        {
+            animator.SetBool("IsAttack", true);
+            m_onceExcute = true;
+        }
+
+        Instantiate(circularSplitMagicSphere);
+    }
+    public void ForceExcutePhase()
+    {
+        Debug.Log("FORCE EXCUTE PHASE");
+        ExcutePhase();
+
+    }
+    private void PatternCircularSplitMove()
+    {
+        if (bc.init)
+            return;
+
+        m_moveTimer += Time.deltaTime;
+        animator.SetBool("IsRun", true);
+
+        this.transform.position = Vector3.MoveTowards(this.transform.position,
+            m_pattern_4Move, Time.deltaTime * bc.moveSpeed * 2.0f);
+
+        if (m_moveTimer >= 1.0f)
+        {
+            m_moveTimer = 0.0f;
+            m_isMoving = false;
+            animator.SetBool("IsRun", false);
         }
     }
 
