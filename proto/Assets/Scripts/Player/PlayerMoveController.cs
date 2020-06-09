@@ -80,7 +80,6 @@ public class PlayerMoveController : MonoBehaviour
 
             if (um.urgentRangeIn)
             {
-                Debug.Log("urgent bonus");
                 um.BonusOn();
             }
         }
@@ -95,10 +94,15 @@ public class PlayerMoveController : MonoBehaviour
 
     private void CheckWallAndTeleport()
     {
+        Debug.DrawRay(this.transform.position, playerModelTr.forward * teleportSpeed, Color.red);
         RaycastHit hit;
-        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed, wallCollisionMask))
+        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed))
         {
-            tr.Translate(new Vector3(hit.point.x, 0.0f, hit.point.z) * Time.deltaTime);
+            if (hit.collider.tag == "WALL")
+            {
+                Debug.Log("coll");
+                tr.Translate(new Vector3(hit.point.x, 0.0f, hit.point.z) * Time.deltaTime * teleportSpeed);
+            }
         }
         else
         {
@@ -117,12 +121,18 @@ public class PlayerMoveController : MonoBehaviour
         m_dir = Vector3.Normalize(m_movement);
         playerModelTr.forward = m_dir;
 
+        Debug.DrawRay(this.transform.position, playerModelTr.forward * 1.5f, Color.red);
         if (m_dir != Vector3.zero)
         {
             RaycastHit hit;
-            if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, 0.3f, wallCollisionMask))
+            // sphereCastAll
+            if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, 1.5f))
             {
-                tr.position = new Vector3(hit.point.x, 0.2f, hit.point.z);
+                if (hit.collider.tag == "WALL")
+                {
+                    Debug.Log("move Coll");
+                    tr.position = new Vector3(hit.point.x, 0.2f, hit.point.z);
+                }
             }
             else
             {

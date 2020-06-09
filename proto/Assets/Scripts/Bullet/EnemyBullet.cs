@@ -36,7 +36,8 @@ public class EnemyBullet : Bullet
                     return;
                 }
 
-                Instantiate(m_playerDestroyPrefab, this.transform.position, Quaternion.LookRotation(coll.transform.GetChild(0).forward * -1f));
+                GameObject fx = Instantiate(m_playerDestroyPrefab, coll.transform);
+                fx.transform.rotation = Quaternion.LookRotation(coll.transform.GetChild(0).forward * -1f);
                 PlayerController pc = coll.gameObject.GetComponent<PlayerController>();
                 pc.DecreaseHP(attack);
                 Destroy();

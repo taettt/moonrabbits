@@ -100,6 +100,6 @@ public class MinionController : MonoBehaviour
     {
         var bullet = ObjectManager.PushObject("EnemyBullet").GetComponent<EnemyBullet>();
         bullet.transform.position = this.transform.position;
-        bullet.Spawn(this.transform.position, m_dir, m_attackSpeed, m_attackStat);
+        bullet.Spawn(this.transform.position, m_dir * -1f, m_attackSpeed, m_attackStat);
     }
 }
