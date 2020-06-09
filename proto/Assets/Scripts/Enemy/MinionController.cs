@@ -27,13 +27,19 @@ public class MinionController : MonoBehaviour
     void Start()
     {
         Init();
+        originY = this.transform.position.y;
 
         StartCoroutine(ShootBulletCoroutine());
     }
-
+    
+    Vector3 toPlayer;
+    [SerializeField]
+    float originY;
     void Update()
     {
-        this.transform.position = Vector3.MoveTowards(this.transform.position, playerTr.position, m_moveSpeed * Time.deltaTime);
+        toPlayer = playerTr.position;
+        toPlayer.y = originY;
+        this.transform.position = Vector3.MoveTowards(this.transform.position, toPlayer, m_moveSpeed * Time.deltaTime);
     }
 
     void OnTriggernEnter(Collider coll)
@@ -79,7 +85,7 @@ public class MinionController : MonoBehaviour
     {
         while (true)
         {
-            m_dir = (this.transform.position - playerTr.position).normalized;
+            m_dir = (playerTr.position-this.transform.position).normalized;
             ShootBullet();
 
             yield return new WaitForSeconds(m_attackDelay);

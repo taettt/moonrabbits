@@ -164,6 +164,7 @@ public class Weapon : MonoBehaviour
 
     private IEnumerator Attack_Long_Check(Vector3 mousePos)
     {
+        mousePos.y = 1.5f;
         Vector3 pos = ConversionPos(mousePos);
         curState = AttackState.LONG;
 

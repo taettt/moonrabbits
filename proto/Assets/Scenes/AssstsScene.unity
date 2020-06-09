@@ -1101,7 +1101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4d200dbf2bc209b4fadabba2d17f9efc, type: 3}
       propertyPath: m_RootOrder
-      value: 30
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4d200dbf2bc209b4fadabba2d17f9efc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -14066,6 +14066,7 @@ MonoBehaviour:
   curPhase: 0
   playerTr: {fileID: 1201668554}
   weaponTr: {fileID: 0}
+  m_isMoving: 0
   m_curPatternIndex: -1
   patternText: {fileID: 633748210}
   patternTimer: 0
@@ -14101,6 +14102,10 @@ MonoBehaviour:
     type: 3}
   minionSpawnFX: {fileID: 4300320797589707129, guid: 154b621c828bdf84f98b77a653d511d0,
     type: 3}
+  m_monsterSpawnPoint: {fileID: 656904702}
+  stage_CSS_Delay: 4
+  m_spawnTimer: 0
+  m_callSpawnTimer: 0
   circularSplitMagicSphere: {fileID: 5575792805557208677, guid: 49a6756a6f663014ab0d973e88c0a7b0,
     type: 3}
   forceExcutePhase: 0
@@ -14161,7 +14166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4d200dbf2bc209b4fadabba2d17f9efc, type: 3}
       propertyPath: m_RootOrder
-      value: 24
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4d200dbf2bc209b4fadabba2d17f9efc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -15464,7 +15469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4d200dbf2bc209b4fadabba2d17f9efc, type: 3}
       propertyPath: m_RootOrder
-      value: 25
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4d200dbf2bc209b4fadabba2d17f9efc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -18580,7 +18585,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -6.299988}
+  m_AnchoredPosition: {x: 0, y: -6.300049}
   m_SizeDelta: {x: 794, y: 109}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1001 &852205742
@@ -19971,7 +19976,7 @@ Transform:
   - {fileID: 832241887}
   - {fileID: 360934527}
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &908200449
 GameObject:
@@ -33146,7 +33151,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1698873720
 PrefabInstance:

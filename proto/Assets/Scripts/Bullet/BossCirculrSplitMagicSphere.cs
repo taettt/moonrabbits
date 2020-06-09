@@ -46,8 +46,8 @@ public class BossCirculrSplitMagicSphere : EnemyBullet
                 Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(dir));
                 b1C.forceExcutePhase = true;
                 b1C.ForceExcutePhase();
+                Destroy(this.gameObject);
                 Debug.Log("magic sphere destroyed");
-                Destroy(this);
                 break;
         }
     }

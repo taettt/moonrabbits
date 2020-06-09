@@ -1,6 +1,6 @@
 Win64
 PlayerPath?
-C:/Users/user/Desktop/문래빗/build_06_07/proto.exe
+C:/Users/user/Desktop/MRbbits/proto.exe
 SceneListBegin?
 Assets/Scenes/AssstsScene.unity
 SceneListEnd?
@@ -133,7 +133,7 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 b8a5e8091ab0b8861d2add371082c5e0 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
 9869d29a5e06e89901b88d69e4225ddf Unity.Polybrush.dll:Polybrush.z_AdditionalVertexStreams
 61b9d9b6f4b6a222dfea8b131b3d3227 Unity.Postprocessing.Runtime.dll:UnityEngine.Rendering.PostProcessing.ChromaticAberration
-4db2a1191b5645e9e65d95a19aee4707 Assembly-CSharp.dll:.Boss_1Control
+9daf08540e2d890a2361471a9e5c1e49 Assembly-CSharp.dll:.Boss_1Control
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.WaveBullet
 fa17438a6959f52e360234de3a3e9565 Assembly-CSharp.dll:.BossController
 55ebaf476ec5c38c04c72ce497a05f57 Assembly-CSharp.dll:.PlayerController
@@ -191,6 +191,7 @@ fb6a1ea36b4f6ef5948d283d93760765 UnityEngine.GoogleAudioSpatializer.dll:UnityEng
 cd3e0be613f5aed1dbd44674b9fb9f60 Assembly-CSharp.dll:.PlayerStateController
 7e137e095707a3b24ce74dab72005bbe Assembly-CSharp.dll:.LightFollow
 ee0cef6caaac8ae485bfa82f000f0f7b Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
+1962fa5635dc5a2915e4f1882f96875b Assembly-CSharp.dll:.BossCirculrSplitMagicSphere
 fe1a9d3961138a2e6215436fc583e41f Assembly-CSharp.dll:.UrgentManager
 5fc094978ce3e3591a7500ed380d854a Unity.Analytics.DataPrivacy.dll:UnityEngine.Analytics.DataPrivacyButton
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver

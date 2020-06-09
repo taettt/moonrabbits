@@ -14,6 +14,7 @@ public class Boss_1Control : BossControl
     private Coroutine curCoroutine_F = null;
     private Coroutine curCoroutine_S = null;
 
+    [SerializeField]
     private bool m_isMoving;
     private Animator animator;
 
@@ -70,15 +71,11 @@ public class Boss_1Control : BossControl
                 Pattern2Move();
                 break;
             case 2:
-                patternText.text = "Pattern 3 : " + patternTimer;
-                //Pattern3Move();
-                break;
-            case 3:
                 Pattern4Move();
                 break;
-            case 4:
+            case 3:
                 PatternCircularSplitMove();
-                break;
+                break;   
 
         }
     }
@@ -118,21 +115,21 @@ public class Boss_1Control : BossControl
     {
         if (!randomRound)
         {
-            m_curPatternIndex = m_curPatternIndex == 4 ? 5 : m_curPatternIndex + 1;
+            m_curPatternIndex = m_curPatternIndex == 3 ? 4 : m_curPatternIndex + 1;
             m_curPatternCount = 0;
-            if (m_curPatternIndex == 5)
+            if (m_curPatternIndex == 4)
             {
                 m_curPatternCount = 0;
                 randomRound = true;
 
-                SetRandQueue(5);
+                SetRandQueue(4);
                 m_curPatternIndex = phaseRandQueue.Dequeue();
             }
         }
         else
         {
             if (phaseRandQueue.Count <= 0 || phaseRandQueue == null)
-                SetRandQueue(5);
+                SetRandQueue(4);
 
             m_curPatternIndex = phaseRandQueue.Dequeue();
         }
@@ -142,8 +139,9 @@ public class Boss_1Control : BossControl
         switch (m_curPatternIndex)
         {
             case 0:
-                Invoke("PatternCircularSplitShoot", 2.0f);
                 //Invoke("Pattern1Shoot", 2.0f);
+                //Invoke("PatternCircularSplitShoot", 0.1f);
+                Invoke("Pattern4Shoot", 2.0f);
                 m_isMoving = true;
                 break;
             case 1:
@@ -152,21 +150,16 @@ public class Boss_1Control : BossControl
                 m_isMoving = true;
                 break;
             case 2:
-                StopCoroutine(curCoroutine_F);
-                StopCoroutine(curCoroutine_S);
-                m_isMoving = true;
-                curCoroutine_F = StartCoroutine(Pattern3Move());
-                break;
-            case 3:
                 Invoke("Pattern4Shoot", 2.0f);
                 m_isMoving = true;
                 break;
-            case 4:
-                Invoke("PatternCircularSplitShoot", 2.0f);
+            case 3:
+                Invoke("PatternCircularSplitShoot", 0.1f);
                 break;
-            case 5:
+            case 4:
                 Invoke("ExcutePhase", 0.1f);
                 break;
+                
         }
 
         patternTimer = 0.0f;
@@ -309,136 +302,205 @@ public class Boss_1Control : BossControl
         }
     }
 
-    private void Pattern3Shoot()
-    {
-        if (bc.init)
-            return;
+    //private void Pattern3Shoot()
+    //{
+    //    if (bc.init)
+    //        return;
 
-        StopCoroutine(curCoroutine_F);
+    //    StopCoroutine(curCoroutine_F);
 
-        animator.SetBool("IsAttack", true);
-        animator.SetFloat("AttackBlending", m_curPatternCount / m_patternMaxCount[m_curPatternIndex]);
+    //    animator.SetBool("IsAttack", true);
+    //    animator.SetFloat("AttackBlending", m_curPatternCount / m_patternMaxCount[m_curPatternIndex]);
 
-        Vector3 dir = playerTr.position - this.transform.position;
-        dir = dir.normalized;
+    //    Vector3 dir = playerTr.position - this.transform.position;
+    //    dir = dir.normalized;
 
-        bc.ShootBullet(dir, bc.attackSpeed * 2.0f, bc.damage * 4);
+    //    bc.ShootBullet(dir, bc.attackSpeed * 2.0f, bc.damage * 4);
 
-        m_curPatternCount++;
-        if (m_curPatternCount < m_patternMaxCount[m_curPatternIndex])
-        {
-            animator.SetBool("IsAttack", false);
-            Invoke("Pattern3Shoot", 1.0f);
-        }
-        else
-        {
-            animator.SetBool("IsAttack", false);
-            Invoke("ExcutePhase", 2.0f);
-        }
-    }
+    //    m_curPatternCount++;
+    //    if (m_curPatternCount < m_patternMaxCount[m_curPatternIndex])
+    //    {
+    //        animator.SetBool("IsAttack", false);
+    //        Invoke("Pattern3Shoot", 1.0f);
+    //    }
+    //    else
+    //    {
+    //        animator.SetBool("IsAttack", false);
+    //        Invoke("ExcutePhase", 2.0f);
+    //    }
+    //}
 
-    private IEnumerator Pattern3Move()
-    {
-        while (m_isMoving)
-        {
-            Vector3 targetPos = Vector3.zero;
-            float dis = Vector3.Distance(playerTr.position, this.transform.position);
-            Vector3 dir = (playerTr.position - this.transform.position).normalized;
+    //private IEnumerator Pattern3Move()
+    //{
+    //    while (m_isMoving)
+    //    {
+    //        Vector3 targetPos = Vector3.zero;
+    //        float dis = Vector3.Distance(playerTr.position, this.transform.position);
+    //        Vector3 dir = (playerTr.position - this.transform.position).normalized;
 
-            if (dis <= 15.0f)
-            {
-                if (bc.playerTr.position.z < 0.0f)
-                {
-                    targetPos = new Vector3((playerTr.position.x), 0.2f, playerTr.position.z + 20.0f);
-                }
-                else
-                {
-                    targetPos = new Vector3((playerTr.position.x), 0.2f, (playerTr.position.z + 20.0f) * -1f);
-                }
+    //        if (dis <= 15.0f)
+    //        {
+    //            if (bc.playerTr.position.z < 0.0f)
+    //            {
+    //                targetPos = new Vector3((playerTr.position.x), 0.2f, playerTr.position.z + 20.0f);
+    //            }
+    //            else
+    //            {
+    //                targetPos = new Vector3((playerTr.position.x), 0.2f, (playerTr.position.z + 20.0f) * -1f);
+    //            }
 
-                this.transform.position = Vector3.MoveTowards(this.transform.position,
-                    targetPos, Time.deltaTime * bc.moveSpeed);
-                this.transform.forward = dir;
+    //            this.transform.position = Vector3.MoveTowards(this.transform.position,
+    //                targetPos, Time.deltaTime * bc.moveSpeed);
+    //            this.transform.forward = dir;
 
-                animator.SetBool("IsRun", true);
-                m_moveTimer += Time.deltaTime;
-                if (m_moveTimer > 0.3f)
-                {
-                    m_moveTimer = 0.0f;
-                    m_isMoving = false;
-                    animator.SetBool("IsRun", false);
-                }
-            }
-            else
-            {
-                m_isMoving = false;
-            }
-        }
+    //            animator.SetBool("IsRun", true);
+    //            m_moveTimer += Time.deltaTime;
+    //            if (m_moveTimer > 0.3f)
+    //            {
+    //                m_moveTimer = 0.0f;
+    //                m_isMoving = false;
+    //                animator.SetBool("IsRun", false);
+    //            }
+    //        }
+    //        else
+    //        {
+    //            m_isMoving = false;
+    //        }
+    //    }
 
-        yield return new WaitForSeconds(0.5f);
-        Invoke("Pattern3Shoot", 0.5f);
-    }
+    //    yield return new WaitForSeconds(0.5f);
+    //    Invoke("Pattern3Shoot", 0.5f);
+    //}
 
-    private void _Pattern3Move()
-    {
-        Vector3 targetPos = Vector3.zero;
-        float dis = Vector3.Distance(bc.playerTr.position, this.transform.position);
-        Vector3 dir = (bc.playerTr.position - this.transform.position).normalized;
+    //private void _Pattern3Move()
+    //{
+    //    Vector3 targetPos = Vector3.zero;
+    //    float dis = Vector3.Distance(bc.playerTr.position, this.transform.position);
+    //    Vector3 dir = (bc.playerTr.position - this.transform.position).normalized;
 
-        if (dis <= 15.0f)
-        {
-            if (bc.playerTr.position.z < 0.0f)
-            {
-                targetPos = new Vector3((bc.playerTr.position.x), 0f, bc.playerTr.position.z + 20.0f);
-            }
-            else
-            {
-                targetPos = new Vector3((bc.playerTr.position.x), 0f, (bc.playerTr.position.z + 20.0f) * -1f);
-            }
+    //    if (dis <= 15.0f)
+    //    {
+    //        if (bc.playerTr.position.z < 0.0f)
+    //        {
+    //            targetPos = new Vector3((bc.playerTr.position.x), 0f, bc.playerTr.position.z + 20.0f);
+    //        }
+    //        else
+    //        {
+    //            targetPos = new Vector3((bc.playerTr.position.x), 0f, (bc.playerTr.position.z + 20.0f) * -1f);
+    //        }
 
-            this.transform.position = Vector3.MoveTowards(this.transform.position,
-                targetPos, Time.deltaTime * bc.moveSpeed);
-            this.transform.forward = dir;
+    //        this.transform.position = Vector3.MoveTowards(this.transform.position,
+    //            targetPos, Time.deltaTime * bc.moveSpeed);
+    //        this.transform.forward = dir;
 
-            animator.SetBool("IsRun", true);
-            m_moveTimer += Time.deltaTime;
-            if (m_moveTimer > 1.0f)
-            {
-                m_moveTimer = 0.0f;
-                animator.SetBool("IsRun", false);
-                Invoke("Pattern3Shoot", 0.5f);
-            }
-        }
-        else
-        {
-            Invoke("Pattern3Shoot", 0.5f);
-        }
-    }
+    //        animator.SetBool("IsRun", true);
+    //        m_moveTimer += Time.deltaTime;
+    //        if (m_moveTimer > 1.0f)
+    //        {
+    //            m_moveTimer = 0.0f;
+    //            animator.SetBool("IsRun", false);
+    //            Invoke("Pattern3Shoot", 0.5f);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Invoke("Pattern3Shoot", 0.5f);
+    //    }
+    //}
+
+    //private void Pattern4Shoot()
+    //{
+    //    if (bc.init)
+    //        return;
+
+    //    if(!m_onceExcute)
+    //    {
+    //        animator.SetBool("IsSummon", true);
+    //        GameObject fx = Instantiate(minionSpawnFX, this.transform);
+    //        m_onceExcute = true;
+    //    }
+
+    //    Instantiate(minionPrefab, m_pattern_4Spawns[m_curPatternCount], Quaternion.identity);
+
+    //    m_curPatternCount++;
+    //    if (m_curPatternCount >= m_patternMaxCount[m_curPatternIndex])
+    //    {
+    //        ExcutePhase();
+    //    }
+    //    else
+    //    {
+    //        animator.SetBool("IsSummon", false);
+    //        Invoke("Pattern4Shoot", 1.0f);
+    //    }
+    //}
 
     private void Pattern4Shoot()
     {
+        m_onceExcute = false;
         if (bc.init)
             return;
 
-        if(!m_onceExcute)
+        if (!m_onceExcute)
         {
             animator.SetBool("IsSummon", true);
             GameObject fx = Instantiate(minionSpawnFX, this.transform);
             m_onceExcute = true;
         }
+        //Instantiate(minionPrefab, m_pattern_4Spawns[m_curPatternCount], Quaternion.identity);
+        SpawnMonster(5);
 
-        Instantiate(minionPrefab, m_pattern_4Spawns[m_curPatternCount], Quaternion.identity);
 
-        m_curPatternCount++;
+
+        //m_curPatternCount++;
         if (m_curPatternCount >= m_patternMaxCount[m_curPatternIndex])
         {
-            ExcutePhase();
+            Invoke("ExcutePhase", stage_CSS_Delay);
         }
-        else
+
+    }
+
+    [SerializeField]
+    Transform m_monsterSpawnPoint;
+    [SerializeField]
+    float stage_CSS_Delay = 4.0f;
+    [SerializeField]
+    float m_spawnTimer;
+    [SerializeField]
+    bool m_callSpawnTimer;
+    private void SpawnMonster(int _numberOfMonsters)
+    {
+        Debug.Log("called SpawnMonster");
+        //m_isMoving = true;
+        m_spawnTimer = 0;
+        m_callSpawnTimer = true;
+        while (m_callSpawnTimer == true)
         {
-            animator.SetBool("IsSummon", false);
-            Invoke("Pattern4Shoot", 1.0f);
+            m_spawnTimer += Time.deltaTime;
+            if (m_spawnTimer >= stage_CSS_Delay)
+                break;
         }
+
+        if (m_spawnTimer >= stage_CSS_Delay)
+        {
+            float angleStep = 360.0f / _numberOfMonsters;
+            float angle = 0.0f;
+            float radius = 25.0f;
+            for (int i = 0; i < _numberOfMonsters; i++)
+            {
+                float _x = radius * Mathf.Sin(Mathf.PI * 2 * i / _numberOfMonsters) + m_monsterSpawnPoint.position.x;
+                float _z = radius * Mathf.Cos(Mathf.PI * 2 * i / _numberOfMonsters) + m_monsterSpawnPoint.position.z;
+                Vector3 targetPosi = new Vector3(_x, 0.0f, _z);
+                targetPosi.y = 1.2f;
+                Instantiate(minionPrefab, targetPosi, Quaternion.identity);
+                Debug.Log("spawned minion" + angle);
+                m_curPatternCount++;
+                angle += angleStep;
+            }
+            m_spawnTimer = 0;
+            m_callSpawnTimer = false;
+            return;
+        }
+
     }
 
 
