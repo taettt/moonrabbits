@@ -13,12 +13,11 @@
     SubShader
     {
         Tags {"RenderType" = "Transparent" "Queue" = "Transparent"}
-        blend SrcAlpha One
-        zwrite off
+        blend SrcAlpha OneMinusSrcAlpha
         cull off //Two Side
 
         CGPROGRAM
-        #pragma surface surf Lambert nofog
+        #pragma surface surf Lambert nofog noambient alpha:blend
         #pragma target 3.0
 
         sampler2D _MainTex;
@@ -37,9 +36,9 @@
         void surf (Input IN, inout SurfaceOutput o)
         {
             float4 Scr = tex2D (_ScrTex, float2(IN.uv_ScrTex.x - _Time.y * _ScrSpd2, IN.uv_ScrTex.y - _Time.y * _ScrSpd1));
-            float4 MTex = tex2D(_MainTex, IN.uv_MainTex + Scr * _ScrPow).a;
-            o.Emission = MTex * _MainCol;
-            o.Alpha = _MainCol.a;
+            float4 MTex = tex2D(_MainTex, IN.uv_MainTex + Scr * _ScrPow) * _MainCol;
+            o.Emission = MTex.rgb;
+            o.Alpha = MTex.a;
         }
         ENDCG
     }
