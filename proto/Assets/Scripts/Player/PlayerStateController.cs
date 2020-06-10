@@ -46,16 +46,17 @@ public class PlayerStateController : MonoBehaviour
         {
             renderer.materials[0].SetColor("_EmissionColor", originColor);
             hitFX.SetActive(false);
-            lowHpFX.SetActive(false);
             return;
         }
 
         if(m_curState == PlayerState.RETIRE)
         {
+            lowHpFX.SetActive(false);
             gm.PhaseRetry();
         }
         else if(m_curState == PlayerState.DEATH)
         {
+            lowHpFX.SetActive(false);
             gm.GameOver();
         }
 

@@ -139,9 +139,9 @@ public class Boss_1Control : BossControl
         switch (m_curPatternIndex)
         {
             case 0:
-                //Invoke("Pattern1Shoot", 2.0f);
+                Invoke("Pattern1Shoot", 2.0f);
                 //Invoke("PatternCircularSplitShoot", 0.1f);
-                Invoke("Pattern4Shoot", 2.0f);
+                //Invoke("Pattern4Shoot", 2.0f);
                 m_isMoving = true;
                 break;
             case 1:

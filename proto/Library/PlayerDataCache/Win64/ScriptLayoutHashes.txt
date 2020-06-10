@@ -1,6 +1,6 @@
 Win64
 PlayerPath?
-C:/Users/user/Desktop/문래빗/build_6_10/proto.exe
+C:/Users/user/Desktop/문래빗/build_06_10_2/proto.exe
 SceneListBegin?
 Assets/Scenes/AssstsScene.unity
 SceneListEnd?
@@ -207,10 +207,10 @@ c275d07fa3e55c8fd284347965260db0 Assembly-CSharp.dll:.PlayerBullet
 d5630f96bd5a6a6eed7e1754c3fb8703 Unity.Postprocessing.Runtime.dll:UnityEngine.Rendering.PostProcessing.PostProcessVolume
 d0987ce3e9092dbe0fa30d73f333fffa Unity.Postprocessing.Runtime.dll:UnityEngine.Rendering.PostProcessing.Grain
 5372ed2ce39229b1ac910757999a8be2 Unity.TextMeshPro.dll:TMPro.TextMeshPro
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.BloodScreenUtility
 3165968ba45c74472d279ba04455fccb Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient
 ac6acd886c54c48c599ab5fed5781ea7 Unity.Postprocessing.Runtime.dll:UnityEngine.Rendering.PostProcessing.AmbientOcclusion
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 2f90e8b57e727d2343c4d1a604da6b24 Assembly-CSharp.dll:.ObjectManager
 ac93773f9bac168f34bcc2769c36a118 Assembly-CSharp.dll:.FPSChecker
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.BossControl
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.BloodScreenUtility
