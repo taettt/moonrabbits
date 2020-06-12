@@ -27,6 +27,7 @@ public class PlayerStateController : MonoBehaviour
     public int hpLimit;
     public GameObject hitFX;
     public GameObject lowHpFX;
+    public BloodScreenUtility bsu;
 
     public Text stateText;
     public GameManager gm;
@@ -51,12 +52,10 @@ public class PlayerStateController : MonoBehaviour
 
         if(m_curState == PlayerState.RETIRE)
         {
-            lowHpFX.SetActive(false);
             gm.PhaseRetry();
         }
         else if(m_curState == PlayerState.DEATH)
         {
-            lowHpFX.SetActive(false);
             gm.GameOver();
         }
 
@@ -64,11 +63,8 @@ public class PlayerStateController : MonoBehaviour
         {
             StartCoroutine(ProcessState(m_delayTime[(int)m_curState - 1], PlayerState.INVI));
             renderer.materials[0].SetColor("_EmissionColor", attackColor);
-            if(curPlayerHp <= hpLimit)
-            {
-                hitFX.SetActive(true);
-            }
-            else
+            bsu.PlayHitFX();
+            if (curPlayerHp <= hpLimit)
             {
                 lowHpFX.SetActive(true);
             }

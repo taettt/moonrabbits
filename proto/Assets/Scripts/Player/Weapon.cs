@@ -7,6 +7,7 @@ public enum AttackState
 {
     NONE,
     SHORT,
+    DELAY,
     CHARGE,
     LONG,
     NUM
@@ -59,10 +60,10 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if (psc.curState == PlayerState.RETIRE || psc.curState == PlayerState.NOCK || psc.curState == PlayerState.ATTACKED)
+        if (psc.curState == PlayerState.RETIRE || psc.curState == PlayerState.NOCK || psc.curState == PlayerState.ATTACKED
+            || pmc.teleported)
         {
-            m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(false);
-            m_chargeFX[(int)ChargeFXState.FULL].SetActive(false);
+            ResetState();
             return;
         }
 
@@ -76,9 +77,13 @@ public class Weapon : MonoBehaviour
 
             curState = AttackState.CHARGE;
         }
-
+        
+        // 여기에서 check, state는 상관x
         else if(Input.GetMouseButton(1))
         {
+            if (curState == AttackState.DELAY)
+                return;
+
             curChargeTime += Time.deltaTime;
 
             if (curChargeTime >= chargeStep[2])
@@ -139,7 +144,7 @@ public class Weapon : MonoBehaviour
         {
             chargeText.text = "Charge : Charge_2";
         }
-        else if (curChargeTime > chargeStep[1] && curChargeTime < chargeStep[2])
+        else if (curChargeTime > chargeStep[1] && curChargeTime <= chargeStep[2])
         {
             chargeText.text = "Charge : Charge_1";
         }
@@ -147,6 +152,16 @@ public class Weapon : MonoBehaviour
         {
             chargeText.text = "Charge : Charge_0";
         }
+    }
+
+    private void ResetState()
+    {
+        curState = AttackState.NONE;
+        curChargeTime = 0.0f;
+        StopAllCoroutines();
+
+        m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(false);
+        m_chargeFX[(int)ChargeFXState.FULL].SetActive(false);
     }
 
    private Vector3 ConversionPos(Vector3 mousePos)
@@ -188,18 +203,20 @@ public class Weapon : MonoBehaviour
         {
             Vector3 pos = ConversionPos(mousePos);
 
-            curChargeTime = 0.0f;
-
             if (curChargeTime > chargeStep[2])
             {
                 Attack_Charge(pos, attackValue_charge_2, 2);
+                Debug.Log("charge2");
             }
-            else if (curChargeTime < chargeStep[2])
+            else if (curChargeTime <= chargeStep[2])
             {
                 Attack_Charge(pos, attackValue_charge_1, 1);
+                Debug.Log("charge1");
             }
 
-            yield return new WaitForSeconds(0.25f);
+            curChargeTime = 0.0f;
+            curState = AttackState.DELAY;
+            yield return new WaitForSeconds(1.0f);
             curState = AttackState.NONE;
         }
     }
@@ -213,7 +230,7 @@ public class Weapon : MonoBehaviour
         Attack_Charge(pos, 4, 2);
         um.BonusOff();
 
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(1.0f);
         curState = AttackState.NONE;
 
     }
@@ -221,7 +238,7 @@ public class Weapon : MonoBehaviour
     private void Attack_Charge(Vector3 targetPos, int attackValue, int kind)
     {
         GameObject go = Instantiate(m_chargeFX[(int)ChargeFXState.SHOOT], this.transform.position, Quaternion.LookRotation(m_dirVec));
-        go.transform.SetParent(this.transform);
+        go.transform.SetParent(weaponTr.transform);
 
         SetVectors(targetPos);
 

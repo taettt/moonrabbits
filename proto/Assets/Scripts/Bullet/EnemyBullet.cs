@@ -27,7 +27,12 @@ public class EnemyBullet : Bullet
         switch(coll.tag)
         {
             case "PLAYER":
-                if (coll.GetComponent<PlayerStateController>().curState == PlayerState.ATTACKED ||
+                if(coll.transform.GetChild(1).GetComponent<UrgentManager>().urgentRangeIn ||
+                    coll.GetComponent<PlayerMoveController>().teleported)
+                {
+                    return;
+                }
+                else if (coll.GetComponent<PlayerStateController>().curState == PlayerState.ATTACKED ||
                     coll.GetComponent<PlayerStateController>().curState == PlayerState.NOCK ||
                     coll.GetComponent<PlayerStateController>().curState == PlayerState.INVI ||
                     coll.GetComponent<PlayerStateController>().curState == PlayerState.RETIRE)
@@ -36,7 +41,8 @@ public class EnemyBullet : Bullet
                     return;
                 }
 
-                Instantiate(m_playerDestroyPrefab, this.transform.position, Quaternion.LookRotation(coll.transform.GetChild(0).forward * -1f));
+                GameObject go = Instantiate(m_playerDestroyPrefab, coll.transform);
+                go.transform.rotation = Quaternion.LookRotation(coll.transform.GetChild(0).forward * -1f);
                 PlayerController pc = coll.gameObject.GetComponent<PlayerController>();
                 pc.DecreaseHP(attack);
                 Destroy();

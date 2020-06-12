@@ -15,8 +15,9 @@ public class BoomManager : MonoBehaviour
     public int boomCount { get { return m_boomCount; } }
     public Image boomImage;
     public Sprite boomOffSprite;
-    public Sprite boomOnSprite;
-    public Animation boomUIAnim;
+    public Sprite[] boomOnSprite;
+    private bool m_isSpriteChange;
+    private int index;
 
     private int m_boomDamage = 16;
     public int boomDamage { get { return m_boomDamage; } }
@@ -27,6 +28,14 @@ public class BoomManager : MonoBehaviour
     {
         m_boomActive = false;
         m_boomCount = 2;
+
+        m_isSpriteChange = false;
+        index = 0;
+    }
+
+    void Start()
+    {
+        StartCoroutine(ChangeUI());
     }
 
     void Update()
@@ -44,19 +53,33 @@ public class BoomManager : MonoBehaviour
         }
     }
 
+    private IEnumerator ChangeUI()
+    {
+        while (m_isSpriteChange && index < 2)
+        {
+            boomImage.sprite = boomOnSprite[index];
+
+            yield return new WaitForSeconds(0.3f);
+            index++;
+        }
+
+        yield return 0;
+    }
+
     // 나중에 trap에서 check함
     private void TrapCheck()
     {
         if (trapParent.childCount >= m_boomActiveCount)
         {
             m_boomActive = true;
-            //boomUIAnim.Play();
-            boomImage.sprite = boomOnSprite;
+            m_isSpriteChange = true;
         }
         else
         {
             m_boomActive = false;
             boomImage.sprite = boomOffSprite;
+            m_isSpriteChange = false;
+            index = 0;
         }
     }
 
