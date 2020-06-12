@@ -3648,7 +3648,7 @@ PrefabInstance:
     - target: {fileID: 9158416823949500515, guid: b64f443314c234e448394ce2beb092ca,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3146367836312639778, guid: b64f443314c234e448394ce2beb092ca,
         type: 3}
@@ -3743,6 +3743,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &132088184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132088182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c41b6ecf3a9474792fc21e0e2032d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mat: {fileID: 2100000, guid: 3da03385ffedc934c8de3dbbc105c6ba, type: 2}
+  fadeAnim: {fileID: 132088183}
+  pc: {fileID: 1201668552}
 --- !u!1 &132761105
 GameObject:
   m_ObjectHideFlags: 0
@@ -5832,8 +5847,7 @@ MonoBehaviour:
   urgentText: {fileID: 1108210848}
   urgentImage: {fileID: 642515255}
   urgentOffSprite: {fileID: 21300000, guid: f7a09f9c6f21f1242a35e16f387a9fe1, type: 3}
-  urgentOnSprite: {fileID: 21300000, guid: de5811c6eb4b16f4087145dfc705f791, type: 3}
-  urgentUIAnim: {fileID: 642515252}
+  urgentOnSprite: []
   urgentOnFX: {fileID: 8343190994463280079, guid: 697d4a6a3e9dbe84f8f70540885a75ee,
     type: 3}
   urgentMoveFX: {fileID: 994692467}
@@ -26970,6 +26984,7 @@ MonoBehaviour:
   hpLimit: 15
   hitFX: {fileID: 132088182}
   lowHpFX: {fileID: 1514051675}
+  bsu: {fileID: 132088184}
   stateText: {fileID: 1471742870}
   gm: {fileID: 71506647}
 --- !u!4 &1201668554
@@ -27050,8 +27065,7 @@ MonoBehaviour:
   bulletParent: {fileID: 1517561759}
   boomImage: {fileID: 646684853}
   boomOffSprite: {fileID: 21300000, guid: 1354d093bb58b354695472ceae5addde, type: 3}
-  boomOnSprite: {fileID: 21300000, guid: 5bc095cd95947244499abc431efcbb7e, type: 3}
-  boomUIAnim: {fileID: 646684852}
+  boomOnSprite: []
   bc: {fileID: 659383031}
 --- !u!1001 &1207043302
 PrefabInstance:

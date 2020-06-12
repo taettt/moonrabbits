@@ -144,7 +144,7 @@ public class Weapon : MonoBehaviour
         {
             chargeText.text = "Charge : Charge_2";
         }
-        else if (curChargeTime > chargeStep[1] && curChargeTime < chargeStep[2])
+        else if (curChargeTime > chargeStep[1] && curChargeTime <= chargeStep[2])
         {
             chargeText.text = "Charge : Charge_1";
         }
@@ -203,18 +203,19 @@ public class Weapon : MonoBehaviour
         {
             Vector3 pos = ConversionPos(mousePos);
 
-            curChargeTime = 0.0f;
-            curState = AttackState.DELAY;
-
             if (curChargeTime > chargeStep[2])
             {
                 Attack_Charge(pos, attackValue_charge_2, 2);
+                Debug.Log("charge2");
             }
-            else if (curChargeTime < chargeStep[2])
+            else if (curChargeTime <= chargeStep[2])
             {
                 Attack_Charge(pos, attackValue_charge_1, 1);
+                Debug.Log("charge1");
             }
 
+            curChargeTime = 0.0f;
+            curState = AttackState.DELAY;
             yield return new WaitForSeconds(1.0f);
             curState = AttackState.NONE;
         }
@@ -237,7 +238,7 @@ public class Weapon : MonoBehaviour
     private void Attack_Charge(Vector3 targetPos, int attackValue, int kind)
     {
         GameObject go = Instantiate(m_chargeFX[(int)ChargeFXState.SHOOT], this.transform.position, Quaternion.LookRotation(m_dirVec));
-        go.transform.SetParent(this.transform);
+        go.transform.SetParent(weaponTr.transform);
 
         SetVectors(targetPos);
 

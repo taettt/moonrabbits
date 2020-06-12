@@ -17,8 +17,8 @@ public class UrgentManager : MonoBehaviour
     public Text urgentText;
     public Image urgentImage;
     public Sprite urgentOffSprite;
-    public Sprite urgentOnSprite;
-    public Animation urgentUIAnim;
+    public Sprite[] urgentOnSprite;
+    private int curIndex;
 
     public GameObject urgentOnFX;
     public GameObject urgentMoveFX;
@@ -61,7 +61,7 @@ public class UrgentManager : MonoBehaviour
         Instantiate(urgentOnFX, this.transform);
 
         m_urgentChargeBonus = true;
-        urgentImage.sprite = urgentOnSprite;
+        Invoke("ChangeUrgentUISprite", 0.3f);
         m_urgentRangeIn = false;
 
         urgentMoveFX.SetActive(true);
@@ -73,5 +73,20 @@ public class UrgentManager : MonoBehaviour
         urgentImage.sprite = urgentOffSprite;
 
         urgentMoveFX.SetActive(false);
+    }
+
+    public void ChangeUrgentUISprite()
+    {
+        urgentImage.sprite = urgentOnSprite[curIndex];
+        curIndex++;
+        if (curIndex != 2)
+        {
+            Invoke("ChangeUrgentUISprite", 0.5f);
+        }
+        else if (curIndex == 2)
+        {
+            curIndex = 0;
+            return;
+        }
     }
 }

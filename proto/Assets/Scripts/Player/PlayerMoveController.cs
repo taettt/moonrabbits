@@ -56,8 +56,9 @@ public class PlayerMoveController : MonoBehaviour
         Move();
         MoveAnim();
 
-        teleportText.text = "Dash Cool" + teleportTimer.ToString();
+        //teleportText.text = "Dash Cool" + teleportTimer.ToString();
 
+        /*
         if (m_teleported)
         {
             CheckWallAndTeleport();
@@ -83,6 +84,22 @@ public class PlayerMoveController : MonoBehaviour
                 um.BonusOn();
             }
         }
+        */
+
+        if(!m_teleported)
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                m_teleported = true;
+                PlayTeleportFX();
+                StartCoroutine(Teleport());
+
+                if(um.urgentRangeIn)
+                {
+                    um.BonusOn();
+                }
+            }
+        }
     }
 
     private void PlayTeleportFX()
@@ -104,6 +121,22 @@ public class PlayerMoveController : MonoBehaviour
         {
             tr.Translate(playerModelTr.forward * teleportSpeed * Time.deltaTime);
         }
+    }
+
+    private IEnumerator Teleport()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed))
+        {
+            tr.Translate(new Vector3(hit.point.x, 0.0f, hit.point.z) * Time.deltaTime);
+        }
+        else
+        {
+            tr.Translate(playerModelTr.forward * teleportSpeed * Time.deltaTime);
+        }
+
+        yield return new WaitForSeconds(teleportDelay);
+        m_teleported = false;
     }
 
     // 고려 -> spherecast(겹친 collider 해결), cast하는 길이(지름) 조정

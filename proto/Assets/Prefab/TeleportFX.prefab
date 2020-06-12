@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4421506330228322858}
   - component: {fileID: 2632646692659058606}
   m_Layer: 0
-  m_Name: TeleportFXs
+  m_Name: TeleportFX
   m_TagString: TELEPORTFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
