@@ -96,17 +96,22 @@ public class PlayerBullet : Bullet
                 this.transform.GetChild(0).gameObject.SetActive(true);
                 chargingPrefab[0].SetActive(false);
                 chargingPrefab[1].SetActive(false);
+
+                this.GetComponent<BoxCollider>().size = new Vector3(0.8f, 0.1f, 1f);
                 break;
             case PlayerBulletKind.CHARGE_1:
                 this.transform.GetChild(0).gameObject.SetActive(false);
                 chargingPrefab[0].SetActive(true);
                 chargingPrefab[1].SetActive(false);
 
+                this.GetComponent<BoxCollider>().size = new Vector3(1.0f, 0.1f, 1f);
                 break;
             case PlayerBulletKind.CHARGE_2:
                 this.transform.GetChild(0).gameObject.SetActive(false);
                 chargingPrefab[0].SetActive(false);
                 chargingPrefab[1].SetActive(true);
+
+                this.GetComponent<BoxCollider>().size = new Vector3(1.2f, 0.1f, 1f);
                 break;
         }
     }

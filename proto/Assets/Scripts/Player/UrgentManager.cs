@@ -14,8 +14,6 @@ public class UrgentManager : MonoBehaviour
     private bool m_urgentRangeIn;
     public bool urgentRangeIn { get { return m_urgentRangeIn; } }
 
-    public GameObject m_urgentFXPrefab;
-
     public Text urgentText;
     public Image urgentImage;
     public Sprite urgentOffSprite;
@@ -63,7 +61,6 @@ public class UrgentManager : MonoBehaviour
         Instantiate(urgentOnFX, this.transform);
 
         m_urgentChargeBonus = true;
-        //urgentUIAnim.Play();
         urgentImage.sprite = urgentOnSprite;
         m_urgentRangeIn = false;
 

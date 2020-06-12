@@ -80,7 +80,6 @@ public class PlayerMoveController : MonoBehaviour
 
             if (um.urgentRangeIn)
             {
-                Debug.Log("urgent bonus");
                 um.BonusOn();
             }
         }
@@ -93,10 +92,11 @@ public class PlayerMoveController : MonoBehaviour
         Destroy(go, 1.0f);
     }
 
+    // raycast true나왔을 때 이동하는거 속도 빠르게 가도 될듯
     private void CheckWallAndTeleport()
     {
         RaycastHit hit;
-        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed, wallCollisionMask))
+        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed))
         {
             tr.Translate(new Vector3(hit.point.x, 0.0f, hit.point.z) * Time.deltaTime);
         }
@@ -106,6 +106,7 @@ public class PlayerMoveController : MonoBehaviour
         }
     }
 
+    // 고려 -> spherecast(겹친 collider 해결), cast하는 길이(지름) 조정
     private void Move()
     {
         if (!Input.anyKey)
@@ -120,7 +121,7 @@ public class PlayerMoveController : MonoBehaviour
         if (m_dir != Vector3.zero)
         {
             RaycastHit hit;
-            if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, 0.3f, wallCollisionMask))
+            if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, 0.3f))
             {
                 tr.position = new Vector3(hit.point.x, 0.2f, hit.point.z);
             }

@@ -7,6 +7,7 @@ public enum AttackState
 {
     NONE,
     SHORT,
+    DELAY,
     CHARGE,
     LONG,
     NUM
@@ -59,10 +60,10 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if (psc.curState == PlayerState.RETIRE || psc.curState == PlayerState.NOCK || psc.curState == PlayerState.ATTACKED)
+        if (psc.curState == PlayerState.RETIRE || psc.curState == PlayerState.NOCK || psc.curState == PlayerState.ATTACKED
+            || pmc.teleported)
         {
-            m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(false);
-            m_chargeFX[(int)ChargeFXState.FULL].SetActive(false);
+            ResetState();
             return;
         }
 
@@ -76,9 +77,13 @@ public class Weapon : MonoBehaviour
 
             curState = AttackState.CHARGE;
         }
-
+        
+        // 여기에서 check, state는 상관x
         else if(Input.GetMouseButton(1))
         {
+            if (curState == AttackState.DELAY)
+                return;
+
             curChargeTime += Time.deltaTime;
 
             if (curChargeTime >= chargeStep[2])
@@ -149,6 +154,16 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    private void ResetState()
+    {
+        curState = AttackState.NONE;
+        curChargeTime = 0.0f;
+        StopAllCoroutines();
+
+        m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(false);
+        m_chargeFX[(int)ChargeFXState.FULL].SetActive(false);
+    }
+
    private Vector3 ConversionPos(Vector3 mousePos)
     {
         RaycastHit hit;
@@ -189,6 +204,7 @@ public class Weapon : MonoBehaviour
             Vector3 pos = ConversionPos(mousePos);
 
             curChargeTime = 0.0f;
+            curState = AttackState.DELAY;
 
             if (curChargeTime > chargeStep[2])
             {
@@ -199,7 +215,7 @@ public class Weapon : MonoBehaviour
                 Attack_Charge(pos, attackValue_charge_1, 1);
             }
 
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(1.0f);
             curState = AttackState.NONE;
         }
     }
@@ -213,7 +229,7 @@ public class Weapon : MonoBehaviour
         Attack_Charge(pos, 4, 2);
         um.BonusOff();
 
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(1.0f);
         curState = AttackState.NONE;
 
     }
