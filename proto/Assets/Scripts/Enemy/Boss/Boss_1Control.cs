@@ -65,6 +65,7 @@ public class Boss_1Control : BossControl
             case 0:
                 patternText.text = "Pattern 1 : " + patternTimer;
                 Pattern1Move();
+                //PatternLaserMove();
                 break;
             case 1:
                 patternText.text = "Pattern 2 : " + patternTimer;
@@ -75,7 +76,11 @@ public class Boss_1Control : BossControl
                 break;
             case 3:
                 PatternCircularSplitMove();
-                break;   
+                break;
+            case 4:
+                PatternLaserMove();
+                break;
+
 
         }
     }
@@ -87,7 +92,7 @@ public class Boss_1Control : BossControl
         m_curPatternIndex = -1;
         m_curPatternCount = 0;
         m_curMoveIndex = 0;
-
+        syncLaser = false;
         phaseRandQueue = new Queue<int>();
 
         Invoke("ExcutePhase", 2.0f);
@@ -115,21 +120,21 @@ public class Boss_1Control : BossControl
     {
         if (!randomRound)
         {
-            m_curPatternIndex = m_curPatternIndex == 3 ? 4 : m_curPatternIndex + 1;
+            m_curPatternIndex = m_curPatternIndex == 4 ? 5 : m_curPatternIndex + 1;
             m_curPatternCount = 0;
-            if (m_curPatternIndex == 4)
+            if (m_curPatternIndex == 5)
             {
                 m_curPatternCount = 0;
                 randomRound = true;
 
-                SetRandQueue(4);
+                SetRandQueue(5);
                 m_curPatternIndex = phaseRandQueue.Dequeue();
             }
         }
         else
         {
             if (phaseRandQueue.Count <= 0 || phaseRandQueue == null)
-                SetRandQueue(4);
+                SetRandQueue(5);
 
             m_curPatternIndex = phaseRandQueue.Dequeue();
         }
@@ -140,8 +145,6 @@ public class Boss_1Control : BossControl
         {
             case 0:
                 Invoke("Pattern1Shoot", 2.0f);
-                //Invoke("PatternCircularSplitShoot", 0.1f);
-                //Invoke("Pattern4Shoot", 2.0f);
                 m_isMoving = true;
                 break;
             case 1:
@@ -157,6 +160,8 @@ public class Boss_1Control : BossControl
                 Invoke("PatternCircularSplitShoot", 0.1f);
                 break;
             case 4:
+                break;
+            case 5:
                 Invoke("ExcutePhase", 0.1f);
                 break;
                 
@@ -191,7 +196,8 @@ public class Boss_1Control : BossControl
             Invoke("ExcutePhase", 2);
         }
     }
-
+    [SerializeField]
+    float rotateSpeed;
     private void Pattern1Move()
     {
         if (bc.init)
@@ -212,7 +218,14 @@ public class Boss_1Control : BossControl
 
         if (m_curMoveIndex + 1 != m_pattern_1Moves.Length)
         {
-            this.transform.rotation = Quaternion.LookRotation((m_pattern_1Moves[m_curMoveIndex + 1]).normalized);
+            
+            //this.transform.rotation = Quaternion.LookRotation((m_pattern_1Moves[m_curMoveIndex + 1]).normalized);
+
+            this.transform.rotation = Quaternion.RotateTowards(
+                this.transform.rotation,
+                Quaternion.LookRotation((m_pattern_1Moves[m_curMoveIndex + 1]).normalized),
+                rotateSpeed * Time.deltaTime
+                );
         }
         this.transform.position = Vector3.MoveTowards(this.transform.position,
             m_pattern_1Moves[m_curMoveIndex], Time.deltaTime * bc.moveSpeed * 0.5f);
@@ -503,7 +516,6 @@ public class Boss_1Control : BossControl
 
     }
 
-
     private void Pattern4Move()
     {
         if (bc.init)
@@ -523,28 +535,30 @@ public class Boss_1Control : BossControl
         }
     }
 
-    private void PatternLaserShoot()
-    {
+    public GameObject laserSphere;
+    public bool syncLaser;
 
-    }
 
     private void PatternLaserMove()
     {
+        Debug.Log("patternlasermoving");
+        m_isMoving = true;
         m_moveTimer += Time.deltaTime;
         animator.SetBool("IsRun", true);
 
         this.transform.position = Vector3.MoveTowards(this.transform.position,
             m_pattern_laserMove, Time.deltaTime * bc.moveSpeed);
-        weaponTr.position = Vector3.Lerp(weaponTr.position, m_pattern_laserMove, m_moveTimer);
+        //weaponTr.position = Vector3.Lerp(weaponTr.position, m_pattern_laserMove, m_moveTimer);
 
         if(m_moveTimer >= 1.0f)
         {
             m_moveTimer = 0.0f;
             m_isMoving = false;
-            animator.SetBool("isRun", false);
+            animator.SetBool("IsRun", false);
+            weaponTr.GetComponent<BossWeapon>().LaserPattern();
         }
     }
-
+    
 
     public GameObject circularSplitMagicSphere;
     public bool forceExcutePhase;

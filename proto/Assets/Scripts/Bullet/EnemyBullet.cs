@@ -53,6 +53,7 @@ public class EnemyBullet : Bullet
         RaycastHit hit;
         if(Physics.Raycast(this.transform.position, this.transform.forward, out hit, 0.9f, wallCollisionMask))
         {
+            //Debug.Log("raycast hit");
             Instantiate(m_objectDestroyPrefab, this.transform.position, Quaternion.LookRotation(dir));
             Destroy();
         }

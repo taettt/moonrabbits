@@ -86,6 +86,7 @@ public class MinionController : MonoBehaviour
         while (true)
         {
             m_dir = (playerTr.position-this.transform.position).normalized;
+            m_dir.y = 0;
             ShootBullet();
 
             yield return new WaitForSeconds(m_attackDelay);
