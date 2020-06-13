@@ -60,7 +60,7 @@ MonoBehaviour:
   wallCollisionMask:
     serializedVersion: 2
     m_Bits: 1024
-  destroyPrefab_1: {fileID: 5958158808014401959, guid: d17bd959ac7f9d74a8085f47a6f61026,
+  destroyPrefab_1: {fileID: 5326097627270078459, guid: d17bd959ac7f9d74a8085f47a6f61026,
     type: 3}
   destroyPrefab_2: {fileID: 74255778153304148, guid: 44ade06a144ced643801772b5b8a86dd,
     type: 3}
@@ -105,6 +105,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7754160883169474092}
     m_Modifications:
+    - target: {fileID: 3729364574255329604, guid: 808718a8c7905944fa1261f9a6f5e31b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4665019510991257432, guid: 808718a8c7905944fa1261f9a6f5e31b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 500611932282404318, guid: 808718a8c7905944fa1261f9a6f5e31b,
         type: 3}
       propertyPath: m_IsActive
@@ -216,16 +226,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5703086026225901056, guid: 808718a8c7905944fa1261f9a6f5e31b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3729364574255329604, guid: 808718a8c7905944fa1261f9a6f5e31b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4665019510991257432, guid: 808718a8c7905944fa1261f9a6f5e31b,
         type: 3}
       propertyPath: m_RootOrder
       value: 2
