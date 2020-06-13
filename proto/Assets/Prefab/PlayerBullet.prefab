@@ -60,7 +60,7 @@ MonoBehaviour:
   wallCollisionMask:
     serializedVersion: 2
     m_Bits: 1024
-  destroyPrefab_1: {fileID: 140071855509173782, guid: d436f6b3f704eea4ba37790a2f3f73cc,
+  destroyPrefab_1: {fileID: 5326097627270078459, guid: d17bd959ac7f9d74a8085f47a6f61026,
     type: 3}
   destroyPrefab_2: {fileID: 74255778153304148, guid: 44ade06a144ced643801772b5b8a86dd,
     type: 3}
