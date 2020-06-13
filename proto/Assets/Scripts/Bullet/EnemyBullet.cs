@@ -28,7 +28,6 @@ public class EnemyBullet : Bullet
         switch(coll.tag)
         {
             case "PLAYER":
-                Debug.Log(coll.tag);
                 if (coll.transform.GetChild(1).GetComponent<UrgentManager>().urgentRangeIn ||
                     coll.GetComponent<PlayerMoveController>().teleported)
                 {

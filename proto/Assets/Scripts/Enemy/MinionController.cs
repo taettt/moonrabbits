@@ -10,6 +10,7 @@ public class MinionController : MonoBehaviour
     public Transform playerTr;
     private Vector3 m_dir;
 
+    [SerializeField]
     private int m_hp;
     private float m_moveSpeed;
     private float m_attackSpeed;
@@ -27,34 +28,63 @@ public class MinionController : MonoBehaviour
     float originY;
     void Start()
     {
-        Init();
         originY = this.transform.position.y;
+        Init();
 
-        StartCoroutine(ShootBulletCoroutine());
+        StopAllCoroutines();
+        //StartCoroutine(ShootBulletCoroutine());
     }
     [SerializeField]
     Vector3 toPlayer;
     
     void Update()
     {
-        toPlayer = playerTr.position;
-        toPlayer.y = 2.2f;
+        if (col != null)
+        {
+            toPlayer = playerTr.position - (col.transform.position - this.transform.position);
+            toPlayer.y = originY;
+        }
+        else
+        {
+            toPlayer = playerTr.position;
+            toPlayer.y = originY;
+        }
+
+            
+        
         this.transform.position = Vector3.MoveTowards(this.transform.position, toPlayer, m_moveSpeed * Time.deltaTime);
     }
+    Collider col;
 
-    void OnTriggernEnter(Collider coll)
+    void OnTriggerEnter(Collider coll)
     {
         if (coll.tag == "PLAYERBULLET")
         {
+            Debug.Log("Minion Collided With PlayerBullet");
             DecreaseHP(coll.GetComponent<PlayerBullet>().attack);
         }
         else if (coll.tag == "PLAYER")
         {
-            Instantiate(m_minionFXPrefabs[1], this.transform.position, Quaternion.identity);
+            Debug.Log("Minion Collided With Player");
+            //Instantiate(m_minionFXPrefabs[1], this.transform.position, Quaternion.identity);
             coll.GetComponent<PlayerController>().DecreaseHP(m_attackStat);
             Destroy();
         }
+        else if(coll.tag=="MINION")
+        {
+            Debug.Log("colliding w/ other minion");
+            col = coll;
+        }
     }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "MINION")
+        {
+            col = null;
+        }
+    }
+
 
     private void Init()
     {
@@ -64,7 +94,7 @@ public class MinionController : MonoBehaviour
         m_attackSpeed = 4.0f;
         m_attackStat = 2;
 
-        Instantiate(m_minionFXPrefabs[0], this.transform);
+        //Instantiate(m_minionFXPrefabs[0], this.transform);
     }
 
     public void DropSeed()
@@ -78,7 +108,7 @@ public class MinionController : MonoBehaviour
     public void Destroy()
     {
         StopCoroutine(ShootBulletCoroutine());
-        DestroyImmediate(this.gameObject);
+        Destroy(this.gameObject);
     }
 
     private IEnumerator ShootBulletCoroutine()
@@ -97,6 +127,7 @@ public class MinionController : MonoBehaviour
     {
         if (m_hp - attackVal <= 0)
         {
+            Destroy(this.gameObject);
             DropSeed();
         }
 

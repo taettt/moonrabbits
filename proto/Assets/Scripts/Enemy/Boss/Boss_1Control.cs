@@ -503,7 +503,7 @@ public class Boss_1Control : BossControl
                 float _x = radius * Mathf.Sin(Mathf.PI * 2 * i / _numberOfMonsters) + m_monsterSpawnPoint.position.x;
                 float _z = radius * Mathf.Cos(Mathf.PI * 2 * i / _numberOfMonsters) + m_monsterSpawnPoint.position.z;
                 Vector3 targetPosi = new Vector3(_x, 0.0f, _z);
-                targetPosi.y = 1.2f;
+                targetPosi.y = 2.2f;
                 Instantiate(minionPrefab, targetPosi, Quaternion.identity);
                 Debug.Log("spawned minion" + angle);
                 m_curPatternCount++;
