@@ -23,7 +23,8 @@ public class MinionController : MonoBehaviour
         seedParent = GameObject.Find("Traps").transform;
         playerTr = GameObject.FindWithTag("PLAYER").transform;
     }
-
+    [SerializeField]
+    float originY;
     void Start()
     {
         Init();
@@ -31,14 +32,13 @@ public class MinionController : MonoBehaviour
 
         StartCoroutine(ShootBulletCoroutine());
     }
-    
-    Vector3 toPlayer;
     [SerializeField]
-    float originY;
+    Vector3 toPlayer;
+    
     void Update()
     {
         toPlayer = playerTr.position;
-        toPlayer.y = originY;
+        toPlayer.y = 2.2f;
         this.transform.position = Vector3.MoveTowards(this.transform.position, toPlayer, m_moveSpeed * Time.deltaTime);
     }
 

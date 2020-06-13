@@ -92,7 +92,6 @@ public class Boss_1Control : BossControl
         m_curPatternIndex = -1;
         m_curPatternCount = 0;
         m_curMoveIndex = 0;
-        syncLaser = false;
         phaseRandQueue = new Queue<int>();
 
         Invoke("ExcutePhase", 2.0f);
@@ -157,9 +156,10 @@ public class Boss_1Control : BossControl
                 m_isMoving = true;
                 break;
             case 3:
-                Invoke("PatternCircularSplitShoot", 0.1f);
+                m_isMoving = true;
                 break;
             case 4:
+                m_isMoving = true;
                 break;
             case 5:
                 Invoke("ExcutePhase", 0.1f);
@@ -535,8 +535,6 @@ public class Boss_1Control : BossControl
         }
     }
 
-    public GameObject laserSphere;
-    public bool syncLaser;
 
 
     private void PatternLaserMove()
@@ -550,31 +548,19 @@ public class Boss_1Control : BossControl
             m_pattern_laserMove, Time.deltaTime * bc.moveSpeed);
         //weaponTr.position = Vector3.Lerp(weaponTr.position, m_pattern_laserMove, m_moveTimer);
 
-        if(m_moveTimer >= 1.0f)
+        if ((int)this.transform.position.x == m_pattern_laserMove.x && (int)this.transform.position.z == m_pattern_laserMove.z)
         {
+            this.transform.eulerAngles = new Vector3(0f, -180f, 0);
             m_moveTimer = 0.0f;
             m_isMoving = false;
             animator.SetBool("IsRun", false);
             weaponTr.GetComponent<BossWeapon>().LaserPattern();
         }
     }
-    
-
-    public GameObject circularSplitMagicSphere;
-    public bool forceExcutePhase;
-    private void PatternCircularSplitShoot()
+    private void FacePosition(Vector3 vec)
     {
-        Debug.Log("Boss Circular Split Shoot");
-        if (bc.init)
-            return;
-
-        if (!m_onceExcute)
-        {
-            animator.SetBool("IsAttack", true);
-            m_onceExcute = true;
-        }
-
-        Instantiate(circularSplitMagicSphere);
+        transform.LookAt(vec);
+        Debug.Log("boss look at : " + vec);
     }
     public void ForceExcutePhase()
     {
@@ -598,9 +584,15 @@ public class Boss_1Control : BossControl
             m_moveTimer = 0.0f;
             m_isMoving = false;
             animator.SetBool("IsRun", false);
+            weaponTr.GetComponent<BossWeapon>().CircularSplitPattern();
         }
     }
 
+
+    private void BossChargeMove()
+    {
+        //how it would work?
+    }
     /*
     // weapon도 가져와서 shootbullet
     private IEnumerator Pattern4Shoot()

@@ -24,10 +24,12 @@ public class EnemyBullet : Bullet
 
     private void OnTriggerEnter(Collider coll)
     {
+        
         switch(coll.tag)
         {
             case "PLAYER":
-                if(coll.transform.GetChild(1).GetComponent<UrgentManager>().urgentRangeIn ||
+                Debug.Log(coll.tag);
+                if (coll.transform.GetChild(1).GetComponent<UrgentManager>().urgentRangeIn ||
                     coll.GetComponent<PlayerMoveController>().teleported)
                 {
                     return;
