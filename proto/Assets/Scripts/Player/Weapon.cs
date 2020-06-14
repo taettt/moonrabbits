@@ -31,6 +31,7 @@ public class Weapon : MonoBehaviour
     public int attackValue_default;
     public int attackValue_charge_1;
     public int attackValue_charge_2;
+    private float m_attackDelay;
     public Transform shootHoleTr;
     public Transform bulletParent;
     private Vector3 m_shootPos;
@@ -48,12 +49,14 @@ public class Weapon : MonoBehaviour
 
     public Transform playerTr;
     public Transform playerModelTr;
+    public Transform bossTr;
     public Transform weaponTr;
     public Animator animator;
     public PlayerMoveController pmc;
     public PlayerController pc;
     public PlayerStateController psc;
     public UrgentManager um;
+    public PlayerSkillManager sm;
 
     // ready, charging, full, shoot, attack1, attack2
     public GameObject[] m_chargeFX;
@@ -61,7 +64,7 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         if (psc.curState == PlayerState.RETIRE || psc.curState == PlayerState.NOCK || psc.curState == PlayerState.ATTACKED
-            || pmc.teleported)
+            || pmc.teleported || sm.isFASkillPlaying)
         {
             ResetState();
             return;
@@ -70,24 +73,31 @@ public class Weapon : MonoBehaviour
         UpdateFX();
         UpdateUI();
 
-        if(Input.GetMouseButtonDown(1))
+        if (curState == AttackState.CHARGE)
         {
-            if (curState != AttackState.NONE)
+            animator.SetBool("IsAttack", true);
+            animator.SetFloat("AttackDelay", curChargeTime - 0.25f);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (curState != AttackState.NONE || sm.isFASkillPlaying)
                 return;
 
             curState = AttackState.CHARGE;
         }
         
-        // 여기에서 check, state는 상관x
+
         else if(Input.GetMouseButton(1))
         {
-            if (curState == AttackState.DELAY)
+            if (curState == AttackState.DELAY || sm.isFASkillPlaying)
                 return;
 
             curChargeTime += Time.deltaTime;
 
             if (curChargeTime >= chargeStep[2])
             {
+                animator.SetFloat("AttackDelay", 0.75f);
                 m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(false);
             }
             else
@@ -109,7 +119,7 @@ public class Weapon : MonoBehaviour
 
         else if(Input.GetMouseButton(0))
         {
-            if (curState != AttackState.NONE || Input.GetMouseButton(1))
+            if (curState != AttackState.NONE || Input.GetMouseButton(1) || sm.isFASkillPlaying)
                 return;
 
             if(um.urgentChargeBonus)
@@ -120,6 +130,11 @@ public class Weapon : MonoBehaviour
             {
                 StartCoroutine(Attack_Long_Check(Input.mousePosition));
             }
+        }
+
+        else if(Input.GetKeyDown(KeyCode.Q))
+        {
+            StartCoroutine(Attack_FA_Check());
         }
     }
 
@@ -183,11 +198,17 @@ public class Weapon : MonoBehaviour
         Vector3 pos = ConversionPos(mousePos);
         curState = AttackState.LONG;
 
+        animator.SetBool("IsAttack", true);
+        m_attackDelay = 1.0f;
+        animator.SetFloat("AttackDelay", m_attackDelay);
+
         Attack_Long(pos);
 
         yield return new WaitForSeconds(0.25f);
 
         curState = AttackState.NONE;
+        animator.SetBool("IsAttack", false);
+        m_attackDelay = 0.0f;
     }
 
     private IEnumerator Attack_Charge_Check(Vector3 mousePos)
@@ -196,6 +217,8 @@ public class Weapon : MonoBehaviour
         {
             curState = AttackState.NONE;
             curChargeTime = 0.0f;
+
+            animator.SetBool("IsAttack", false);
 
             yield return null;
         }
@@ -216,8 +239,10 @@ public class Weapon : MonoBehaviour
 
             curChargeTime = 0.0f;
             curState = AttackState.DELAY;
+            animator.SetFloat("AttackDelay", 1f);
             yield return new WaitForSeconds(1.0f);
             curState = AttackState.NONE;
+            animator.SetBool("IsAttack", false);
         }
     }
 
@@ -227,11 +252,27 @@ public class Weapon : MonoBehaviour
 
         Vector3 pos = ConversionPos(mousePos);
 
-        Attack_Charge(pos, 4, 2);
+        animator.SetBool("IsAttack", true);
+        m_attackDelay = 1.0f;
+        animator.SetFloat("AttackDelay", m_attackDelay);
+        Attack_Charge(pos, attackValue_charge_2, 2);
         um.BonusOff();
 
         yield return new WaitForSeconds(1.0f);
         curState = AttackState.NONE;
+        animator.SetBool("IsAttack", false);
+        m_attackDelay = 0.0f;
+    }
+
+    private IEnumerator Attack_FA_Check()
+    {
+        while (sm.m_isFASkillOn)
+        {
+            Attack_FA(bossTr.position);
+
+            yield return new WaitForSeconds(0.1f);
+            sm.DecreseFASkillGague();
+        }
 
     }
 
@@ -256,6 +297,17 @@ public class Weapon : MonoBehaviour
         var bullet = ObjectManager.PushObject("PlayerBullet").GetComponent<PlayerBullet>();
         bullet.GetComponent<PlayerBullet>().SetVisual(PlayerBulletKind.DEF);
         bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, attackSpeed, attackValue_default);
+
+        playerModelTr.transform.forward = m_dirVec;
+    }
+
+    private void Attack_FA(Vector3 targetPos)
+    {
+        SetVectors(targetPos);
+
+        var bullet = ObjectManager.PushObject("PlayerBullet").GetComponent<PlayerBullet>();
+        bullet.GetComponent<PlayerBullet>().SetVisual(PlayerBulletKind.DEF);
+        bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, attackSpeed * 2, attackValue_default);
 
         playerModelTr.transform.forward = m_dirVec;
     }

@@ -109,26 +109,12 @@ public class PlayerMoveController : MonoBehaviour
         Destroy(go, 1.0f);
     }
 
-    // raycast true나왔을 때 이동하는거 속도 빠르게 가도 될듯
-    private void CheckWallAndTeleport()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed))
-        {
-            tr.Translate(new Vector3(hit.point.x, 0.0f, hit.point.z) * Time.deltaTime);
-        }
-        else
-        {
-            tr.Translate(playerModelTr.forward * teleportSpeed * Time.deltaTime);
-        }
-    }
-
     private IEnumerator Teleport()
     {
         RaycastHit hit;
         if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed))
         {
-            tr.Translate(new Vector3(hit.point.x, 0.0f, hit.point.z) * Time.deltaTime);
+            tr.Translate(new Vector3(hit.point.x, 0.0f, hit.point.z) * Time.deltaTime * teleportSpeed);
         }
         else
         {
@@ -167,8 +153,7 @@ public class PlayerMoveController : MonoBehaviour
 
     private void MoveAnim()
     {
-        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)
-            || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
         {
             animator.SetBool("IsRun", true);
         }
@@ -176,5 +161,8 @@ public class PlayerMoveController : MonoBehaviour
         {
             animator.SetBool("IsRun", false);
         }
+
+        animator.SetFloat("DirX", Input.GetAxis("Horizontal"));
+        animator.SetFloat("DirY", Input.GetAxis("Vertical"));
     }
 }
