@@ -15480,6 +15480,14 @@ MonoBehaviour:
   stage_CSS_Delay: 4
   m_spawnTimer: 0
   m_callSpawnTimer: 0
+  chargeSpeed: 5
+  timeToReachChargePosi: 0.5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  isCharging: 0
+  chargeTimer: 0
+  canCharge: 0
 --- !u!4 &669382374 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5e5597dd0aff18045a4a1fb31e6f28fb,
@@ -18459,7 +18467,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   rotateDirection: 0
-  readyToShootLaser: 0
 --- !u!120 &754158801
 LineRenderer:
   m_ObjectHideFlags: 0

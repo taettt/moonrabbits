@@ -24,14 +24,13 @@ public class BossWeapon : MonoBehaviour
     void Start()
     {
         onceDone = false;
-        readyToShootLaser = false;
         rotateDirection = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (currentBossWeaponState == (int)CurrentBossWeaponState.DEFAULT)
+        if (currentBossWeaponState == (int)CurrentBossWeaponState.DEFAULT) //reset weapon info
         {
             this.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
             onceDone = false;
@@ -39,7 +38,7 @@ public class BossWeapon : MonoBehaviour
             return;
             
         }
-        else if(currentBossWeaponState == (int)CurrentBossWeaponState.LASER)
+        else if(currentBossWeaponState == (int)CurrentBossWeaponState.LASER) //to shoot laser continuously
         {
             ShootLaser();
             if (this.transform.localRotation.y <= 0.0f)
@@ -63,11 +62,11 @@ public class BossWeapon : MonoBehaviour
     LayerMask layer;
     [SerializeField]
     int rotateDirection;
-    void ShootLaser()
+    void ShootLaser() //to shoot laser
     {
         Debug.Log("shooting laser from boss");
 
-        LR.enabled = true;
+        LR.enabled = true; //enables the line renderer for visual effect
         LR.SetPosition(0, this.transform.position);
 
         RaycastHit hit;
@@ -84,15 +83,15 @@ public class BossWeapon : MonoBehaviour
         LR.SetPosition(1, laserPoint);
 
     }
-    GameObject duplication;
+    GameObject duplication; //might be used some day?
     bool onceDone;
-    public bool readyToShootLaser;
-    public void CircularSplitPattern()
+
+    public void CircularSplitPattern() 
     {
         Debug.Log("circular split pattern by boss weapon");
         if (onceDone == false)
         {
-            Instantiate(circularSplitSphere, this.transform.position, Quaternion.identity);
+            Instantiate(circularSplitSphere, this.transform.position, Quaternion.identity); //instantiate the circular split sphere for once
             onceDone = true;
         }
         currentBossWeaponState = (int)CurrentBossWeaponState.DEFAULT;
@@ -109,7 +108,8 @@ public class BossWeapon : MonoBehaviour
         }
 
     }
-    private void RotateSphere()
+
+    private void RotateSphere() //rotate the boss weapon
     {
 
         this.transform.Rotate(new Vector3(0f, 50f * rotateDirection, 0f) * Time.deltaTime);

@@ -32,14 +32,14 @@ public class MinionController : MonoBehaviour
         Init();
 
         StopAllCoroutines();
-        //StartCoroutine(ShootBulletCoroutine());
+        StartCoroutine(ShootBulletCoroutine());
     }
     [SerializeField]
     Vector3 toPlayer;
     
     void Update()
     {
-        if (col != null)
+        if (col != null) //might use better collision check
         {
             toPlayer = playerTr.position - (col.transform.position - this.transform.position);
             toPlayer.y = originY;
