@@ -20,7 +20,7 @@ public class BloodScreenUtility : MonoBehaviour
         {
             if (this.gameObject.activeSelf)
             {
-                mat.SetFloat("_DisRange", (2.2f - (2.2f / pc.hp)));
+                mat.SetFloat("강도", (2.2f - (2.2f / pc.hp)));
             }
         }
     }
