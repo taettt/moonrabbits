@@ -23,7 +23,7 @@ public class PlayerStateController : MonoBehaviour
     public Color attackColor;
     public Color originColor;
 
-    private int curPlayerHp;
+    private int curPlayerHp = 40;
     public int hpLimit;
     public GameObject hitFX;
     public GameObject lowHpFX;

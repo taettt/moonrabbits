@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 필드 안에서 gen된(child 갯수로 검사해야할듯?) 트랩 개수로 bool 판단
 public class BoomManager : MonoBehaviour
 {
     public Transform trapParent;

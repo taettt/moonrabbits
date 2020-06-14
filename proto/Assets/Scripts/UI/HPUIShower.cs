@@ -12,17 +12,19 @@ public class HPUIShower : MonoBehaviour
     public EnemyStateController esc;
 
     public Image m_playerHpFillImages;
+    public RectTransform playerFillMaskRectTr;
+    public float playerFillMaskWidth;
     public Image m_playerLifeBg;
     public RectTransform playerGlow;
-    public Vector2 playerGlowstartPos, playerGlowEndPos;
     public Sprite[] m_playerLifes;
 
     public Text playerHpText;
     public Text bossHpText;
 
     public Image m_enemyHpFillImages;
+    public RectTransform bossFillMaskRectTr;
+    public float bossFillMaskWidth;
     public RectTransform bossGlow;
-    public Vector2 bossGlowstartPos, bossGlowEndPos;
     public Image m_bossLifeBg;
     public Sprite[] m_bossLifes;
 
@@ -51,10 +53,11 @@ public class HPUIShower : MonoBehaviour
 
     private void Initialize()
     {
-        m_playerHpFillImages.fillAmount = 1.0f;
-        m_enemyHpFillImages.fillAmount = 1.0f;
         m_bossLifeBg.sprite = m_bossLifes[5];
         m_playerLifeBg.sprite = m_playerLifes[3];
+
+        bossFillMaskWidth = bossFillMaskRectTr.sizeDelta.x;
+        playerFillMaskWidth = playerFillMaskRectTr.sizeDelta.x;
     }
 
     // glow -> start pos ~ end pos lerp, t = player cur hp / hp
@@ -74,57 +77,39 @@ public class HPUIShower : MonoBehaviour
     {
         BossHPUpdate();
 
-        if (m_enemyHpFillImages.fillAmount <= 0.0f)
+        if (ec.curHp <= 0.0f)
         {
             SetLifeDown_Enemy();
-        }
-
-        else if(ec.isLifeDown && esc.curState==EnemyState.RETIRE)
-        {
-            SetHealAllFill_Enemy();
         }
     }
 
     private void PlayerHPUpdate()
     {
-        m_playerHpDownTimer += Time.deltaTime;
-        if(m_playerHpDownTimer >= m_hpDownTime)
-        {
-            m_playerHpDownTimer = 0.0f;
-            return;
-        }
+        Vector2 fillMaskSize = playerFillMaskRectTr.sizeDelta;
+        fillMaskSize.x = playerFillMaskWidth * (pc.hp / 40.0f);
+        playerFillMaskRectTr.sizeDelta = Vector2.Lerp(playerFillMaskRectTr.sizeDelta, fillMaskSize,
+            Time.deltaTime * m_hpDownTime);
 
-        m_playerHpFillImages.fillAmount = Mathf.Lerp(m_playerHpFillImages.fillAmount,
-            pc.hp / 40.0f, m_playerHpDownTimer / m_hpDownTime);
-        playerGlow.anchoredPosition = Vector2.Lerp(playerGlowstartPos, playerGlowEndPos,
-            1 - (pc.hp / 40.0f));
+        // glow는 따로 width 넣어줘야할거같음
+        playerGlow.anchoredPosition = Vector2.Lerp(playerGlow.anchoredPosition,
+            new Vector2((pc.hp / 120.0f) * 207, -12f), Time.deltaTime * m_hpDownTime);
     }
 
     private void BossHPUpdate()
     {
-        m_bossHpDownTimer += Time.deltaTime;
-        if (m_bossHpDownTimer >= m_hpDownTime)
-        {
-            m_bossHpDownTimer = 0.0f;
-            return;
-        }
+        Vector2 fillMaskSize = bossFillMaskRectTr.sizeDelta;
+        fillMaskSize.x = bossFillMaskWidth * (ec.curHp / 120.0f);
+        bossFillMaskRectTr.sizeDelta = Vector2.Lerp(bossFillMaskRectTr.sizeDelta, fillMaskSize,
+            Time.deltaTime * m_hpDownTime);
 
-        m_enemyHpFillImages.fillAmount = Mathf.Lerp(m_enemyHpFillImages.fillAmount,
-            ec.curHp / 120.0f, m_bossHpDownTimer / m_hpDownTime);
-        bossGlow.anchoredPosition = Vector2.Lerp(bossGlowstartPos, bossGlowEndPos,
-            1 - (ec.curHp / 120.0f));
+        // glow는 따로 width 넣어줘야할거같음
+        bossGlow.anchoredPosition = Vector2.Lerp(bossGlow.anchoredPosition,
+            new Vector2((ec.curHp / 120.0f) * 330, -12f), Time.deltaTime * m_hpDownTime);
     }
 
     // state iniv & life down true
     private void SetHealAllFill()
     {
-        m_maxHealTimer += Time.deltaTime;
-        if (m_maxHealTimer >= m_maxHealTime)
-        {
-            m_maxHealTimer = 0.0f;
-            return;
-        }
-
         m_maxHealTimer += Time.deltaTime;
         m_playerHpFillImages.fillAmount = Mathf.Lerp(m_playerHpFillImages.fillAmount,
             1.0f, m_maxHealTimer / m_maxHealTime);
