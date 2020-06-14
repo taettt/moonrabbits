@@ -27,17 +27,17 @@ public class BossLaserSphere : EnemyBullet
     float moveSpeed;
     void Update()
     {
-        Vector3 oppositePosi = FindObjectOfType<Boss_1Control>().transform.position; //opposite position of boss
+        Vector3 oppositePosi = FindObjectOfType<Boss_1Control>().transform.position;
         oppositePosi.x *= -1;
         oppositePosi.y = originY;
         oppositePosi.z *= -1;
 
         
-        if ((int)this.transform.position.x == oppositePosi.x && (int)this.transform.position.z == oppositePosi.z){ //if get to opposite position of boss
+        if ((int)this.transform.position.x == oppositePosi.x && (int)this.transform.position.z == oppositePosi.z){
             timer += Time.deltaTime;
             shouldMove = false;
             readyToShoot = true;
-            FindObjectOfType<BossWeapon>().currentBossWeaponState = (int)CurrentBossWeaponState.LASER; //to make boss weapon shoot laser
+            FindObjectOfType<BossWeapon>().currentBossWeaponState = (int)CurrentBossWeaponState.LASER;
             ShootLaser();
 
 
@@ -51,6 +51,17 @@ public class BossLaserSphere : EnemyBullet
                 rotateDirection = -1;
             }
 
+            //if (this.transform.localRotation.y <= 0.0f)
+            //{
+            //    rotateDirection = 1;
+
+            //}
+            //else if (this.transform.localRotation.eulerAngles.y >= 90.0f)
+            //{
+            //    rotateDirection = -1;
+            //}
+
+
             RotateSphere();
 
             if (timer >= 10.0f)
@@ -58,7 +69,6 @@ public class BossLaserSphere : EnemyBullet
                 FindObjectOfType<BossWeapon>().currentBossWeaponState = (int)CurrentBossWeaponState.DEFAULT;
                 FindObjectOfType<Boss_1Control>().ForceExcutePhase();
                 Destroy(this.gameObject);
-                return;
             }
         }
 
@@ -96,9 +106,9 @@ public class BossLaserSphere : EnemyBullet
     LayerMask layer;
     [SerializeField]
     Vector3 laserPoint;
-    private void ShootLaser() //shoot laser from this
+    private void ShootLaser()
     {
-        
+        //from sphere
         LR.enabled = true;
         LR.SetPosition(0, this.transform.position);
         Vector3 endPosi = this.transform.position;
