@@ -113,6 +113,7 @@ MonoBehaviour:
   - {fileID: 2693552087467271933, guid: 8330a21c570908747b63bc84854a04d3, type: 3}
   - {fileID: 365509704517982365, guid: 220cf229ecff0a548b5f91f33f0a7ebc, type: 3}
   originY: 0
+  toPlayer: {x: 0, y: 0, z: 0}
 --- !u!54 &134184262323825492
 Rigidbody:
   m_ObjectHideFlags: 0

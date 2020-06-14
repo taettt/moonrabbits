@@ -40,16 +40,27 @@ public class BossLaserSphere : EnemyBullet
             FindObjectOfType<BossWeapon>().currentBossWeaponState = (int)CurrentBossWeaponState.LASER;
             ShootLaser();
 
+
             if (this.transform.localRotation.y <= 0.0f)
             {
                 rotateDirection = 1;
 
             }
-            else if (this.transform.localRotation.eulerAngles.y >= 90.0f)
+            else if (this.transform.localEulerAngles.y >= 90.0f)
             {
                 rotateDirection = -1;
             }
-           
+
+            //if (this.transform.localRotation.y <= 0.0f)
+            //{
+            //    rotateDirection = 1;
+
+            //}
+            //else if (this.transform.localRotation.eulerAngles.y >= 90.0f)
+            //{
+            //    rotateDirection = -1;
+            //}
+
 
             RotateSphere();
 

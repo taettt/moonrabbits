@@ -50,6 +50,7 @@ public class PlayerBullet : Bullet
                 Destroy();
                 break;
             case "MINION":
+                Debug.Log("Player Bullet Collided With Minion");
                 if (m_kind == PlayerBulletKind.DEF)
                 {
                     Instantiate(destroyPrefab_2, this.transform.position, Quaternion.LookRotation(dir));
@@ -59,8 +60,8 @@ public class PlayerBullet : Bullet
                     Instantiate(destroyPrefab_3, this.transform.position, Quaternion.LookRotation(dir));
                 }
 
-                coll.GetComponent<MinionController>().DropSeed();
-                Destroy(coll.gameObject);
+                //coll.GetComponent<MinionController>().DropSeed();
+                //Destroy(coll.gameObject);
                 Destroy();
                 break;
             case "WALL":

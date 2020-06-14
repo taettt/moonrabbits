@@ -33,8 +33,11 @@ public class BossWeapon : MonoBehaviour
     {
         if (currentBossWeaponState == (int)CurrentBossWeaponState.DEFAULT)
         {
+            this.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
+            onceDone = false;
             LR.enabled = false;
             return;
+            
         }
         else if(currentBossWeaponState == (int)CurrentBossWeaponState.LASER)
         {
@@ -52,6 +55,7 @@ public class BossWeapon : MonoBehaviour
             RotateSphere();
         }
     }
+
 
     LineRenderer LR;
     float laserDistance = 15f;
@@ -83,6 +87,18 @@ public class BossWeapon : MonoBehaviour
     GameObject duplication;
     bool onceDone;
     public bool readyToShootLaser;
+    public void CircularSplitPattern()
+    {
+        Debug.Log("circular split pattern by boss weapon");
+        if (onceDone == false)
+        {
+            Instantiate(circularSplitSphere, this.transform.position, Quaternion.identity);
+            onceDone = true;
+        }
+        currentBossWeaponState = (int)CurrentBossWeaponState.DEFAULT;
+    }
+
+
     public void LaserPattern()
     {
         Debug.Log("laser pattern by boss weapon");
