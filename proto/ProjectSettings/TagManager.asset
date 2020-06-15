@@ -13,6 +13,7 @@ TagManager:
   - ENEYMYBULLET
   - MINION
   - TELEPORTFX
+  - HIT
   layers:
   - Default
   - TransparentFX

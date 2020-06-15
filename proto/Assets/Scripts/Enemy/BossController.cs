@@ -93,6 +93,7 @@ public class BossController : MonoBehaviour
         var bullet = ObjectManager.PushObject("EnemyBullet").GetComponent<EnemyBullet>();
         bullet.transform.SetParent(bulletParent);
         bullet.transform.position = weaponTr.position;
+        bullet.SetVisual(EnemyBulletKind.DEF);
         bullet.Spawn(bullet.transform.position,
             dir, speed, attackVal);
     }

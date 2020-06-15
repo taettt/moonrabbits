@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private bool m_isLifeDown;
     public bool isLifeDown { get { return m_isLifeDown; } set { m_isLifeDown = value; } }
 
+    public Transform playerModelTr;
     public PlayerStateController sc;
     public PlayerMoveController mc;
 
@@ -33,11 +34,19 @@ public class PlayerController : MonoBehaviour
     private IEnumerator KnockbackCoroutine(float knockVal, Vector3 dir)
     {
         float timer = 0.0f;
+        RaycastHit hit;
 
         while (timer < 0.4f)
         {
             timer += Time.deltaTime;
-            this.transform.Translate(dir * knockVal * -1f * Time.deltaTime);
+            if (Physics.Raycast(this.transform.position, playerModelTr.forward, out hit, knockVal))
+            {
+                this.transform.Translate(new Vector3(hit.point.x, 0.0f, hit.point.z) * Time.deltaTime);
+            }
+            else
+            {
+                this.transform.Translate(dir * knockVal * -1f * Time.deltaTime);
+            }
         }
 
         yield return 0;
