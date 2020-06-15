@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tex_Gradation3
+  m_Name: Mate_MagicBoomLightDist
   m_Shader: {fileID: 4800000, guid: 6fb296d8cf3a3b146ac92358980920b3, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -42,7 +42,7 @@ Material:
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 50ab5542cd37c4646b2042b545346d03, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: -0.5}
+        m_Offset: {x: 0, y: -0.4}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -56,8 +56,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ScrTex:
-        m_Texture: {fileID: 2800000, guid: 927817c2a39c11d4ba6ceba3adcdbfa7, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: d6388858dc2f8f943a2f07f78b9b39a8, type: 3}
+        m_Scale: {x: 3, y: 0.7}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
@@ -71,8 +71,8 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ScrPow: 0.5
-    - _ScrSpd1: -0.7
+    - _ScrPow: 2
+    - _ScrSpd1: -1
     - _ScrSpd2: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -82,4 +82,4 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainCol: {r: 22.627424, g: 0.7108091, b: 0, a: 1}
+    - _MainCol: {r: 7.999999, g: 1.2425766, b: 0, a: 1}

@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 2401b6b8a2c18b0448cb5c11b2d067ae
+guid: 9a4816f89225a5641ba9893c305c0f63
 TextureImporter:
   fileIDToRecycleName:
-    21300000: TexSeq_Flower_0
-    21300002: TexSeq_Flower_1
-    21300004: TexSeq_Flower_2
-    21300006: TexSeq_Flower_3
+    21300000: TexSeq_RockPiece_0
+    21300002: TexSeq_RockPiece_1
+    21300004: TexSeq_RockPiece_2
+    21300006: TexSeq_RockPiece_3
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -88,13 +88,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TexSeq_Flower_0
+      name: TexSeq_RockPiece_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
-        width: 128
-        height: 128
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -102,19 +102,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c206451852053434a93c5ff1bc4421b1
+      spriteID: 70d610df47f6fdc4d9ae07a335d42a92
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TexSeq_Flower_1
+      name: TexSeq_RockPiece_1
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
-        width: 128
-        height: 128
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -122,19 +122,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8d2ae87b3a753a40bd41f1dae1207b4
+      spriteID: d5f97ff758a425a42a78dbf86847be16
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TexSeq_Flower_2
+      name: TexSeq_RockPiece_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,19 +142,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd447b95e4edfea4ba32466f833ef984
+      spriteID: 4a7376d34c77bf44fbe643a7a4dbd79f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TexSeq_Flower_3
+      name: TexSeq_RockPiece_3
       rect:
         serializedVersion: 2
-        x: 128
+        x: 64
         y: 0
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,7 +162,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ac0e18ab28403a48a8f86a530a0ef9d
+      spriteID: 7e3c0f4f0b7e6604e80acfb6ab2b9eff
       vertices: []
       indices: 
       edges: []
@@ -170,7 +170,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 070c1941782b6b34293ec562af8be4d2
+    spriteID: 71b9438b908d135438b6b96f3af12efb
     vertices: []
     indices: 
     edges: []

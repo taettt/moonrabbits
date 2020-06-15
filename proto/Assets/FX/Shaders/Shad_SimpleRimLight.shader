@@ -9,12 +9,12 @@
 
         SubShader{
           Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
-          blend SrcAlpha One
+          blend SrcAlpha OneMinusSrcAlpha
           zwrite off
 
           CGPROGRAM
 
-          #pragma surface surf Lambert nofog
+          #pragma surface surf Lambert nofog alpha:blend
 
           struct Input {
               float2 uv_MainTex;
@@ -30,12 +30,13 @@
           float _RimPower;
 
           void surf(Input IN, inout SurfaceOutput o) {
-              o.Alpha = tex2D(_MainTex, IN.uv_MainTex).rgb;
+              float4 MTex = tex2D(_MainTex, IN.uv_MainTex);
               o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
 
               half rim = 1.0 - saturate(dot(normalize(IN.viewDir), o.Normal));
 
               o.Emission = _RimColor.rgb * pow(rim, _RimPower);
+              o.Alpha = 0.5;
           }
           ENDCG
       }
