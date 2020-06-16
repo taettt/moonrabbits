@@ -12,14 +12,15 @@ public class BossCirculrSplitMagicSphere : EnemyBullet
         b1C = FindObjectOfType<Boss_1Control>();
         isDestroyed = false;
         ShootCircular();
-        toPlayer = b1C.playerTr.position - this.transform.position;
+        toPlayer = (b1C.playerTr.position - this.transform.position).normalized;
         toPlayer.y = 0;
         
     }
     void Update()
     {
         //RaycastObject();
-        this.transform.Translate(toPlayer * Time.smoothDeltaTime * 0.3f, Space.World);
+
+        this.transform.Translate(toPlayer * Time.smoothDeltaTime * 4f, Space.World);
 
     }
 

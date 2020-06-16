@@ -59,13 +59,12 @@ public class Boss_1Control : BossControl
         if (bc.init)
             return;
 
-        patternTimer += Time.deltaTime;
         switch (m_curPatternIndex)
         {
             case 0:
                 patternText.text = "Pattern 1 : " + patternTimer;
                 Pattern1Move();
-                //PatternLaserMove();
+                //BossChargeMove();
                 break;
             case 1:
                 patternText.text = "Pattern 2 : " + patternTimer;
@@ -80,6 +79,9 @@ public class Boss_1Control : BossControl
             case 4:
                 PatternLaserMove();
                 break;
+            case 5:
+                BossChargeMove();
+                break;
 
 
         }
@@ -92,8 +94,11 @@ public class Boss_1Control : BossControl
         m_curPatternIndex = -1;
         m_curPatternCount = 0;
         m_curMoveIndex = 0;
+        isChargePosiSet = false;
+        chargeTimer = 0.0f;
+        canCharge = false;
         phaseRandQueue = new Queue<int>();
-
+        TR = GetComponent<TrailRenderer>();
         Invoke("ExcutePhase", 2.0f);
     }
 
@@ -119,21 +124,21 @@ public class Boss_1Control : BossControl
     {
         if (!randomRound)
         {
-            m_curPatternIndex = m_curPatternIndex == 4 ? 5 : m_curPatternIndex + 1;
+            m_curPatternIndex = m_curPatternIndex == 5 ? 6 : m_curPatternIndex + 1;
             m_curPatternCount = 0;
-            if (m_curPatternIndex == 5)
+            if (m_curPatternIndex == 6)
             {
                 m_curPatternCount = 0;
                 randomRound = true;
 
-                SetRandQueue(5);
+                SetRandQueue(6);
                 m_curPatternIndex = phaseRandQueue.Dequeue();
             }
         }
         else
         {
             if (phaseRandQueue.Count <= 0 || phaseRandQueue == null)
-                SetRandQueue(5);
+                SetRandQueue(6);
 
             m_curPatternIndex = phaseRandQueue.Dequeue();
         }
@@ -162,9 +167,12 @@ public class Boss_1Control : BossControl
                 m_isMoving = true;
                 break;
             case 5:
+                m_isMoving = true;
+                break;
+            case 6:
                 Invoke("ExcutePhase", 0.1f);
                 break;
-                
+
         }
 
         patternTimer = 0.0f;
@@ -218,7 +226,7 @@ public class Boss_1Control : BossControl
 
         if (m_curMoveIndex + 1 != m_pattern_1Moves.Length)
         {
-            
+
             //this.transform.rotation = Quaternion.LookRotation((m_pattern_1Moves[m_curMoveIndex + 1]).normalized);
 
             this.transform.rotation = Quaternion.RotateTowards(
@@ -588,11 +596,137 @@ public class Boss_1Control : BossControl
         }
     }
 
-
+    Vector3 bossChargePosi;
+    [SerializeField]
+    float chargeSpeed;
+    [SerializeField]
+    float timeToReachChargePosi;
+    [SerializeField]
+    LayerMask playerLayer;
+    [SerializeField]
+    bool isCharging;
+    float distanceToChargePoint;
+    bool isChargePosiSet;
+    [SerializeField]
+    float chargeTimer;
+    [SerializeField]
+    bool canCharge;
+    Vector3 positionBeforeCharge;
     private void BossChargeMove()
     {
-        //how it would work?
+
+        if (isChargePosiSet == false)
+        {
+            //bossChargePosi.x = Random.Range(-20, 20);
+            //bossChargePosi.y = this.transform.position.y;
+            //bossChargePosi.z = Random.Range(-20, 20);
+
+            //Debug.Log("Charge Position set to : " + bossChargePosi);
+            //positionBeforeCharge = this.transform.position;
+            //float radius = 20;
+            //distanceToChargePoint = Vector3.Distance(this.transform.position, bossChargePosi);
+            //Debug.Log(distanceToChargePoint);
+            //if (distanceToChargePoint < radius)
+            //{
+            //    bossChargePosi = playerTr.position;
+            //    bossChargePosi.y = this.transform.position.y;
+            //    Debug.Log("charge target is in circle");
+            //    isChargePosiSet = true;
+            //    canCharge = true;
+            //}
+            //else
+            //{
+            //    Debug.Log("charge target is out of circle");
+            //}
+
+            bossChargePosi = playerTr.position;
+            bossChargePosi.y = this.transform.position.y;
+            
+
+            Debug.Log("Charge Position set to : " + bossChargePosi);
+            chargeTimer += Time.deltaTime;
+            if (chargeTimer >= 0.3f)
+            {
+                isChargePosiSet = true;
+                canCharge = true;
+                Debug.Log("ready to charge");
+                chargeTimer = 0.0f;
+            }
+
+        }
+
+        if (isChargePosiSet == true && canCharge == true)
+        {
+
+            isCharging = true;
+
+
+            this.transform.rotation = Quaternion.RotateTowards(
+        this.transform.rotation,
+        Quaternion.LookRotation(bossChargePosi.normalized),
+        rotateSpeed * Time.deltaTime
+        );
+
+            animator.SetBool("IsRun", true);
+
+
+            //chargeTimer += Time.deltaTime;
+            //chargeTimer += Time.deltaTime / timeToReachChargePosi;
+            //this.transform.position = Vector3.Lerp(positionBeforeCharge, bossChargePosi, chargeTimer); //lerp to random
+            this.transform.position = Vector3.MoveTowards(this.transform.position, bossChargePosi, chargeSpeed);
+
+
+            RaycastHit hit;
+            Debug.DrawRay(this.transform.position, this.transform.forward * 5f, Color.red);
+            if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 0.5f, playerLayer))
+            {
+                Debug.Log("charge hit");
+                FindObjectOfType<PlayerController>().DecreaseHP(5);
+
+            }
+
+        }
+
+        if (this.transform.position == bossChargePosi)
+        {
+            chargeTimer += Time.deltaTime;
+            Debug.Log("charge cooldown");
+        }
+        if (chargeTimer >= 1.0f)
+        {
+            
+            m_isMoving = false;
+            isCharging = false;
+            animator.SetBool("IsRun", false);
+            ExcutePhase();
+            canCharge = false;
+            isChargePosiSet = false;
+            chargeTimer = 0.0f;
+            TR.Clear();
+            return;
+        }
+        
+
+
     }
+
+
+    void OnTriggerEnter(Collider coll)
+    {
+        if (coll.tag == "PLAYER")
+        {
+            if (isCharging == true)
+            {
+                coll.GetComponent<PlayerController>().DecreaseHP(5);
+                Debug.Log("Boss Collided with Player while Charging");
+            }
+            
+        }
+
+
+    }
+
+    TrailRenderer TR;
     /*
     // weapon도 가져와서 shootbullet
     private IEnumerator Pattern4Shoot()

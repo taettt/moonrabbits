@@ -32,7 +32,7 @@ public class MinionController : MonoBehaviour
         Init();
 
         StopAllCoroutines();
-        //StartCoroutine(ShootBulletCoroutine());
+        StartCoroutine(ShootBulletCoroutine());
     }
     [SerializeField]
     Vector3 toPlayer;
@@ -66,7 +66,7 @@ public class MinionController : MonoBehaviour
         else if (coll.tag == "PLAYER")
         {
             Debug.Log("Minion Collided With Player");
-            //Instantiate(m_minionFXPrefabs[1], this.transform.position, Quaternion.identity);
+            Instantiate(m_minionFXPrefabs[1], this.transform.position, Quaternion.identity);
             coll.GetComponent<PlayerController>().DecreaseHP(m_attackStat);
             Destroy();
         }
@@ -94,7 +94,7 @@ public class MinionController : MonoBehaviour
         m_attackSpeed = 4.0f;
         m_attackStat = 2;
 
-        //Instantiate(m_minionFXPrefabs[0], this.transform);
+        Instantiate(m_minionFXPrefabs[0], this.transform);
     }
 
     public void DropSeed()
