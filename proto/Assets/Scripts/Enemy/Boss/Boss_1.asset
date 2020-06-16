@@ -18,7 +18,7 @@ MonoBehaviour:
   m_trapDamage: 4
   m_boomDamage: 16
   m_damage: 2
-  m_attackSpeed: 8
+  m_attackSpeed: 12
   m_moveSpeed: 16
   m_knockDelay: 2
   m_retireDelay: 5

@@ -21,6 +21,7 @@ public class PlayerMoveController : MonoBehaviour
     [SerializeField]
     private bool m_teleported;
     public bool teleported { get { return m_teleported; } }
+    private bool m_playingTeleport;
     private float teleportDelay = 1.0f;
 
     public UrgentManager um;
@@ -44,6 +45,7 @@ public class PlayerMoveController : MonoBehaviour
 
         teleportTimer = 0.0f;
         m_teleported = false;
+        m_playingTeleport = false;
     }
 
     void Update()
@@ -70,29 +72,13 @@ public class PlayerMoveController : MonoBehaviour
             }
         }
 
-        /*
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (teleported)
-                return;
-
-            m_teleported = true;
-            PlayTeleportFX();
-
-            if (um.urgentRangeIn)
-            {
-                um.BonusOn();
-            }
-        }
-        */
-
         if(!m_teleported)
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
                 m_teleported = true;
+                m_playingTeleport = true;
                 PlayTeleportFX();
-                //StartCoroutine(Teleport());
 
                 if(um.urgentRangeIn)
                 {
@@ -112,7 +98,7 @@ public class PlayerMoveController : MonoBehaviour
     private void CheckWallAndTeleport()
     {
         RaycastHit hit;
-        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed))
+        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed / 2.0f, wallCollisionMask))
         {
             tr.Translate(new Vector3(hit.point.x, 0.0f, hit.point.z) * Time.deltaTime);
         }
@@ -120,23 +106,6 @@ public class PlayerMoveController : MonoBehaviour
         {
             tr.Translate(playerModelTr.forward * teleportSpeed * Time.deltaTime);
         }
-    }
-
-    private IEnumerator Teleport()
-    {
-
-        RaycastHit hit;
-        if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed))
-        {
-            tr.Translate(new Vector3(hit.point.x, 0.0f, hit.point.z) * Time.deltaTime);
-        }
-        else
-        {
-            tr.Translate(playerModelTr.forward * teleportSpeed * Time.deltaTime);
-        }
-
-        yield return new WaitForSeconds(teleportDelay);
-        m_teleported = false;
     }
 
     // 고려 -> spherecast(겹친 collider 해결), cast하는 길이(지름) 조정
@@ -154,8 +123,9 @@ public class PlayerMoveController : MonoBehaviour
         if (m_dir != Vector3.zero)
         {
             RaycastHit hit;
-            if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, 0.3f))
+            if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, 0.1f, wallCollisionMask))
             {
+                Debug.Log("coll");
                 tr.position = new Vector3(hit.point.x, 0.2f, hit.point.z);
             }
             else
@@ -186,6 +156,7 @@ public class PlayerMoveController : MonoBehaviour
         }
         else
         {
+            animator.SetBool("IsAttackRunPossible", true);
             animator.SetBool("IsRun", false);
         }
 

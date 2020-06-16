@@ -5171,7 +5171,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: f0b11972370d4a5408ae4d3aca5d248a, type: 3}
       propertyPath: m_Name
-      value: Ani_Player_T_pose (2)
+      value: Player_Modeling
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: f0b11972370d4a5408ae4d3aca5d248a, type: 3}
       propertyPath: m_Layer
@@ -6102,7 +6102,7 @@ MonoBehaviour:
   curState: 0
   playerTr: {fileID: 1201668554}
   playerModelTr: {fileID: 232459660}
-  bRot: 0
+  playerUpTr: {fileID: 1126392027}
   rotSpeed: 5
   weaponTr: {fileID: 232459661}
   bossTr: {fileID: 659383035}
@@ -6116,7 +6116,7 @@ MonoBehaviour:
   - {fileID: 3235131757742777007, guid: e3c851bf4bdae864e89410b90e96f5c8, type: 3}
   - {fileID: 1794698844}
   - {fileID: 1474592048}
-  - {fileID: 499048885147333523, guid: 02c8ec75d7f223745891e6f9321c3eaa, type: 3}
+  - {fileID: 195904985350477806, guid: 86713b3faf24faf4b9df5b0fecc33872, type: 3}
 --- !u!95 &232459664 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 9500000, guid: f0b11972370d4a5408ae4d3aca5d248a,
@@ -13964,18 +13964,18 @@ RectTransform:
   m_GameObject: {fileID: 458560375}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 2543040}
   - {fileID: 1744136378}
   m_Father: {fileID: 1109720478}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -171}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 57, y: 386}
   m_SizeDelta: {x: 150, y: 20}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &477654325
 GameObject:
   m_ObjectHideFlags: 0
@@ -16670,7 +16670,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &659383030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20029,6 +20029,7 @@ MonoBehaviour:
     m_Bits: 2048
   rotateDirection: 0
   readyToShootLaser: 0
+  sphereRotateSpeed: 0
 --- !u!120 &754158801
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -20143,7 +20144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &761554711
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27017,6 +27018,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1115286681}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1126392027 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400174, guid: f0b11972370d4a5408ae4d3aca5d248a,
+    type: 3}
+  m_PrefabInstance: {fileID: 232459659}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1126563485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a09aac3197eb0d6429bece39f990acb6,
@@ -29582,6 +29589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_hp: 0
   playerModelTr: {fileID: 232459660}
+  animator: {fileID: 232459664}
   sc: {fileID: 1201668553}
   mc: {fileID: 1201668555}
   attackedFX: {fileID: 8370746221759203366, guid: b5e64cac06eb46e4f907827d2dbe00d4,
@@ -29645,7 +29653,7 @@ MonoBehaviour:
   m_teleported: 0
   um: {fileID: 243197051}
   teleportText: {fileID: 1445048372}
-  m_teleportFX: {fileID: 1538820265540239695, guid: 3651bfa835dac8a46a6aa92954eb9407,
+  m_teleportFX: {fileID: 5023679003707089094, guid: d848038102738fb42b899fd80e3ee54e,
     type: 3}
 --- !u!114 &1201668556
 MonoBehaviour:
@@ -45626,7 +45634,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

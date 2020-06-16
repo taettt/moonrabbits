@@ -1,6 +1,6 @@
 Win64
 PlayerPath?
-C:/Users/user/Desktop/20200616_1614/proto.exe
+C:/Users/user/Desktop/문래빗/build_06_16_4/proto.exe
 SceneListBegin?
 Assets/Scenes/MainScene.unity
 Assets/Scenes/AssstsScene.unity
@@ -205,9 +205,9 @@ d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 c042aadbc09f16545c490ddfea25c79e Unity.Polybrush.dll:UnityEngine.Polybrush.PolybrushMesh
 698812e8d71fd38ac0f66f7a70a25fb5 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.WaterTile
 a4b9ae55c073b7222b4f81140105255c Assembly-CSharp.dll:.BossLaserSphere
-8c8f05e705fcbf5c4c8369f24ed5388a Assembly-CSharp.dll:.PlayerSkillManager
+6a94477c67a0c875f2ff04cad5a116a7 Assembly-CSharp.dll:.PlayerSkillManager
 c275d07fa3e55c8fd284347965260db0 Assembly-CSharp.dll:.PlayerBullet
-1e8db9c230a179a2a768e596d8a72004 Assembly-CSharp.dll:.Weapon
+a1d3c4c826b09e614694f10554022fe1 Assembly-CSharp.dll:.Weapon
 d5630f96bd5a6a6eed7e1754c3fb8703 Unity.Postprocessing.Runtime.dll:UnityEngine.Rendering.PostProcessing.PostProcessVolume
 d0987ce3e9092dbe0fa30d73f333fffa Unity.Postprocessing.Runtime.dll:UnityEngine.Rendering.PostProcessing.Grain
 5372ed2ce39229b1ac910757999a8be2 Unity.TextMeshPro.dll:TMPro.TextMeshPro

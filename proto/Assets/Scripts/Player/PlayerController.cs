@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public bool isLifeDown { get { return m_isLifeDown; } set { m_isLifeDown = value; } }
 
     public Transform playerModelTr;
+    public Animator animator;
     public PlayerStateController sc;
     public PlayerMoveController mc;
 
@@ -105,6 +106,7 @@ public class PlayerController : MonoBehaviour
     public void SetKoncked(float knockVal, Vector3 dir)
     {
         sc.SetState(PlayerState.NOCK);
+        animator.SetTrigger("IsAttacked");
         StartCoroutine(KnockbackCoroutine(knockVal, dir));
     }
 }

@@ -49,7 +49,7 @@ public class Weapon : MonoBehaviour
 
     public Transform playerTr;
     public Transform playerModelTr;
-    public bool bRot;
+    public Transform playerUpTr;
     [Range(0, 30)]
     public float rotSpeed;
     public Transform weaponTr;
@@ -73,10 +73,27 @@ public class Weapon : MonoBehaviour
             return;
         }
 
+        if (!animator.GetBool("IsRun"))
+        {
+            if (curState != AttackState.NONE)
+            {
+                playerModelTr.rotation = Quaternion.Slerp(playerModelTr.rotation, Quaternion.LookRotation(m_dirVec), Time.deltaTime * rotSpeed);
+            }
+        }
+        else
+        {
+            float angle = Quaternion.Angle((playerUpTr.rotation * Quaternion.LookRotation(m_dirVec)), playerUpTr.rotation);
+            angle = Mathf.Abs(angle);
+            Debug.Log(angle);
+            if (angle < 75f)
+            {
+                playerUpTr.rotation = Quaternion.Slerp(playerUpTr.rotation, Quaternion.LookRotation(m_dirVec), Time.deltaTime * rotSpeed);
+            }
+        }
+
         UpdateFX();
         UpdateUI();
 
-        playerModelTr.rotation = Quaternion.Slerp(playerModelTr.rotation, Quaternion.LookRotation(m_dirVec), Time.deltaTime * rotSpeed);
 
         if (curState == AttackState.CHARGE_0 || curState == AttackState.CHARGE_1)
         {
@@ -91,6 +108,7 @@ public class Weapon : MonoBehaviour
                 return;
 
             curState = AttackState.CHARGE_0;
+            m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(true);
         }
         
         // 여기에서 check, state는 상관x
@@ -168,9 +186,13 @@ public class Weapon : MonoBehaviour
 
     private void UpdateFX()
     {
-        if(Mathf.Abs(curChargeTime - chargeStep[1]) < 0.02f || Mathf.Abs(curChargeTime - chargeStep[2]) < 0.02f)
+        if( Mathf.Abs(curChargeTime - chargeStep[2]) < 0.005f)
         {
             Instantiate(m_chargeFX[(int)ChargeFXState.READY], weaponTr);
+        }
+        else if(Mathf.Abs(curChargeTime - chargeStep[1]) < 0.005f)
+        {
+            m_chargeFX[(int)ChargeFXState.CHARGING].gameObject.SetActive(true);
         }
     }
 
@@ -304,8 +326,6 @@ public class Weapon : MonoBehaviour
         var bullet = ObjectManager.PushObject("PlayerBullet").GetComponent<PlayerBullet>();
         bullet.GetComponent<PlayerBullet>().SetVisual((PlayerBulletKind)kind);
         bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, attackSpeed, attackValue);
-
-        playerModelTr.transform.forward = m_dirVec;
     }
 
     private void Attack_Long(Vector3 targetPos, bool isFA)
@@ -322,8 +342,6 @@ public class Weapon : MonoBehaviour
         {
             bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, attackSpeed, attackValue_default);
         }
-
-        //playerModelTr.transform.forward = m_dirVec;
     }
 
     private void SetVectors(Vector3 targetPos)
