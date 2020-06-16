@@ -176,5 +176,19 @@ public class PlayerMoveController : MonoBehaviour
         {
             animator.SetBool("IsRun", false);
         }
+
+        /*
+        if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
+        {
+            animator.SetBool("IsRun", true);
+        }
+        else
+        {
+            animator.SetBool("IsRun", false);
+        }
+
+        animator.SetFloat("DirX", Input.GetAxis("Horizontal"));
+        animator.SetFloat("DirY", Input.GetAxis("Vertical"));
+        */
     }
 }

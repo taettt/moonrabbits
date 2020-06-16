@@ -73,6 +73,12 @@ public class Weapon : MonoBehaviour
         UpdateFX();
         UpdateUI();
 
+        if(curState == AttackState.CHARGE_0 || curState == AttackState.CHARGE_1)
+        {
+            animator.SetBool("IsAttack", true);
+            animator.SetFloat("AttackDelay", curChargeTime - 1.25f);
+        }
+
         if(Input.GetMouseButtonDown(1))
         {
             if (curState != AttackState.NONE || sm.isFaSkillPlaying)
@@ -94,6 +100,7 @@ public class Weapon : MonoBehaviour
 
             if (curChargeTime >= chargeStep[2])
             {
+                animator.SetFloat("AttackDelay", 0.75f);
                 curState = AttackState.CHARGE_2;
                 m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(false);
                 m_chargeFX[(int)ChargeFXState.FULL].SetActive(true);
@@ -112,6 +119,7 @@ public class Weapon : MonoBehaviour
 
             if (curState == AttackState.CHARGE_1 || curState == AttackState.CHARGE_2)
             {
+                animator.SetFloat("AttackDelay", 1f);
                 StartCoroutine(Attack_Charge_Check(Input.mousePosition));
             }
             else
@@ -139,7 +147,14 @@ public class Weapon : MonoBehaviour
         {
             if(sm.isFASkillOn)
             {
-                sm.isFaSkillPlaying = true ? false : true;
+                if(sm.isFaSkillPlaying)
+                {
+                    sm.isFaSkillPlaying = false;
+                }
+                else
+                {
+                    sm.isFaSkillPlaying = true;
+                }
                 StartCoroutine(Attack_FA_Check(bossTr.position));
             }
         }
@@ -149,7 +164,6 @@ public class Weapon : MonoBehaviour
     {
         if(Mathf.Abs(curChargeTime - chargeStep[1]) < 0.02f || Mathf.Abs(curChargeTime - chargeStep[2]) < 0.02f)
         {
-            Debug.Log("aaaa");
             Instantiate(m_chargeFX[(int)ChargeFXState.READY], weaponTr);
         }
     }
@@ -176,6 +190,7 @@ public class Weapon : MonoBehaviour
     private void ResetState()
     {
         curState = AttackState.NONE;
+        animator.SetBool("IsAttack", false);
         curChargeTime = 0.0f;
         StopAllCoroutines();
 
@@ -201,12 +216,15 @@ public class Weapon : MonoBehaviour
         mousePos.y = 1.5f;
         Vector3 pos = ConversionPos(mousePos);
         curState = AttackState.LONG;
+        animator.SetBool("IsAttack", true);
+        animator.SetFloat("AttackDelay", 0.75f);
 
         Attack_Long(pos, false);
 
         yield return new WaitForSeconds(0.25f);
 
         curState = AttackState.NONE;
+        animator.SetBool("IsAttack", false);
     }
 
     private IEnumerator Attack_Charge_Check(Vector3 mousePos)
@@ -224,13 +242,17 @@ public class Weapon : MonoBehaviour
 
         curChargeTime = 0.0f;
         curState = AttackState.DELAY;
+        animator.SetFloat("AttackDelay", 1f);
         yield return new WaitForSeconds(1.0f);
         curState = AttackState.NONE;
+        animator.SetBool("IsAttack", false);
     }
 
     private IEnumerator Attack_Urgent_Charge(Vector3 mousePos)
     {
         curState = AttackState.CHARGE_2;
+        animator.SetBool("IsAttack", true);
+        animator.SetFloat("AttackDelay", 0.75f);
 
         Vector3 pos = ConversionPos(mousePos);
 
@@ -239,18 +261,22 @@ public class Weapon : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
         curState = AttackState.NONE;
-
+        animator.SetBool("IsAttack", false);
     }
 
     private IEnumerator Attack_FA_Check(Vector3 bossPos)
     {
         while (sm.isFaSkillPlaying && sm.isFASkillOn)
         {
+            animator.SetBool("IsAttack", true);
+            animator.SetFloat("AttackDelay", 0.75f);
             Attack_Long(bossPos, true);
 
             yield return new WaitForSeconds(0.1f);
             sm.DecreaseFAGague();
         }
+
+        animator.SetBool("IsAttack", false);
     }
 
     private void Attack_Charge(Vector3 targetPos, int attackValue, int kind)
