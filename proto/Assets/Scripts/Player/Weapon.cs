@@ -49,6 +49,9 @@ public class Weapon : MonoBehaviour
 
     public Transform playerTr;
     public Transform playerModelTr;
+    public bool bRot;
+    [Range(0, 30)]
+    public float rotSpeed;
     public Transform weaponTr;
     public Transform bossTr;
     public Animator animator;
@@ -73,9 +76,12 @@ public class Weapon : MonoBehaviour
         UpdateFX();
         UpdateUI();
 
-        if(curState == AttackState.CHARGE_0 || curState == AttackState.CHARGE_1)
+        playerModelTr.rotation = Quaternion.Slerp(playerModelTr.rotation, Quaternion.LookRotation(m_dirVec), Time.deltaTime * rotSpeed);
+
+        if (curState == AttackState.CHARGE_0 || curState == AttackState.CHARGE_1)
         {
             animator.SetBool("IsAttack", true);
+            animator.SetBool("IsAttackRunPossible", true);
             animator.SetFloat("AttackDelay", curChargeTime - 1.25f);
         }
 
@@ -191,6 +197,7 @@ public class Weapon : MonoBehaviour
     {
         curState = AttackState.NONE;
         animator.SetBool("IsAttack", false);
+        animator.SetBool("IsAttackRunPossible", false);
         curChargeTime = 0.0f;
         StopAllCoroutines();
 
@@ -216,8 +223,10 @@ public class Weapon : MonoBehaviour
         mousePos.y = 1.5f;
         Vector3 pos = ConversionPos(mousePos);
         curState = AttackState.LONG;
+
         animator.SetBool("IsAttack", true);
-        animator.SetFloat("AttackDelay", 0.75f);
+        animator.SetBool("IsAttackRunPossible", true);
+        animator.SetFloat("AttackDelay", 1f);
 
         Attack_Long(pos, false);
 
@@ -225,6 +234,7 @@ public class Weapon : MonoBehaviour
 
         curState = AttackState.NONE;
         animator.SetBool("IsAttack", false);
+        animator.SetBool("IsAttackRunPossible", false);
     }
 
     private IEnumerator Attack_Charge_Check(Vector3 mousePos)
@@ -246,12 +256,14 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         curState = AttackState.NONE;
         animator.SetBool("IsAttack", false);
+        animator.SetBool("IsAttackRunPossible", false);
     }
 
     private IEnumerator Attack_Urgent_Charge(Vector3 mousePos)
     {
         curState = AttackState.CHARGE_2;
         animator.SetBool("IsAttack", true);
+        animator.SetBool("IsAttackRunPossible", true);
         animator.SetFloat("AttackDelay", 0.75f);
 
         Vector3 pos = ConversionPos(mousePos);
@@ -262,6 +274,7 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         curState = AttackState.NONE;
         animator.SetBool("IsAttack", false);
+        animator.SetBool("IsAttackRunPossible", false);
     }
 
     private IEnumerator Attack_FA_Check(Vector3 bossPos)
@@ -269,6 +282,7 @@ public class Weapon : MonoBehaviour
         while (sm.isFaSkillPlaying && sm.isFASkillOn)
         {
             animator.SetBool("IsAttack", true);
+            animator.SetBool("IsAttackRunPossible", true);
             animator.SetFloat("AttackDelay", 0.75f);
             Attack_Long(bossPos, true);
 
@@ -277,6 +291,7 @@ public class Weapon : MonoBehaviour
         }
 
         animator.SetBool("IsAttack", false);
+        animator.SetBool("IsAttackRunPossible", false);
     }
 
     private void Attack_Charge(Vector3 targetPos, int attackValue, int kind)
@@ -308,7 +323,7 @@ public class Weapon : MonoBehaviour
             bullet.GetComponent<PlayerBullet>().Spawn(m_shootPos, m_dirVec, attackSpeed, attackValue_default);
         }
 
-        playerModelTr.transform.forward = m_dirVec;
+        //playerModelTr.transform.forward = m_dirVec;
     }
 
     private void SetVectors(Vector3 targetPos)

@@ -38,6 +38,9 @@ public class PlayerSkillManager : MonoBehaviour
     private int faIndex;
     public Text faText;
 
+    // gague
+    public Slider fxSlider;
+
     public BossController bc;
 
     void Awake()
@@ -54,6 +57,8 @@ public class PlayerSkillManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(ChangeBoomUI());
+        fxSlider.minValue = 0.0f;
+        fxSlider.maxValue = 100.0f;
     }
 
     void Update()
@@ -69,6 +74,8 @@ public class PlayerSkillManager : MonoBehaviour
             DeleteObjects();
             bc.DecreaseHP(m_boomDamage);
         }
+
+        fxSlider.value = m_faSkillGague;
     }
 
     public void IncreaseFAGague()
