@@ -29,7 +29,7 @@ public class EnemyBullet : Bullet
         switch(coll.tag)
         {
             case "PLAYER":
-                if (coll.transform.GetChild(1).GetComponent<UrgentManager>().urgentRangeIn ||
+                if (
                     coll.GetComponent<PlayerMoveController>().teleported)
                 {
                     return;

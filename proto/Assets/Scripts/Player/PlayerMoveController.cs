@@ -118,7 +118,10 @@ public class PlayerMoveController : MonoBehaviour
         Vector3 rMovement = rightVec * Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         m_movement = fMovement + rMovement;
         m_dir = Vector3.Normalize(m_movement);
-        playerModelTr.forward = m_dir;
+        if (!animator.GetBool("IsAttackRunPossible"))
+        {
+            playerModelTr.forward = m_dir;
+        }
 
         if (m_dir != Vector3.zero)
         {
@@ -152,11 +155,13 @@ public class PlayerMoveController : MonoBehaviour
         // 나가는 조건 1.RUNx 2. ATTACKx
         if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
         {
-            animator.SetBool("IsRun", true);
+            if (!animator.GetBool("isAttackRunPossible"))
+            {
+                animator.SetBool("IsRun", true);
+            }
         }
         else
         {
-            animator.SetBool("IsAttackRunPossible", true);
             animator.SetBool("IsRun", false);
         }
 

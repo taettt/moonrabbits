@@ -24,7 +24,7 @@ public class EnemyStateController : MonoBehaviour
     public GameManager gm;
 
     // timer
-    private float[] m_delayTime = new float[4] { 0.3f, 0.4f, 5.0f, 3.0f };
+    private float[] m_delayTime = new float[5] { 0.3f, 0.4f, 5.0f, 3.0f, 5.0f };
 
     void Update()
     {
@@ -36,11 +36,6 @@ public class EnemyStateController : MonoBehaviour
         m_curState = state;
         if (m_curState == EnemyState.IDLE)
             return;
-
-        if(m_curState == EnemyState.INIT)
-        {
-            StartCoroutine(ProcessState(5.0f, EnemyState.IDLE));
-        }
 
         if(m_curState == EnemyState.DEATH)
         {

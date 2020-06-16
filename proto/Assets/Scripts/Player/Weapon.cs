@@ -63,6 +63,7 @@ public class Weapon : MonoBehaviour
 
     // ready, charging, full, shoot, attack1, attack2
     public GameObject[] m_chargeFX;
+    public ParticleSystem[] ps = new ParticleSystem[4];
 
     void Update()
     {
@@ -73,21 +74,26 @@ public class Weapon : MonoBehaviour
             return;
         }
 
+        if (curState != AttackState.NONE || Input.GetMouseButton(0))
+        {
+            animator.SetBool("IsAttackRunPossible", true);
+        }
+
         if (!animator.GetBool("IsRun"))
         {
             if (curState != AttackState.NONE)
             {
                 playerModelTr.rotation = Quaternion.Slerp(playerModelTr.rotation, Quaternion.LookRotation(m_dirVec), Time.deltaTime * rotSpeed);
             }
+
         }
-        else
+        else if(animator.GetBool("IsAttackRunPossible"))
         {
             float angle = Quaternion.Angle((playerUpTr.rotation * Quaternion.LookRotation(m_dirVec)), playerUpTr.rotation);
             angle = Mathf.Abs(angle);
-            Debug.Log(angle);
             if (angle < 75f)
             {
-                playerUpTr.rotation = Quaternion.Slerp(playerUpTr.rotation, Quaternion.LookRotation(m_dirVec), Time.deltaTime * rotSpeed);
+                playerUpTr.rotation = Quaternion.Slerp(playerUpTr.rotation, Quaternion.LookRotation(m_dirVec), Time.deltaTime * rotSpeed * 2);
             }
         }
 
@@ -98,7 +104,6 @@ public class Weapon : MonoBehaviour
         if (curState == AttackState.CHARGE_0 || curState == AttackState.CHARGE_1)
         {
             animator.SetBool("IsAttack", true);
-            animator.SetBool("IsAttackRunPossible", true);
             animator.SetFloat("AttackDelay", curChargeTime - 1.25f);
         }
 
@@ -132,7 +137,13 @@ public class Weapon : MonoBehaviour
             else if(curChargeTime < chargeStep[2] && curChargeTime >= chargeStep[1])
             {
                 curState = AttackState.CHARGE_1;
-                m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(true);
+                if (Mathf.Abs(curChargeTime - chargeStep[1]) < 0.02f)
+                {
+                    for (int i = 0; i < ps.Length; i++)
+                    {
+                        ps[i].Play();
+                    }
+                }
             }
         }
 
@@ -247,8 +258,7 @@ public class Weapon : MonoBehaviour
         curState = AttackState.LONG;
 
         animator.SetBool("IsAttack", true);
-        animator.SetBool("IsAttackRunPossible", true);
-        animator.SetFloat("AttackDelay", 1f);
+        animator.SetFloat("AttackDelay", 0.75f);
 
         Attack_Long(pos, false);
 
@@ -285,7 +295,6 @@ public class Weapon : MonoBehaviour
     {
         curState = AttackState.CHARGE_2;
         animator.SetBool("IsAttack", true);
-        animator.SetBool("IsAttackRunPossible", true);
         animator.SetFloat("AttackDelay", 0.75f);
 
         Vector3 pos = ConversionPos(mousePos);
@@ -304,7 +313,6 @@ public class Weapon : MonoBehaviour
         while (sm.isFaSkillPlaying && sm.isFASkillOn)
         {
             animator.SetBool("IsAttack", true);
-            animator.SetBool("IsAttackRunPossible", true);
             animator.SetFloat("AttackDelay", 0.75f);
             Attack_Long(bossPos, true);
 
