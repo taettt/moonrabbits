@@ -57,7 +57,7 @@
 
 
             CGPROGRAM
-            #pragma surface surf Toon
+            #pragma surface surf Toon 
             
             sampler2D _MainTex;
             sampler2D _BumpMap;
@@ -82,22 +82,22 @@
 
             float4 LightingToon (SurfaceOutput s, float3 lightDir, float atten)
             {
-                 float NdotL = (dot(s.Normal, lightDir)) * 0.7 + 0.3;
+                 float NdotL = (dot(s.Normal, lightDir)) * 0.5 + 0.5;
 
-                 if (NdotL > 0.5)
+                 if (NdotL > 0.8)
                  {
                         NdotL = 1;
                         
                        
 				 }
                  
-                 else if (NdotL > 0.2)
+                 else if (NdotL > 0.25)
                  {
-                          NdotL = 0.5;        
+                          NdotL = 0.6;        
 				 }
                  else
                  {
-                          NdotL = 0.35;        
+                          NdotL = 0.2;        
 				 }
 
                  float4 final;

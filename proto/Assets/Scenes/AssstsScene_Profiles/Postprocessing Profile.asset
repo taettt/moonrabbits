@@ -179,7 +179,7 @@ MonoBehaviour:
     value: 0
   postExposure:
     overrideState: 1
-    value: 0.4
+    value: 0.5
   contrast:
     overrideState: 1
     value: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
     value: {x: 0.7226243, y: 0.7566724, z: 1, w: 0.012062826}
   gamma:
     overrideState: 1
-    value: {x: 0.7774947, y: 0.82432866, z: 1, w: 0.13204528}
+    value: {x: 0.7204736, y: 0.76375186, z: 1, w: 0.13204528}
   gain:
     overrideState: 1
     value: {x: 0.8979585, y: 0.90225875, z: 1, w: -0.05021699}

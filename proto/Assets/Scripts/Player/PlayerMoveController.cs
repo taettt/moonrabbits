@@ -21,7 +21,7 @@ public class PlayerMoveController : MonoBehaviour
     [SerializeField]
     private bool m_teleported;
     public bool teleported { get { return m_teleported; } }
-    private float teleportDelay = 0.4f;
+    private float teleportDelay = 1.0f;
 
     public UrgentManager um;
 
@@ -167,6 +167,7 @@ public class PlayerMoveController : MonoBehaviour
 
     private void MoveAnim()
     {
+        /*
         if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)
             || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
@@ -176,8 +177,9 @@ public class PlayerMoveController : MonoBehaviour
         {
             animator.SetBool("IsRun", false);
         }
+        */
 
-        /*
+        // 나가는 조건 1.RUNx 2. ATTACKx
         if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
         {
             animator.SetBool("IsRun", true);
@@ -189,6 +191,5 @@ public class PlayerMoveController : MonoBehaviour
 
         animator.SetFloat("DirX", Input.GetAxis("Horizontal"));
         animator.SetFloat("DirY", Input.GetAxis("Vertical"));
-        */
     }
 }
