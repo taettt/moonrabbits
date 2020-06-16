@@ -9,9 +9,12 @@ public class SceneController : MonoBehaviour
 
     void Update()
     {
-        if(Input.anyKeyDown)
+        if (SceneManager.GetActiveScene().name == "MainScene")
         {
-            ChangeScene("AssstsScene");
+            if (Input.anyKeyDown)
+            {
+                ChangeScene("AssstsScene");
+            }
         }
     }
     public static void ChangeScene(string name)
