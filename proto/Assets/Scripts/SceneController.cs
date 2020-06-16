@@ -6,6 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
+
+    void Update()
+    {
+        if(Input.anyKeyDown)
+        {
+            ChangeScene("AssstsScene");
+        }
+    }
     public static void ChangeScene(string name)
     {
         SceneManager.LoadScene(name);

@@ -72,7 +72,7 @@ public class MinionController : MonoBehaviour
         else if (coll.tag == "PLAYER")
         {
             Debug.Log("Minion Collided With Player");
-            Instantiate(m_minionFXPrefabs[1], this.transform.position, Quaternion.identity);
+            //Instantiate(m_minionFXPrefabs[1], this.transform.position, Quaternion.identity);
             coll.GetComponent<PlayerController>().DecreaseHP(m_attackStat);
             Destroy();
         }

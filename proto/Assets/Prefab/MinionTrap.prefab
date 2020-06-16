@@ -72,7 +72,7 @@ MonoBehaviour:
   m_flowerTurn: 0
   m_turnColor: {r: 1, g: 0.6101179, b: 0, a: 1}
   spawnFX: {fileID: 2796572505813701792, guid: 82962bc9ce93ec1448fbd89b4f6e2fbc, type: 3}
-  boomFX: {fileID: 365509704517982365, guid: 220cf229ecff0a548b5f91f33f0a7ebc, type: 3}
+  boomFX: {fileID: 6706588488024312580, guid: 220cf229ecff0a548b5f91f33f0a7ebc, type: 3}
 --- !u!54 &6063944207422476510
 Rigidbody:
   m_ObjectHideFlags: 0

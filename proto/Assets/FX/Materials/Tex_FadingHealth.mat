@@ -33,7 +33,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaRange: 0.6
-    - _DisRange: 2.1352942
+    - _DisRange: 2.1421053
     - _ScrPow: 3
     - _ScrSpd1: -0.05
     - _ScrSpd2: 0.05

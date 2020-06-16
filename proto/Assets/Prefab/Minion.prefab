@@ -109,8 +109,9 @@ MonoBehaviour:
     type: 3}
   seedParent: {fileID: 0}
   playerTr: {fileID: 0}
+  m_hp: 0
   m_minionFXPrefabs:
-  - {fileID: 2693552087467271933, guid: 8330a21c570908747b63bc84854a04d3, type: 3}
+  - {fileID: 6485959447402192622, guid: 8330a21c570908747b63bc84854a04d3, type: 3}
   - {fileID: 365509704517982365, guid: 220cf229ecff0a548b5f91f33f0a7ebc, type: 3}
   originY: 0
   toPlayer: {x: 0, y: 0, z: 0}

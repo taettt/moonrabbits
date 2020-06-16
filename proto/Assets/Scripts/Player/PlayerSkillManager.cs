@@ -24,8 +24,10 @@ public class PlayerSkillManager : MonoBehaviour
 
     // fa
     private float m_faSkillGague;
+    [SerializeField]
     private bool m_isFASkillOn;
     public bool isFASkillOn { get { return m_isFASkillOn; } }
+    [SerializeField]
     private bool m_isFaSkillPlaying;
     public bool isFaSkillPlaying { get { return m_isFaSkillPlaying; } set { m_isFaSkillPlaying = value; } }
 
@@ -83,6 +85,7 @@ public class PlayerSkillManager : MonoBehaviour
             if(m_faSkillGague >= 10.0f)
             {
                 m_isFASkillOn = true;
+                m_isFASpriteChange = true;
                 StartCoroutine(ChangeFAUI());
             }
         }
@@ -98,6 +101,7 @@ public class PlayerSkillManager : MonoBehaviour
             m_isFaSkillPlaying = false;
             faImage.sprite = faOffSprite;
             faIndex = 0;
+            m_isFASpriteChange = false;
             return;
         }
         else if (m_faSkillGague - 1.0f <= 0.0f)
@@ -107,6 +111,7 @@ public class PlayerSkillManager : MonoBehaviour
             m_isFaSkillPlaying = false;
             faImage.sprite = faOffSprite;
             faIndex = 0;
+            m_isFASpriteChange = false;
         }
         else
         {
