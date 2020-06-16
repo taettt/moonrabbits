@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossLaserSphere : EnemyBullet
 {
     bool shouldMove;
+    Vector3 startPosition;
 
     // Start is called before the first frame update
     void Awake()
@@ -20,11 +21,25 @@ public class BossLaserSphere : EnemyBullet
         timer = 0;
         rotateDirection = 1;
         moveSpeed = 5;
+        laserDistance = 30.0f;
+        timeToReach = 2.0f;
+        sphereRotateSpeed = 50.0f;
+        startPosition = this.transform.position;
+        isNegative = false;
+
     }
     float timer;
     // Update is called once per frame
     [SerializeField]
     float moveSpeed;
+
+    [SerializeField]
+    bool isNegative;
+
+    [SerializeField]
+    float timeToReach;
+
+    float moveTimer;
     void Update()
     {
         Vector3 oppositePosi = FindObjectOfType<Boss_1Control>().transform.position;
@@ -41,26 +56,28 @@ public class BossLaserSphere : EnemyBullet
             ShootLaser();
 
 
-            if (this.transform.localRotation.y <= 0.0f)
-            {
-                rotateDirection = 1;
-
-            }
-            else if (this.transform.localEulerAngles.y >= 90.0f)
+            if (this.transform.localEulerAngles.y >= 110.0f && isNegative==false)
             {
                 rotateDirection = -1;
             }
+            if (this.transform.localEulerAngles.y <= 340.0f && isNegative == true)
+            {
+                rotateDirection = 1;
+            }
 
-            //if (this.transform.localRotation.y <= 0.0f)
-            //{
-            //    rotateDirection = 1;
+            if (this.transform.localRotation.y <= 0.0f && isNegative==false)
+            {
+                Debug.Log("smaller than 0");
+                isNegative = true;
+            }
+            if (this.transform.localRotation.y > 0)
+            {
+                Debug.Log("bigger than 0");
+                isNegative = false;
+            }
 
-            //}
-            //else if (this.transform.localRotation.eulerAngles.y >= 90.0f)
-            //{
-            //    rotateDirection = -1;
-            //}
 
+           
 
             RotateSphere();
 
@@ -76,9 +93,13 @@ public class BossLaserSphere : EnemyBullet
         if (shouldMove == true)
         {
             this.transform.position = Vector3.MoveTowards(this.transform.position, oppositePosi, moveSpeed * Time.deltaTime);
-        }
 
+            moveTimer += Time.deltaTime / timeToReach;
+            transform.position = Vector3.Lerp(startPosition, oppositePosi, moveTimer);
+        }
     }
+    
+
     public bool readyToShoot;
     private void OnTriggerEnter(Collider coll)
     {
@@ -101,7 +122,7 @@ public class BossLaserSphere : EnemyBullet
     }
 
     LineRenderer LR;
-    float laserDistance = 15;
+    float laserDistance;
     [SerializeField]
     LayerMask layer;
     [SerializeField]
@@ -131,10 +152,12 @@ public class BossLaserSphere : EnemyBullet
     }
     [SerializeField]
     int rotateDirection;
+    [SerializeField]
+    float sphereRotateSpeed;
     private void RotateSphere()
     {
-        
-        this.transform.Rotate(new Vector3(0f, 50f*rotateDirection, 0f) * Time.deltaTime);
+        Debug.Log(this.transform.localEulerAngles);
+        this.transform.Rotate(new Vector3(0f, sphereRotateSpeed*rotateDirection, 0f) * Time.deltaTime);
 
 
     }

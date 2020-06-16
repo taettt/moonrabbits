@@ -99,7 +99,7 @@ public class MinionController : MonoBehaviour
         m_attackSpeed = 4.0f;
         m_attackStat = 2;
         rotateSpeed = 100.0f;
-        Instantiate(m_minionFXPrefabs[0], this.transform);
+        //Instantiate(m_minionFXPrefabs[0], this.transform);
     }
 
     public void DropSeed()

@@ -21,11 +21,15 @@ public class BossWeapon : MonoBehaviour
         LR = GetComponent<LineRenderer>();
         LR.enabled = false;
     }
+    bool isNegative;
     void Start()
     {
         onceDone = false;
         readyToShootLaser = false;
         rotateDirection = 1;
+        laserDistance = 30.0f;
+        sphereRotateSpeed = 50.0f;
+        isNegative = false;
     }
 
     // Update is called once per frame
@@ -42,14 +46,24 @@ public class BossWeapon : MonoBehaviour
         else if(currentBossWeaponState == (int)CurrentBossWeaponState.LASER)
         {
             ShootLaser();
-            if (this.transform.localRotation.y <= 0.0f)
-            {
-                rotateDirection = 1;
-
-            }
-            else if (this.transform.localRotation.eulerAngles.y >= 90.0f)
+            if (this.transform.localEulerAngles.y >= 110.0f && isNegative == false)
             {
                 rotateDirection = -1;
+            }
+            if (this.transform.localEulerAngles.y <= 340.0f && isNegative == true)
+            {
+                rotateDirection = 1;
+            }
+
+            if (this.transform.localRotation.y <= 0.0f && isNegative == false)
+            {
+                Debug.Log("smaller than 0");
+                isNegative = true;
+            }
+            if (this.transform.localRotation.y > 0)
+            {
+                Debug.Log("bigger than 0");
+                isNegative = false;
             }
 
             RotateSphere();
@@ -58,7 +72,7 @@ public class BossWeapon : MonoBehaviour
 
 
     LineRenderer LR;
-    float laserDistance = 15f;
+    float laserDistance;
     [SerializeField]
     LayerMask layer;
     [SerializeField]
@@ -109,10 +123,13 @@ public class BossWeapon : MonoBehaviour
         }
 
     }
+
+    [SerializeField]
+    float sphereRotateSpeed;
     private void RotateSphere()
     {
 
-        this.transform.Rotate(new Vector3(0f, 50f * rotateDirection, 0f) * Time.deltaTime);
+        this.transform.Rotate(new Vector3(0f, sphereRotateSpeed * rotateDirection, 0f) * Time.deltaTime);
 
 
     }
