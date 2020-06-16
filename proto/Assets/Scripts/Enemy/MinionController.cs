@@ -138,6 +138,7 @@ public class MinionController : MonoBehaviour
     {
         var bullet = ObjectManager.PushObject("EnemyBullet").GetComponent<EnemyBullet>();
         bullet.transform.position = this.transform.position;
+        bullet.SetVisual(EnemyBulletKind.MINI);
         bullet.Spawn(this.transform.position, m_dir, m_attackSpeed, m_attackStat);
     }
 }

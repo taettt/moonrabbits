@@ -6,6 +6,7 @@ public enum EnemyBulletKind
 {
     DEF,
     SPEC,
+    MINI,
     NUM
 }
 
@@ -66,15 +67,21 @@ public class EnemyBullet : Bullet
         }
     }
 
-    public override void SetVisual()
+    public virtual void SetVisual(EnemyBulletKind kind)
     {
-        base.SetVisual();
+        m_kind = kind;
 
         switch(m_kind)
         {
             case EnemyBulletKind.DEF:
+                this.transform.GetChild(0).gameObject.SetActive(true);
+                this.transform.GetChild(1).gameObject.SetActive(false);
                 break;
             case EnemyBulletKind.SPEC:
+                break;
+            case EnemyBulletKind.MINI:
+                this.transform.GetChild(1).gameObject.SetActive(true);
+                this.transform.GetChild(0).gameObject.SetActive(false);
                 break;
         }
     }

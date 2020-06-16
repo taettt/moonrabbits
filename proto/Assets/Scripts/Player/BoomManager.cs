@@ -11,8 +11,6 @@ public class BoomManager : MonoBehaviour
     private int m_boomActiveCount = 5;
     private bool m_boomActive;
 
-    private int m_boomCount;
-    public int boomCount { get { return m_boomCount; } }
     public Image boomImage;
     public Sprite boomOffSprite;
     public Sprite[] boomOnSprite;
@@ -27,7 +25,6 @@ public class BoomManager : MonoBehaviour
     void Awake()
     {
         m_boomActive = false;
-        m_boomCount = 2;
 
         m_isSpriteChange = false;
         index = 0;

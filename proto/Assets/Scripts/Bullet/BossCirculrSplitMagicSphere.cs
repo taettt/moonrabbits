@@ -63,18 +63,12 @@ public class BossCirculrSplitMagicSphere : EnemyBullet
     //    }
     //}
 
-    public override void SetVisual()
+        /*
+    public override void SetVisual(EnemyBulletKind kind)
     {
         base.SetVisual();
-
-        switch (m_kind)
-        {
-            case EnemyBulletKind.DEF:
-                break;
-            case EnemyBulletKind.SPEC:
-                break;
-        }
     }
+    */
 
     public override void Spawn(Vector3 spawnPos, Vector3 dir, float speed, int attack)
     {

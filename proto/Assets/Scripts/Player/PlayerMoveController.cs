@@ -58,7 +58,6 @@ public class PlayerMoveController : MonoBehaviour
 
         //teleportText.text = "Dash Cool" + teleportTimer.ToString();
 
-        /*
         if (m_teleported)
         {
             CheckWallAndTeleport();
@@ -71,6 +70,7 @@ public class PlayerMoveController : MonoBehaviour
             }
         }
 
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (teleported)
@@ -92,7 +92,7 @@ public class PlayerMoveController : MonoBehaviour
             {
                 m_teleported = true;
                 PlayTeleportFX();
-                StartCoroutine(Teleport());
+                //StartCoroutine(Teleport());
 
                 if(um.urgentRangeIn)
                 {
@@ -106,7 +106,6 @@ public class PlayerMoveController : MonoBehaviour
     {
         GameObject go = Instantiate(m_teleportFX, this.transform.position, Quaternion.LookRotation(playerModelTr.forward));
         go.transform.SetParent(this.transform);
-        Destroy(go, 1.0f);
     }
 
     // raycast true나왔을 때 이동하는거 속도 빠르게 가도 될듯
@@ -125,6 +124,7 @@ public class PlayerMoveController : MonoBehaviour
 
     private IEnumerator Teleport()
     {
+
         RaycastHit hit;
         if (Physics.Raycast(tr.position, playerModelTr.forward, out hit, teleportSpeed))
         {
