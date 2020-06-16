@@ -36,7 +36,8 @@ public class MinionController : MonoBehaviour
     }
     [SerializeField]
     Vector3 toPlayer;
-    
+    [SerializeField]
+    float rotateSpeed;
     void Update()
     {
         if (col != null)
@@ -50,9 +51,14 @@ public class MinionController : MonoBehaviour
             toPlayer.y = originY;
         }
 
-            
-        
+        this.transform.rotation = Quaternion.RotateTowards(
+        this.transform.rotation,
+        Quaternion.LookRotation(toPlayer.normalized),
+        rotateSpeed * Time.deltaTime
+        );
+
         this.transform.position = Vector3.MoveTowards(this.transform.position, toPlayer, m_moveSpeed * Time.deltaTime);
+
     }
     Collider col;
 
@@ -72,7 +78,6 @@ public class MinionController : MonoBehaviour
         }
         else if(coll.tag=="MINION")
         {
-            Debug.Log("colliding w/ other minion");
             col = coll;
         }
     }
@@ -93,7 +98,7 @@ public class MinionController : MonoBehaviour
         m_attackDelay = 0.5f;
         m_attackSpeed = 4.0f;
         m_attackStat = 2;
-
+        rotateSpeed = 100.0f;
         Instantiate(m_minionFXPrefabs[0], this.transform);
     }
 
