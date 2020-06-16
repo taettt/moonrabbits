@@ -3805,7 +3805,7 @@ PrefabInstance:
     - target: {fileID: 3146367836312639778, guid: b64f443314c234e448394ce2beb092ca,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3146367836312639778, guid: b64f443314c234e448394ce2beb092ca,
         type: 3}
@@ -15985,6 +15985,14 @@ MonoBehaviour:
   stage_CSS_Delay: 4
   m_spawnTimer: 0
   m_callSpawnTimer: 0
+  chargeSpeed: 0
+  timeToReachChargePosi: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isCharging: 0
+  chargeTimer: 0
+  canCharge: 0
 --- !u!4 &664169458 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 70a08dd42798933438c8f35df9e57868,
@@ -23842,8 +23850,8 @@ Transform:
   m_LocalPosition: {x: -12, y: 25, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1514051676}
   - {fileID: 132088181}
+  - {fileID: 1514051676}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 55, y: 45, z: 0}
@@ -34120,7 +34128,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -35919,7 +35927,7 @@ PrefabInstance:
     - target: {fileID: 1596062222748190934, guid: 277d43f79c869204fb64c3303ab138db,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1596062222748190934, guid: 277d43f79c869204fb64c3303ab138db,
         type: 3}
@@ -48232,6 +48240,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8265034952928329318, guid: cb52e9c8236e34848852cd03d12e9323,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8265034952928329318, guid: cb52e9c8236e34848852cd03d12e9323,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4902869035466678901, guid: cb52e9c8236e34848852cd03d12e9323, type: 3}

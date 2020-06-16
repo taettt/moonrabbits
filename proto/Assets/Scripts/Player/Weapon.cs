@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public enum AttackState
 {
     NONE,
-    SHORT,
     DELAY,
     CHARGE_0,
     CHARGE_1,
@@ -97,6 +96,7 @@ public class Weapon : MonoBehaviour
             {
                 curState = AttackState.CHARGE_2;
                 m_chargeFX[(int)ChargeFXState.CHARGING].SetActive(false);
+                m_chargeFX[(int)ChargeFXState.FULL].SetActive(true);
             }
             else if(curChargeTime < chargeStep[2] && curChargeTime >= chargeStep[1])
             {
@@ -135,7 +135,7 @@ public class Weapon : MonoBehaviour
             }
         }
 
-        else if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetKeyDown(KeyCode.Q))
         {
             if(sm.isFASkillOn)
             {
@@ -147,13 +147,10 @@ public class Weapon : MonoBehaviour
 
     private void UpdateFX()
     {
-        if(Mathf.Approximately(curChargeTime, chargeStep[1])|| Mathf.Approximately(curChargeTime, chargeStep[2]))
+        if(Mathf.Abs(curChargeTime - chargeStep[1]) < 0.02f || Mathf.Abs(curChargeTime - chargeStep[2]) < 0.02f)
         {
+            Debug.Log("aaaa");
             Instantiate(m_chargeFX[(int)ChargeFXState.READY], weaponTr);
-        }
-        else if(curChargeTime > chargeStep[2])
-        {
-            m_chargeFX[(int)ChargeFXState.FULL].SetActive(true);
         }
     }
 
