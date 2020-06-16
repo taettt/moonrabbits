@@ -63,8 +63,8 @@ public class Boss_1Control : BossControl
         {
             case 0:
                 patternText.text = "Pattern 1 : " + patternTimer;
-                Pattern1Move();
-                //BossChargeMove();
+                //Pattern1Move();
+                BossChargeMove();
                 break;
             case 1:
                 patternText.text = "Pattern 2 : " + patternTimer;
@@ -95,8 +95,10 @@ public class Boss_1Control : BossControl
         m_curPatternCount = 0;
         m_curMoveIndex = 0;
         isChargePosiSet = false;
+        isCharging = false;
         chargeTimer = 0.0f;
         canCharge = false;
+        chargeSpeed = 44.0f;
         phaseRandQueue = new Queue<int>();
         TR = GetComponent<TrailRenderer>();
         Invoke("ExcutePhase", 2.0f);
@@ -124,7 +126,7 @@ public class Boss_1Control : BossControl
     {
         if (!randomRound)
         {
-            m_curPatternIndex = m_curPatternIndex == 5 ? 6 : m_curPatternIndex + 1;
+            m_curPatternIndex = m_curPatternIndex == 6 ? 7 : m_curPatternIndex + 1;
             m_curPatternCount = 0;
             if (m_curPatternIndex == 6)
             {
@@ -148,7 +150,7 @@ public class Boss_1Control : BossControl
         switch (m_curPatternIndex)
         {
             case 0:
-                Invoke("Pattern1Shoot", 2.0f);
+                //Invoke("Pattern1Shoot", 2.0f);
                 m_isMoving = true;
                 break;
             case 1:
@@ -660,7 +662,6 @@ public class Boss_1Control : BossControl
 
             isCharging = true;
 
-
             this.transform.rotation = Quaternion.RotateTowards(
         this.transform.rotation,
         Quaternion.LookRotation(bossChargePosi.normalized),
@@ -673,7 +674,7 @@ public class Boss_1Control : BossControl
             //chargeTimer += Time.deltaTime;
             //chargeTimer += Time.deltaTime / timeToReachChargePosi;
             //this.transform.position = Vector3.Lerp(positionBeforeCharge, bossChargePosi, chargeTimer); //lerp to random
-            this.transform.position = Vector3.MoveTowards(this.transform.position, bossChargePosi, chargeSpeed);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, bossChargePosi, chargeSpeed*Time.deltaTime);
 
 
             RaycastHit hit;
