@@ -17,7 +17,8 @@ public class MinionController : MonoBehaviour
     private float m_attackDelay;
     private int m_attackStat;
 
-    public GameObject[] m_minionFXPrefabs;
+    private Animator animator;
+    public GameObject m_minionSpawnFXPrefab;
 
     void Awake()
     {
@@ -57,6 +58,7 @@ public class MinionController : MonoBehaviour
         rotateSpeed * Time.deltaTime
         );
 
+        animator.SetBool("IsMove", true);
         this.transform.position = Vector3.MoveTowards(this.transform.position, toPlayer, m_moveSpeed * Time.deltaTime);
 
     }
@@ -72,7 +74,7 @@ public class MinionController : MonoBehaviour
         else if (coll.tag == "PLAYER")
         {
             Debug.Log("Minion Collided With Player");
-            //Instantiate(m_minionFXPrefabs[1], this.transform.position, Quaternion.identity);
+            animator.SetBool("IsMove", false);
             coll.GetComponent<PlayerController>().DecreaseHP(m_attackStat);
             Destroy();
         }
@@ -99,7 +101,7 @@ public class MinionController : MonoBehaviour
         m_attackSpeed = 4.0f;
         m_attackStat = 2;
         rotateSpeed = 100.0f;
-        //Instantiate(m_minionFXPrefabs[0], this.transform);
+        Instantiate(m_minionSpawnFXPrefab, this.transform);
     }
 
     public void DropSeed()
