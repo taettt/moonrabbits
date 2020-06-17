@@ -24,6 +24,7 @@ public class MinionController : MonoBehaviour
     {
         seedParent = GameObject.Find("Traps").transform;
         playerTr = GameObject.FindWithTag("PLAYER").transform;
+        animator=this.transform.GetChild(1).GetComponent<Animator>();
     }
     [SerializeField]
     float originY;
@@ -146,6 +147,7 @@ public class MinionController : MonoBehaviour
         var bullet = ObjectManager.PushObject("EnemyBullet").GetComponent<EnemyBullet>();
         bullet.transform.position = this.transform.position;
         bullet.SetVisual(EnemyBulletKind.MINI);
-        bullet.Spawn(this.transform.position, m_dir, m_attackSpeed, m_attackStat);
+        Vector3 bulletPos = new Vector3(this.transform.position.x, 1.5f, this.transform.position.z);
+        bullet.Spawn(bulletPos, m_dir, m_attackSpeed, m_attackStat);
     }
 }

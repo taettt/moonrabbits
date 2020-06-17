@@ -97,7 +97,7 @@ public class HPUIShower : MonoBehaviour
             Time.deltaTime * m_hpDownTime);
 
         // glow는 따로 width 넣어줘야할거같음
-        bossGlow.anchoredPosition = new Vector2((ec.curHp / 120.0f) * (bossFillMaskWidth - 55.0f), 0.0f);
+        bossGlow.anchoredPosition = new Vector2((ec.curHp / 120.0f) * (bossFillMaskWidth), 0.0f);
     }
 
     /*

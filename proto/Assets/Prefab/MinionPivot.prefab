@@ -13,19 +13,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3111324, y: 0.2868642, z: 0.5515522}
   m_Center: {x: -0.0033059865, y: 0.02048144, z: 0.27575487}
---- !u!65 &8161423366963182871
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2474198782308679363}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3111324, y: 0.58, z: 0.3}
-  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1 &7942616315827399324
 GameObject:
   m_ObjectHideFlags: 0
@@ -37,6 +24,7 @@ GameObject:
   - component: {fileID: 6529406120776709554}
   - component: {fileID: 7424976035985645546}
   - component: {fileID: 492133658648798835}
+  - component: {fileID: 5016803347408162839}
   m_Layer: 0
   m_Name: MinionPivot
   m_TagString: MINION
@@ -98,6 +86,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &5016803347408162839
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942616315827399324}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 1, z: 0.3}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &1337963237016909731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,10 +183,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6529406120776709554}
     m_Modifications:
-    - target: {fileID: 100000, guid: c7452b9444e69bd4b93a2baadb875454, type: 3}
-      propertyPath: m_Name
-      value: Ani_monB_Tpose
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c7452b9444e69bd4b93a2baadb875454, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -230,18 +227,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c7452b9444e69bd4b93a2baadb875454, type: 3}
+      propertyPath: m_Name
+      value: Ani_monB_Tpose
+      objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: c7452b9444e69bd4b93a2baadb875454, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: f96c95939bc677348babac2ff7ed8a6a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7452b9444e69bd4b93a2baadb875454, type: 3}
---- !u!1 &2474198782308679363 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: c7452b9444e69bd4b93a2baadb875454,
-    type: 3}
-  m_PrefabInstance: {fileID: 2474198782308776035}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2474198782308377315 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: c7452b9444e69bd4b93a2baadb875454,
